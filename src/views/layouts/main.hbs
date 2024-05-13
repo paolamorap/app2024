@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Epolaris Network</title>
+  <link rel="icon" href="/image/icon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/estilos_main.css">
+  <!-- Tailwind CSS Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
+  <!-- Fontawesome Link -->
+  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200">
+  <nav class="flex items-center py-4 nav-color text-white shadow-md">
+    <div class="flex-1 px-4">
+      <img src="/image/logop.png" alt="Logo Epolaris Network" class="logo">
+    </div>
+    <div class="flex-1 text-right px-4">
+      {{#if name}} <!-- Verifica si el usuario está logueado -->
+        <span class="font-semibold mr-4"><a href="/profile">{{name}}</a></span>
+        <a href="/" class="nav-link bg-transparent hover:bg-blue-200 text-white border border-white rounded-button fond-bold ml-2 font-semibold mr-4">Home</a>
+        <a href="/logout" class="nav-link bg-transparent hover:bg-blue-200 text-white border border-white rounded-button fond-bold ml-2 font-semibold mr-4">Logout</a>
+        
+        {{#if isAdmin}}
+          <a href="/register" class="nav-link bg-transparent hover:bg-blue-200 text-white border border-white rounded-button fond-bold ml-2 font-semibold mr-4">Register</a>
+        {{/if}}
+        
+      {{else}}
+        <a href="/login" class="nav-link bg-transparent hover:bg-blue-200 text-white border border-white rounded-button fond-bold ml-2 font-semibold mr-4">Login</a>
+      {{/if}}
+    </div>
+  </nav>
+
+  {{{body}}}
+</body>
+</html>
+

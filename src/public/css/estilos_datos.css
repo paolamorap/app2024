@@ -1,0 +1,114 @@
+/* CONFIGURACION DE ESTILOS DE LA CSS PARA LA SECCION DE OPERACIONES AL INGRESAR DATOS*/
+
+body {
+    font-family: 'Arial', sans-serif; 
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 6px; /* Esquinas redondeadas en el contenedor */
+}
+
+.titulo {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Estilos para el select específicamente */
+.form select {
+    border: 2px solid #6dd5ed; /* Borde turquesa */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 12px;
+    font-size: 16px; /* Tamaño de texto más grande para mejor legibilidad */
+    margin-bottom: 8px; /* Espaciado uniforme */
+    -webkit-appearance: none; /* Remueve la apariencia predeterminada en WebKit/Blink */
+    -moz-appearance: none; /* Remueve la apariencia predeterminada en Firefox */
+    appearance: none; /* Remueve la apariencia predeterminada */
+    background-color: white; /* Fondo turquesa */
+    color:  #b0b0b0   ; /* Texto en color blanco para contraste */
+
+}
+
+/* Estilo para enfocar el select */
+.form select:focus {
+    outline: none;
+    border-color: #2193b0; /* Oscurece el borde al enfocar */
+    background-color: #e8f0fe;
+    color: #333; /* Color de texto más oscuro para mejor legibilidad */
+}
+
+/* Estilos para los inputs y select */
+.form input[type=text],
+.form input[type=number],
+.form input[type=password] {
+    border: 2px solid #6dd5ed; /* Borde turquesa */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 12px;
+    font-size: 16px; /* Tamaño de texto más grande para mejor legibilidad */
+    margin-bottom: 8px; /* Espaciado uniforme */
+}
+
+/* Estilo para enfocar los inputs y select */
+.form input[type=text]:focus,
+.form input[type=text]:focus,
+.form input[type=password]:focus {
+    outline: none;
+    border-color: #2193b0; /* Oscurece el borde al enfocar */
+    background-color: #e8f0fe;
+}
+
+/* Estilos para cambiar el color del texto placeholder */
+.form input::placeholder,
+.form select::placeholder {
+    color: #b0b0b0; /* Esto es un gris claro, cambia el código del color a lo que prefieras */
+    opacity: 1; /* Asegúrate de que el navegador no aplique una opacidad baja al placeholder */
+}
+
+label {
+    margin-top: 8px;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Estilos para el botón de guardar dispositivo */
+.form button.btn {
+    padding: 15px;
+    background-image: linear-gradient(to right, #6dd5ed, #2193b0); /* Degradado */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px; /* Tamaño de texto más grande para mejor legibilidad */
+    margin-top: 15px; /* Espaciado uniforme */
+}
+
+.form button.btn:hover {
+    background-image: linear-gradient(to right, #2193b0, #6dd5ed); /* Inversión del degradado */
+}
+
+
+/* Ajuste de los mensajes de error */
+.message-container {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border: 1px solid #D8000C;
+    padding: 10px;
+    margin-top: 20px; /* Más espacio antes del mensaje de error */
+    border-radius: 5px;
+    display: none;
+}

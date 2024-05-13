@@ -1,0 +1,59 @@
+.rounded-lg {
+    border-radius: 20px; /* Más redondeado que antes */
+  }
+
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-gray-800 {
+    color: #2A2A2A; /* Un gris oscuro para un mejor contraste */
+  }
+
+  .bg-white:hover {
+    box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-2px); /* Levanta el formulario ligeramente al pasar el ratón */
+  }
+
+  .text-3xl {
+    font-size: 1.875rem; /* Ajuste de tamaño de fuente del título */
+    line-height: 2.25rem;
+  }
+  .text-4xl {
+    font-size: 2.25rem; /* Hacer el título más grande */
+    line-height: 2.5rem;
+    color: #2193b0; /* Color azul turquesa */
+    margin-bottom: 1.5rem; /* Espaciado debajo del título para separarlo del formulario */
+  }
+
+
+  .focus\:bg-white:focus {
+    background-color: #fff;
+    outline: none;
+    border-color: #6dd5ed; /* Borde turquesa al enfocar */
+    box-shadow: 0 0 0 3px rgba(109, 213, 237, 0.5); /* Sombra exterior turquesa al enfocar */
+  }
+
+  /* Personaliza los inputs */
+  input[type=email], input[type=password], input[type=text]{
+    border: 2px solid #6dd5ed; /* Borde turquesa */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+
+  /* Estilo del botón de envío */
+  .bg-blue-500 {
+    background-image: linear-gradient(to right, #6dd5ed, #2193b0); /* Degradado de azul a turquesa */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transición suave para dinamismo */
+  }
+
+  /* Hover y focus del botón de envío */
+  .hover\:bg-blue-600:hover, .focus\:bg-blue-700:focus {
+    background-image: linear-gradient(to right, #37aee2, #1f90cc); /* Degradado ligeramente más oscuro al pasar el ratón y enfocar */
+    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el ratón */
+    transform: translateY(-2px); /* Movimiento ligero al pasar el ratón */
+  }
+  
+  /* Mensaje de error */
+  .text-red-500 {
+    color: #e3342f; /* Rojo para errores */
+  }

@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), #6dd5ed 40%, #2193b0); /* Fondo en degradado iniciando con blanco */
+  font-family: 'Arial', sans-serif;
+  color: #000; /* Texto en negro para contrastar con el fondo claro */
+}
+
+.text-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Cambio para alinear contenido al inicio */
+  padding-top: 10vh; /* Agrega un padding arriba para bajar un poco el contenido */
+  height: 70vh; /* Reduce la altura para que el contenido esté más arriba */
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  flex-wrap: wrap; /* Permite la envoltura de los elementos si hay varios */
+}
+
+.text-3xl {
+  font-size: 2.25rem;
+  color: #2193b0; /* Color coherente con el degradado */
+  margin-bottom: 2rem; /* Espacio debajo del título */
+}
+
+.button-icon {
+  display: inline-block;
+  margin: 1rem;
+  background: white; /* Fondo blanco para los botones */
+  padding: 1rem;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.button-icon:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande al pasar el ratón */
+}
+
+.button-icon img {
+  width: 160px; /* Tamaño fijo para las imágenes */
+  height: auto;
+}
+
+.button-icon span {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+/* Agregar interactividad al pasar el mouse */
+.button-icon:hover img {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
+
+.overlay {
+  position: relative;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%); /* Transición suave de transparente a blanco */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.footer {
+  background: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+.footer p {
+  margin: 0.5rem 0;
+}
+
+.footer .company-info p,
+.footer .social-links a {
+margin: 10px 0; /* Espacio entre elementos */
+}
+
+.footer .social-links a {
+color:  #17202a; /* Color de los enlaces */
+text-decoration: none; /* Sin subrayado */
+padding: 5px 10px; /* Espaciado interno para hacerlos más clickeables */
+}
+
+.footer .social-links a:hover,
+.footer .social-links a:focus {
+text-decoration: underline; /* Subrayado al pasar el mouse o enfocar */
+}
+
+.logo-img {
+  width: 70px; /* Tamaño fijo del logo */
+  height: 70px; /* Tamaño fijo del logo */
+  border-radius: 5px; /* Bordes ligeramente redondeados */
+  object-fit: cover; /* Asegurar que la imagen cubra el espacio sin deformarse */
+  overflow: hidden; /* Prevenir desbordamiento en caso de que la imagen no sea perfectamente cuadrada */
+  
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0; /* Asegurarse de que no haya padding predeterminado */
+}
+

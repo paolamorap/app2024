@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/estilos_op.css">
+</head>
+<body>
+<div class="overlay">
+  <div class="container">
+    <h1 class="title">CONFIGURACION DE SERVICIOS</h1>
+    <div class="categories">
+      <!-- Categoría 1 -->
+      <div class="category">
+        <button class="dropbtn" onclick="toggleDropdown('dropdown-configuraciones')">
+        <img src="/image/configuraciones.png" alt="CONF INICIAL">
+      </button>
+        <p>Configuracion Inicial</p>
+        <div id="dropdown-configuraciones" class="dropdown-content">
+        <!-- Agrega aquí tus enlaces o contenido del menú -->
+        
+        <a href="/upload">Archirvo YAML</a>
+        <a href="/configure">Agregar Dispositivos</a>
+      </div>
+      </div>
+
+      <div class="category">
+        <button class="dropbtn" onclick="toggleDropdown('dropdown-snmp')">
+        <img src="/image/snmp.png" alt="SNMP">
+      </button>
+        <p>SNMP</p>
+        <div id="dropdown-snmp" class="dropdown-content">
+        <!-- Agrega aquí tus enlaces o contenido del menú -->
+        <a href="/access_list">Crear Lista de Acceso</a>
+        <a href="/snmp">Agregar Comunidad</a>
+        
+      </div>
+      </div>
+
+      <div class="category">
+        <button class="dropbtn" onclick="toggleDropdown('dropdown-stp')">
+        <img src="/image/stp.png" alt="STP">
+      </button>
+        <p>STP</p>
+        <div id="dropdown-stp" class="dropdown-content">
+        <!-- Agrega aquí tus enlaces o contenido del menú -->
+        <a href="/stp">Activar STP</a>
+        <a href="/stp1">Configurar Prioridad del Puente</a>
+      </div>
+      </div>
+
+      <div class="category">
+        <button class="dropbtn" onclick="toggleDropdown('dropdown-vlan')">
+        <img src="/image/vlan.png" alt="VLAN">
+      </button>
+        <p>VLAN</p>
+        <div id="dropdown-vlan" class="dropdown-content">
+        <!-- Agrega aquí tus enlaces o contenido del menú -->
+        <a href="/vlan">Crear VLAN</a>
+      </div>
+      </div>
+
+      <div class="category">
+        <button class="dropbtn" onclick="toggleDropdown('dropdown-logs')">
+        <img src="/image/snmp.png" alt="LOGS">
+      </button>
+        <p>LOGS</p>
+        <div id="dropdown-logs" class="dropdown-content">
+        <!-- Agrega aquí tus enlaces o contenido del menú -->
+        <a href="/logs">Configurar Logs</a>
+      </div>
+      </div>
+
+
+      <div class="category">
+        <a href="/start_app" class="dropbtn">
+            <img src="/image/iniciar.png" alt="INICIAR APP">
+            <p>INICIAR APP</p>
+        </a>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="company-info">
+    <ul class="social-icons">
+      <li><img src="/image/logo1.png" alt="Logo" class="logo-img"></li>
+    </ul>
+    <p>© 2024 EPOLARIS NETWORK C.A. Todos los derechos reservados.</p>
+    <p>Universidad de Cuenca | Cuenca-Ecuador</p>
+    <p>Edwin Lima Huayllas | Teléfono: 0963636085 | edwin.lima@ucuenca.edu.ec</p>
+    <p>Paola Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+  </div>
+</footer>
+
+<script> 
+
+var openDropdown = null;
+
+function toggleDropdown(dropdownId) {
+  var dropdown = document.getElementById(dropdownId);
+  if (dropdown.style.display === 'block') {
+    dropdown.style.display = 'none';
+    openDropdown = null;
+  } else {
+    
+    if (openDropdown) {
+      openDropdown.style.display = 'none';
+    }
+    dropdown.style.display = 'block';
+    openDropdown = dropdown;
+    // Asegura que solo se añade el evento una vez
+    document.removeEventListener('click', closeDropdownOnOutsideClick, true);
+    document.addEventListener('click', closeDropdownOnOutsideClick, true);
+  }
+}
+
+function closeDropdownOnOutsideClick(event) {
+  if (openDropdown && !openDropdown.contains(event.target)) {
+    openDropdown.style.display = 'none';
+    openDropdown = null;
+    // Remueve el listener después de cerrar el menú para evitar duplicados
+    document.removeEventListener('click', closeDropdownOnOutsideClick, true);
+  }
+}
+
+
+
+
+</script>
+</body>
+</html>
+

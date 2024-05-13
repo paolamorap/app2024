@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciando Aplicación</title>
+    <link rel="stylesheet" href="/css/estilos_loading.css">
+</head>
+<body>
+    <div id="loading">
+        <img id="loadingImage" src="/image/loading.gif" alt="Cargando..." style="display:none;">
+        <p id="loadingText" style="display:none;">Cargando configuración, por favor espere...</p>
+        
+        <button id="startButton" class="button-icon" onclick="ejecutarScript()">
+            <img src="/image/enviar.png" alt="Icono Configurar"> <!-- Asegúrate de tener un icono apropiado -->
+            <span>Iniciar configuración</span>
+        </button>
+
+    </div>
+    <div id="complete" style="display:none;">
+        <!-- Aquí el contenido que se mostrará después de completar la carga -->
+        <img src="/image/correcto3.gif" alt="Completado">
+        <p>Configuración completada con éxito.</p>
+        <a href="/">Volver a HOME</a>
+    </div>
+
+    <footer class="footer">
+        <div class="company-info">
+            <ul class="social-icons">
+            <li><img src="/image/logo1.png" alt="Logo" class="logo-img"></li>
+            </ul>
+            <p>© 2024 EPOLARIS NETWORK C.A. Todos los derechos reservados.</p>
+            <p>Universidad de Cuenca | Cuenca-Ecuador</p>
+            <p>Edwin Lima Huayllas | Teléfono: 0986134151 | edwin.lima@ucuenca.edu.ec</p>
+            <p>Paola Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+        </div>
+    </footer>
+
+
+    <script>
+    function ejecutarScript() {
+        document.getElementById('loadingImage').style.display = 'block'; // Muestra el GIF de carga
+        document.getElementById('loadingText').style.display = 'none'; // Oculta el párrafo
+        document.getElementById('startButton').style.display = 'none'; // Oculta el botón
+
+        fetch('/run_script')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('complete').style.display = 'block';
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al ejecutar el script');
+            });
+    }
+
+    </script>
+
+</body>
+</html>
+

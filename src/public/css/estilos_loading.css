@@ -1,0 +1,150 @@
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: 'Arial', sans-serif; 
+    margin: 0;
+    padding: 0;
+}
+
+.button-icon {
+    display: inline-block;
+    margin: 1rem;
+    background: white; /* Fondo blanco para los botones */
+    padding: 1rem;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .button-icon:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande al pasar el ratón */
+  }
+  
+  .button-icon image {
+    width: 160px; /* Tamaño fijo para las imágenes */
+    height: auto;
+    animation: none;
+    justify-content: center;
+    transform: none;  /* Desactiva cualquier transformación */
+  }
+  
+  .button-icon span {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: bold;
+  }
+  
+  /* Agregar interactividad al pasar el mouse */
+  .button-icon:hover image {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+  }
+
+
+
+#loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh; /* Asegura que #loading use toda la altura de la ventana */
+    width: 100vw; /* Asegura que #loading use toda el ancho de la ventana */
+}
+
+#loading img {
+    width: 120px; /* Ajusta según la necesidad */
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+#loading p {
+    color: #333;
+    margin-top: 20px;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+
+#loadingBar {
+    width: 50%; /* O el porcentaje de carga */
+    height: 20px;
+    background-color: #007BFF;
+    border-radius: 10px;
+}
+
+
+#complete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    text-align: center;
+    background-color: #f4f4f4; /* Color de fondo suave para el contenedor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 100px; /* Espaciado interno para dar más espacio alrededor del contenido */
+}
+
+#complete img {
+    width: 90px; /* O el tamaño que prefieras */
+    margin: auto; /* Esto debería ayudar a centrar el icono horizontalmente */
+    display: block; /* Asegura que el img se trate como un bloque para efectos de centrado */
+}
+
+
+#complete p {
+    font-size: 1.5em; /* Tamaño de fuente más grande para el texto */
+    color: #333; /* Color oscuro para mejor lectura */
+    margin-bottom: 20px; /* Espacio antes del botón */
+}
+
+#complete a {
+    padding: 15px 30px; /* Más relleno para hacer el botón más grande y fácil de clicar */
+    font-size: 1.2em; /* Tamaño de fuente más grande para el texto del botón */
+    font-weight: bold; /* Hacer el texto del botón en negrita */
+    margin-top: 10px; /* Espacio en la parte superior del botón */
+}
+
+
+.logo-img {
+    width: 70px; /* Tamaño fijo del logo */
+    height: 70px; /* Tamaño fijo del logo */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    object-fit: cover; /* Asegurar que la imagen cubra el espacio sin deformarse */
+    overflow: hidden; /* Prevenir desbordamiento en caso de que la imagen no sea perfectamente cuadrada */
+    
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0; /* Asegurarse de que no haya padding predeterminado */
+  }
+  .footer {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  .footer p {
+    margin: 0.5rem 0;
+  }
+  
+  .footer .company-info p,
+  .footer .social-links a {
+  margin: 10px 0; /* Espacio entre elementos */
+  }
+  
+  .footer .social-links a {
+  color:  #17202a; /* Color de los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  padding: 5px 10px; /* Espaciado interno para hacerlos más clickeables */
+  }
+  
+  .footer .social-links a:hover,
+  .footer .social-links a:focus {
+  text-decoration: underline; /* Subrayado al pasar el mouse o enfocar */
+  }

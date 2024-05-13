@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/estilos_yaml.css">
+
+</head>
+<body>
+<div class="overlay">
+  <!-- Contenido existente aquí -->
+
+<div class="upload-form">
+  <form id="uploadForm" method="POST" enctype="multipart/form-data" class="dropzone">
+    <div class="file-dropper">
+      Arrastra y suelta archivos aquí o haz clic para seleccionar archivos
+      <input id="file-upload" type="file" name="file" required>
+    </div>
+    <div id="file-list" class="file-list"></div>
+    <button type="submit" class="upload-btn">Subir Archivo</button>
+  </form>
+  <div id="messageBox" class="notification"></div>
+</div>
+
+
+
+  
+  <!-- Más contenido existente aquí -->
+</div>
+
+<footer class="footer">
+  <div class="company-info">
+    <ul class="social-icons">
+      <li><img src="/image/logo1.png" alt="Logo" class="logo-img"></li>
+    </ul>
+    <p>© 2024 EPOLARIS NETWORK C.A. Todos los derechos reservados.</p>
+    <p>Universidad de Cuenca | Cuenca-Ecuador</p>
+    <p>Edwin Lima Huayllas | Teléfono: 0963636085 | edwin.lima@ucuenca.edu.ec</p>
+    <p>Paola Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var fileInput = document.getElementById('file-upload');
+  var fileListContainer = document.getElementById('file-list');
+
+  fileInput.addEventListener('change', function() {
+    updateFileList(this.files);
+  });
+
+  var dropzone = document.getElementById('uploadForm');
+  dropzone.ondragover = function() {
+    this.className = 'dropzone dragover';
+    return false;
+  };
+
+  dropzone.ondragleave = function() {
+    this.className = 'dropzone';
+    return false;
+  };
+
+  dropzone.ondrop = function(e) {
+    e.preventDefault();
+    this.className = 'dropzone';
+    fileInput.files = e.dataTransfer.files;
+    updateFileList(e.dataTransfer.files);
+  };
+
+  function updateFileList(files) {
+    fileListContainer.innerHTML = '';
+    if (files.length > 0) {
+      var list = document.createElement('ul');
+      for (var i = 0; i < files.length; i++) {
+        var li = document.createElement('li');
+        li.textContent = files[i].name;
+        list.appendChild(li);
+      }
+      fileListContainer.appendChild(list);
+    }
+  }
+});
+
+
+
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  fetch('/upload', {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); // Asegura que la respuesta es JSON
+    }
+    throw new Error('Algo salió mal con la carga del archivo.');
+  })
+  .then(data => {
+    var messageBox = document.getElementById('messageBox');
+    messageBox.textContent = data.message; // Mensaje de éxito desde el servidor
+    messageBox.style.display = 'block';
+    messageBox.className = 'notification show'; // Añade una clase para mostrar la notificación
+    setTimeout(() => {
+      messageBox.style.display = 'none';
+      messageBox.className = 'notification'; // Oculta la notificación después de unos segundos
+    }, 5000);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    var messageBox = document.getElementById('messageBox');
+    messageBox.textContent = error.message;
+    messageBox.style.display = 'block';
+    messageBox.className = 'notification error'; // Muestra un mensaje de error
+    setTimeout(() => {
+      messageBox.style.display = 'none';
+      messageBox.className = 'notification';
+    }, 5000);
+  });
+});
+
+</script>
+
+</body>
+</html>

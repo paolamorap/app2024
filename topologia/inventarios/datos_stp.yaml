@@ -1,0 +1,11 @@
+datos_stp:
+  hosts:
+    switch1:
+      host: 192.168.20.3
+  vars:
+    marca: CISCO
+    modo: mst
+    region: region3
+    device_type: cisco_ios
+    usuario: test
+    contrasena: test

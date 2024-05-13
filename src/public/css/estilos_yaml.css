@@ -1,0 +1,220 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), #6dd5ed 40%, #2193b0); /* Fondo en degradado iniciando con blanco */
+    font-family: Arial, sans-serif;
+    color: #000; /* Texto en negro */
+  }
+  .overlay {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%); /* Transición suave de transparente a blanco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
+    border-radius: 20px;
+    padding: 40px;
+    width: 80%;
+    max-width: 1000px; /* Más ancho para acomodar mejor el contenido */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+  .title {
+    margin-bottom: 1.5rem;
+    font-size: 2.25rem; /* Tamaño más grande para el título */
+    color: #2A2A2A;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para el título */
+  }
+  
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    text-align: center;
+  }
+  .category {
+  padding: 10px;
+  position: relative; /* Esto es crucial para la correcta posición del menú desplegable */
+  }
+  .category img {
+    width: 70px; /* Más grande para mejor visibilidad */
+    height: 70px;
+    margin-bottom: 1rem;
+  }
+  .category p {
+    font-size: 1rem;
+    color: #000; /* Texto en negro */
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0; /* Asegurarse de que no haya padding predeterminado */
+  }
+  
+  .social-icons li {
+    margin: 0 10px;
+  }
+  .social-icons a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .logo-img {
+    width: 70px; /* Tamaño fijo del logo */
+    height: 70px; /* Tamaño fijo del logo */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    object-fit: cover; /* Asegurar que la imagen cubra el espacio sin deformarse */
+    overflow: hidden; /* Prevenir desbordamiento en caso de que la imagen no sea perfectamente cuadrada */
+  }
+  
+  .footer {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  .footer p {
+    margin: 0.5rem 0;
+  }
+  
+  .footer .company-info p,
+  .footer .social-links a {
+  margin: 10px 0; /* Espacio entre elementos */
+  }
+  
+  .footer .social-links a {
+  color:  #17202a; /* Color de los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  padding: 5px 10px; /* Espaciado interno para hacerlos más clickeables */
+  }
+  
+  .footer .social-links a:hover,
+  .footer .social-links a:focus {
+  text-decoration: underline; /* Subrayado al pasar el mouse o enfocar */
+  }
+  
+  .dropbtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  }
+  
+  
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(173, 216, 230, 0.8); /* LightBlue con opacidad */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  z-index: 1;
+  }
+  
+  .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  }
+  
+  .dropdown-content a:hover {
+  background-color: #f1f1f1;
+  }
+  
+
+  .upload-btn:hover {
+    background-color: #45a049;
+  }
+  
+
+  
+  form {
+    margin-top: 10px;
+  }
+  
+
+  .dropzone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+  }
+  
+  .file-dropper {
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  input[type="file"] {
+    width: 100%;
+    height: 100px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
+  
+  .upload-btn {
+    display: block; /* Ensures the button is a block element */
+    width: 100%; /* Button width to 100% of its container */
+    margin-top: 20px; /* Adds space between the file list and the button */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .notification {
+    position: fixed;
+    top: 10%; /* O la posición que prefieras */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #4CAF50; /* Verde para éxito */
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: none; /* Oculto por defecto */
+    z-index: 1001; /* Asegúrate de que esté por encima de otros elementos */
+  }
+  
+  .notification.show {
+    display: block; /* Muestra la notificación */
+  }
+  
+  .notification.error {
+    background-color: #f44336; /* Rojo para error */
+  }
+  
+  .file-list li {
+    padding: 5px;
+    background-color: #e9e9e9;
+    border: 1px solid #d9d9d9;
+    margin-top: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-list li::before {
+    content: "";
+    display: inline-block;
+    width: 24px; /* o el tamaño que prefieras */
+    height: 24px;
+    background-image: url('/image/enviar.png');
+    background-size: cover;
+    margin-right: 10px;
+  }
+  
+  
+  

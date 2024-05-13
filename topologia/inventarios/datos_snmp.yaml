@@ -1,0 +1,12 @@
+datos_snmp:
+  hosts:
+    switch1:
+      host: 192.168.20.3
+  vars:
+    marca: CISCO
+    comunidad: prueba30
+    permisos: RW
+    id_list: SN
+    device_type: cisco_ios
+    usuario: test
+    contrasena: test

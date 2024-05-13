@@ -1,0 +1,13 @@
+datos_stp:
+  hosts:
+    switch1:
+      host: 192.168.20.5
+  vars:
+    marca: CISCO
+    prioridad: '4096'
+    vlan: '1'
+    modo: none
+    instance: none
+    device_type: cisco_ios
+    usuario: test
+    contrasena: test

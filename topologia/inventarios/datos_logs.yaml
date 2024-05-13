@@ -1,0 +1,11 @@
+datos_logs:
+  hosts:
+    switch1:
+      host: 192.168.20.5
+  vars:
+    marca: CISCO
+    servidorIP: 192.168.20.8
+    trap: errors
+    device_type: cisco_ios
+    usuario: test
+    contrasena: test

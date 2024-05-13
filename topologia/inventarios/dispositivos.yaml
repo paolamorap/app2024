@@ -1,0 +1,19 @@
+switchs_cisco:
+  hosts:
+    switch1:
+      host: 192.168.20.2
+    switch2:
+      host: 192.168.20.3
+    switch3:
+      host: 192.168.20.4
+    switch4:
+      host: 192.168.20.5
+    switch5:
+      host: 192.168.20.10
+  vars:
+    user: test
+    password: test
+    comunidad_snmp: public
+    region_mstp: region1
+    marca: CISCO
+    device_type: cisco_ios

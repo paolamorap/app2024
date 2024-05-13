@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/estilos_datos.css">
+    <title>Habilitar STP</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">Habilitar STP</h1>
+        
+
+        <form id="stpActive-form" class="form">
+            
+            <label for="ip">Direcciones IP</label>
+            <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1, 192.168.1.2, ... " required>
+
+            <label for="marca">Modelo del dispositivo</label>
+            <select id="marca" name="marca" required class="form-control">
+                <option value="">Seleccione...</option>
+                <option value="HPA5120">HP A5120</option>
+                <option value="HPV1910">HP V1910</option>
+                <option value="3COM">3COM BASELINE</option>
+                <option value="TPLINK">TP-LINK</option>
+                <option value="CISCO">CISCO</option>
+            </select>
+
+            <label for="modoSTP">Modo</label>
+            <select id="modoSTP" name="modoSTP" required class="form-control" onchange="mostrarCampoRegion(this.value)">
+                <option value="">Seleccione...</option>
+                <option value="pvst">STP</option>
+                <option value="rstp">RSTP</option>
+                <option value="mstp">MSTP</option>
+            </select>
+
+            <div id="campoRegionMSTP" style="display: none;">
+                <label for="regionMSTP">Nombre de la Región MSTP</label>
+                <input type="text" id="regionMSTP" name="regionMSTP" placeholder="Nombre de la región MSTP">
+            </div>
+            
+            <label for="user">Usuario</label>
+            <input type="text" id="user" name="user" placeholder="Usuario" required>
+            
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            
+            <button type="submit" class="btn">Configurar</button>
+
+            
+        </form>
+        <!-- Mensaje de respuesta -->
+        <div id="message-container" class="message-container"></div>
+        
+    </div>
+    <script src="/js/formularios.js"></script>
+</body>
+</html>
