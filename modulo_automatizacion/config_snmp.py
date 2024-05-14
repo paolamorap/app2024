@@ -1,68 +1,146 @@
 import paramiko
-import conexion_ssh
+from conexion_ssh import send_command, interactive_send_command
 from textwrap import dedent
+import os
+
 
 #--------------------------------------------------------------------------------------------
 #********************************* Configuracion CISCO **************************************
 #--------------------------------------------------------------------------------------------
 
-def configurar_snmp_cisco(connection, community_name, permiso):
+def configurar_snmp_cisco(connection, community_name, permiso, save_config=False):
     """
-    Función para configurar SNMP en dispositivos CISCO utilizando Netmiko.
+    Configura SNMP en dispositivos Cisco utilizando una conexión Netmiko.
+
+    Esta función envía comandos para establecer la configuración SNMP de una comunidad especificada con un nivel de permiso
+    determinado (lectura o escritura) en dispositivos Cisco. Es útil para gestionar el acceso SNMP a dispositivos de red.
 
     Parámetros:
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura RO o escritura RW. 
+        connection: Objeto de conexión Netmiko activo al dispositivo Cisco.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'RO' para solo lectura o 'RW' para lectura y escritura.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
+
+    Nota:
+        Esta función no retorna un valor, pero ejecuta cambios en la configuración del dispositivo. Asegúrese de que
+        los parámetros proporcionados son correctos y que la conexión al dispositivo está activa y estable.
     """
     commands = [
         f"snmp-server community {community_name} {permiso}",
+        'end',
     ]
-    connection.send_config_set(commands)
+    try:
+        connection.send_config_set(commands)
+        if save_config:
+            connection.send_command('write memory')
+        print(f"Configuración SNMP con comunidad '{community_name}' y permiso '{permiso}' completada exitosamente.")
+    except Exception as e:
+        print(f"Error al configurar SNMP en el dispositivo: {e}")
 
-def configurar_snmp_acl_cisco(connection, community_name, permiso, id_acl):
+
+def configurar_snmp_acl_cisco(connection, community_name, permiso, id_acl, save_config=False):
     """
-    Función para configurar SNMP en dispositivos CISCO utilizando Netmiko.
+    Configura SNMP con una lista de acceso en dispositivos Cisco utilizando una conexión Netmiko.
+
+    Esta función establece la configuración SNMP de una comunidad específica con un nivel de permiso determinado
+    y restringe el acceso usando una lista de acceso (ACL) especificada por el usuario. Es útil para gestionar
+    el acceso SNMP a dispositivos de red de manera segura y controlada.
 
     Parámetros:
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura RO o escritura RW. 
-        id_acl (number): Numero de la lista de acceso.
+        connection: Objeto de conexión Netmiko activo al dispositivo Cisco.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'RO' (solo lectura) o 'RW' (lectura y escritura).
+        id_acl (int): Número identificador de la lista de acceso (ACL) que se aplicará a la comunidad SNMP.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
+
+    Nota:
+        Esta función no retorna un valor, pero ejecuta cambios en la configuración del dispositivo.
+        Asegúrese de que los parámetros proporcionados son correctos y que la conexión al dispositivo
+        está activa y estable.
     """
     commands = [
         f"snmp-server community {community_name} {permiso} {id_acl}",
+        'end',
     ]
-    connection.send_config_set(commands)
+    try:
+        connection.send_config_set(commands)
+        if save_config:
+            connection.send_command('write memory')
+        print(f"Configuración SNMP con comunidad '{community_name}', permiso '{permiso}', y ACL '{id_acl}' completada exitosamente.")
+    except Exception as e:
+        print(f"Error al configurar SNMP con ACL en el dispositivo: {e}")
+
 
 #--------------------------------------------------------------------------------------------
 #****************************** Configuracion HPA5120 ***************************************
 #--------------------------------------------------------------------------------------------
 
-def configurar_snmp_hp(connection, community_name, permiso):
+def configurar_snmp_hp(connection, community_name, permiso, save_config=False):
     """
-    Función para configurar SNMP en dispositivos HPA5120 utilizando Netmiko.
+    Configura SNMP en dispositivos HPA5120 utilizando una conexión Netmiko.
+
+    Esta función envía comandos para establecer la configuración SNMP de una comunidad especificada con un nivel de permiso
+    determinado (lectura o escritura) en dispositivos HPA5120. Es útil para gestionar el acceso SNMP a dispositivos de red.
 
     Parámetros:
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura {read} o escritura {write}. 
+        connection: Objeto de conexión Netmiko activo al dispositivo HPA5120.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'read' para solo lectura o 'write' para lectura y escritura.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
+
+    Nota:
+        Esta función no retorna un valor, pero ejecuta cambios en la configuración del dispositivo.
+        Asegúrese de que los parámetros proporcionados son correctos y que la conexión al dispositivo
+        está activa y estable.
     """
     commands = [
         f"snmp-agent community {permiso} {community_name}",
+        'quit',
     ]
-    connection.send_config_set(commands)
+    try:
+        connection.send_config_set(commands)
+        if save_config:
+            connection.send_command('save force')  # Comando para guardar la configuración en dispositivos HP
+        print(f"Configuración SNMP con comunidad '{community_name}' y permiso '{permiso}' completada exitosamente.")
+    except Exception as e:
+        print(f"Error al configurar SNMP en el dispositivo: {e}")
 
-def configurar_snmp_acl_hp(connection, community_name, permiso, id_acl):
+
+def configurar_snmp_acl_hp(connection, community_name, permiso, id_acl, save_config=False):
     """
-    Función para configurar SNMP en dispositivos HPA5120 utilizando Netmiko.
+    Configura SNMP con una lista de acceso en dispositivos HPA5120 utilizando una conexión Netmiko.
+
+    Esta función establece la configuración SNMP de una comunidad específica con un nivel de permiso determinado
+    y restringe el acceso usando una lista de acceso (ACL) especificada por el usuario. Es útil para gestionar
+    el acceso SNMP a dispositivos de red de manera segura y controlada.
 
     Parámetros:
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura {read} o escritura {write}. 
-        id_acl (number): Numero de la lista de acceso.
+        connection: Objeto de conexión Netmiko activo al dispositivo HPA5120.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'read' (solo lectura) o 'write' (lectura y escritura).
+        id_acl (int): Número identificador de la lista de acceso (ACL) que se aplicará a la comunidad SNMP.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
+
+    Nota:
+        Esta función no retorna un valor, pero ejecuta cambios en la configuración del dispositivo.
+        Asegúrese de que los parámetros proporcionados son correctos y que la conexión al dispositivo
+        está activa y estable.
     """
     commands = [
         f"snmp-agent community {permiso} {community_name} acl {id_acl}",
+        'quit',
     ]
-    connection.send_config_set(commands)
+    try:
+        connection.send_config_set(commands)
+        if save_config:
+            connection.send_command('save force')  # Comando para guardar la configuración en dispositivos HP
+        print(f"Configuración SNMP con comunidad '{community_name}', permiso '{permiso}', y ACL '{id_acl}' completada exitosamente.")
+    except Exception as e:
+        print(f"Error al configurar SNMP con ACL en el dispositivo: {e}")
 
 
 
@@ -70,94 +148,138 @@ def configurar_snmp_acl_hp(connection, community_name, permiso, id_acl):
 #*******************************Configuracion 3COM y HPV1910 ********************************
 #--------------------------------------------------------------------------------------------
 
-def configurar_snmp_3com(ip, username, password, community_name, permiso):
+def configurar_snmp_3com(ip, username, password, community_name, permiso, save_config=False):
     """
-    Función para configurar SNMP en dispositivos 3Com y HPV1910 utilizando Paramiko.
+    Configura SNMP en dispositivos 3Com y HPV1910 utilizando Paramiko para la conexión SSH.
+
+    Esta función establece la configuración SNMP de una comunidad específica con un nivel de permiso determinado
+    (lectura o escritura) en dispositivos 3Com y HPV1910.
 
     Parámetros:
-        ip (number): Direccion IP del dispositivo.
-        username (str): Usuario del dispositivo.
-        password (str): Contrasena del dispositivo.
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura {read} o escritura {write}. 
+        ip (str): Dirección IP del dispositivo.
+        username (str): Nombre de usuario para la autenticación SSH.
+        password (str): Contraseña del usuario.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'read' para solo lectura o 'write' para lectura y escritura.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
+    Nota:
+        Esta función no retorna un valor, pero ejecuta cambios en la configuración del dispositivo.
+        Asegúrese de que los parámetros proporcionados son correctos y que la conexión al dispositivo
+        está activa y estable.
     """
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         ssh.connect(ip, username=username, password=password)  
-        # Obtener un canal interactivo
         channel = ssh.invoke_shell()
-        # Ingresamos en el modo de línea de comandos
-        conexion_ssh.send_command(channel, "_cmdline-mode on", wait_time=2)
-        conexion_ssh.interactive_send_command(
+        send_command(channel, "_cmdline-mode on", wait_time=2)
+        interactive_send_command(
             channel,
-            "Y",  # Confirmamos la pregunta para entrar en el modo de línea de comandos.
-            "Please input password:",  # La cadena que esperamos antes de enviar la contraseña.
-            "512900",  # Contraseña para el modo de línea de comandos.
-            wait_time=2  # Tiempo de espera.
+            "Y",
+            "Please input password:",
+            "512900",
+            wait_time=2
         )
-        conexion_ssh.send_command(channel, "system-view", wait_time=2)
-        conexion_ssh.send_command(channel, f"snmp-agent community {permiso} {community_name}", wait_time=2)
-        ssh.close()
-        print("Configuración de SNMP completada con éxito.")
+        send_command(channel, "system-view", wait_time=2)
+        send_command(channel, f"snmp-agent community {permiso} {community_name}", wait_time=2)
+        send_command(channel, f"quit", wait_time=2)
+
+        # Guardar la configuración si se indica
+        if save_config:
+            send_command(channel, "save", wait_time=2)
+            interactive_send_command(channel, "Y", "Are you sure to overwrite the current configuration", "", wait_time=2)
+
+        print(f"Configuración SNMP con comunidad '{community_name}' y permiso '{permiso}' completada exitosamente.")
     except Exception as e:
         print(f"Error al configurar SNMP en {ip}: {e}")
+    finally:
         ssh.close()
 
-def configurar_snmp_acl_3com(ip, username, password, community_name, permiso, id_acl):
+
+def configurar_snmp_acl_3com(ip, username, password, community_name, permiso, id_acl, save_config=False):
     """
-    Función para configurar SNMP en dispositivos 3Com y HPV1910 utilizando Paramiko.
+    Configura SNMP con una lista de acceso en dispositivos 3Com y HPV1910 utilizando Paramiko para la conexión SSH.
+
+    Esta función establece la configuración SNMP de una comunidad específica con un nivel de permiso determinado
+    y restringe el acceso usando una lista de acceso (ACL) especificada por el usuario.
 
     Parámetros:
-        ip (number): Direccion IP del dispositivo.
-        username (str): Usuario del dispositivo.
-        password (str): Contrasena del dispositivo.
-        comunity_name (str): Nombred de la comunidad.
-        permiso (srt): Permiso de lectura {read} o escritura {write}. 
-        id_acl (number): Numero de la lista de acceso.
+        ip (str): Dirección IP del dispositivo.
+        username (str): Nombre de usuario para la autenticación SSH.
+        password (str): Contraseña del usuario.
+        community_name (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'read' (solo lectura) o 'write' (lectura y escritura).
+        id_acl (int): Número identificador de la lista de acceso (ACL) que se aplicará a la comunidad SNMP.
+        save_config (bool): Indica si se debe guardar la configuración permanentemente en el dispositivo.
+                            El valor predeterminado es False.
     """
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         ssh.connect(ip, username=username, password=password)  
-        # Obtener un canal interactivo
         channel = ssh.invoke_shell()
-        # Ingresamos en el modo de línea de comandos
-        conexion_ssh.send_command(channel, "_cmdline-mode on", wait_time=2)
-        conexion_ssh.interactive_send_command(
+        send_command(channel, "_cmdline-mode on", wait_time=2)
+        interactive_send_command(
             channel,
-            "Y",  # Confirmamos la pregunta para entrar en el modo de línea de comandos.
-            "Please input password:",  # La cadena que esperamos antes de enviar la contraseña.
-            "512900",  # Contraseña para el modo de línea de comandos.
-            wait_time=2  # Tiempo de espera.
+            "Y",
+            "Please input password:",
+            "512900",
+            wait_time=2
         )
-        conexion_ssh.send_command(channel, "system-view", wait_time=2)
-        conexion_ssh.send_command(channel, f"snmp-agent community {permiso} {community_name} acl {id_acl}", wait_time=2)
-        ssh.close()
-        print("Configuración de SNMP completada con éxito.")
+        send_command(channel, "system-view", wait_time=2)
+        send_command(channel, f"snmp-agent community {permiso} {community_name} acl {id_acl}", wait_time=2)
+
+        # Guardar la configuración si se indica
+        if save_config:
+            send_command(channel, "save", wait_time=2)
+            interactive_send_command(channel, "Y", "Are you sure to overwrite the current configuration", "", wait_time=2)
+            
+        print(f"Configuración SNMP con comunidad '{community_name}', permiso '{permiso}', y ACL '{id_acl}' completada exitosamente.")
     except Exception as e:
-        print(f"Error al configurar SNMP en {ip}: {e}")
+        print(f"Error al configurar SNMP con ACL en {ip}: {e}")
+    finally:
         ssh.close()
+
 
 #--------------------------------------------------------------------------------------------
 #********************************* Configuracion TPLINK *************************************
 #--------------------------------------------------------------------------------------------
 
-def comandos_snmp(comunidad, permiso):
+def comandos_snmp_tplink(comunidad, permiso, archivo_destino=None):
     """
-    Genera un archivo de texto con comandos de configuración para SNMP.
+    Genera un archivo de texto con comandos para configurar SNMP en un dispositivo TPLINK,
+    almacenando los comandos en un archivo txt.
+
+    Esta función crea una cadena de comandos necesarios para configurar SNMP en un dispositivo TPLINK,
+    utilizando una comunidad y permisos especificados. Los comandos se escriben en un archivo de texto
+    en la ruta especificada. Si no se proporciona una ruta, se utiliza una ruta predeterminada.
 
     Parámetros:
-        comunidad (str): El nombre de laa comunidad SNMP.
-        permiso (srt): Permiso de lectura {read-only} o escritura {read-write}. 
+        comunidad (str): Nombre de la comunidad SNMP a configurar.
+        permiso (str): Permiso asignado a la comunidad SNMP, puede ser 'read-only' para solo lectura
+                       o 'read-write' para lectura y escritura.
+        archivo_destino (str, opcional): Ruta completa del archivo donde se guardarán los comandos.
+                                         Si no se proporciona, se usa una ruta predeterminada.
+
+    Retorna:
+        str: La ruta del archivo donde se guardaron los comandos.
     """
-   
-    nombre_archivo = r'/home/paola/Documentos/loginapp/topologia/inventarios/comandos_snmp.txt'
+    # Ruta predeterminada si no se especifica una
+    if archivo_destino is None:
+        archivo_destino = '/home/paola/Documentos/app2024/modulo_automatizacion/comandos/comandos_snmp.txt'
+
     comandos = dedent(f"""
-    configure
-    snmp-server community {comunidad} {permiso}
+        configure
+        snmp-server community {comunidad} {permiso}
+        end
     """)
 
+    # Aseguramos que el directorio donde se guardará el archivo exista
+    os.makedirs(os.path.dirname(archivo_destino), exist_ok=True)
+
     # Escribimos los comandos en el archivo
-    with open(nombre_archivo, 'w') as archivo:
+    with open(archivo_destino, 'w') as archivo:
         archivo.write(comandos.strip())
+    
+    return archivo_destino

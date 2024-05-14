@@ -8,15 +8,12 @@
 <body>
     <div class="container">
         <h1 class="titulo">Prioridad STP del Switch</h1>
-        
-
         <form id="stpPriority-form" class="form">
-            
             <label for="ip">Direcciones IP</label>
             <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1" required>
 
             <label for="marca">Modelo del dispositivo</label>
-            <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoModoSTPPrioridad(this.value)">
+            <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoModoSTPPrioridad()">
                 <option value="">Seleccione...</option>
                 <option value="HPA5120">HP A5120</option>
                 <option value="HPV1910">HP V1910</option>
@@ -27,17 +24,17 @@
 
             <div id="campoModoStpPriority" style="display: none;">
                 <label for="modoSTP">Modo STP Implementado</label>
-                <select id="modoSTP" name="modoSTP" class="form-control" >
+                <select id="modoSTP" name="modoSTP" class="form-control" onchange="mostrarCamposAdicionales()">
                     <option value="">Seleccione...</option>
-                    <option value="pvst">PVSTP</option>
                     <option value="rstp">RSTP</option>
+                    <option value="pvst">PVST</option>
                     <option value="mstp">MSTP</option>
                 </select>
             </div>
 
             <div id="campoIntanciaStpPriority" style="display: none;">
                 <label for="instance">Numero de instance</label>
-                <input type="number" id="instance" name="instance" placeholder="Ingrese el numero de la intance">
+                <input type="number" id="instance" name="instance" placeholder="Ingrese el numero de la instance">
             </div>
 
             <div id="campoVlanStpPriority" style="display: none;">
@@ -46,7 +43,7 @@
             </div>
 
             <label for="prioridad">Prioridad</label>
-            <input type="number" id="prioridad" name="prioridad" placeholder="Rango: 0 - 61 440 " required>
+            <input type="number" id="prioridad" name="prioridad" placeholder="Rango: 0 - 61 440" required>
         
             <label for="user">Usuario</label>
             <input type="text" id="user" name="user" placeholder="Usuario" required>
@@ -55,12 +52,9 @@
             <input type="password" id="password" name="password" placeholder="Contraseña" required>
             
             <button type="submit" class="btn">Configurar</button>
-
-            
         </form>
         <!-- Mensaje de respuesta -->
         <div id="message-container" class="message-container"></div>
-        
     </div>
     <script>
         function mostrarCampoModoSTPPrioridad() {
@@ -68,35 +62,50 @@
             var campoModoStpPriority = document.getElementById('campoModoStpPriority');
             var campoVlanStpPriority = document.getElementById('campoVlanStpPriority');
             var campoIntanciaStpPriority = document.getElementById('campoIntanciaStpPriority');
-            var modoSTP = document.getElementById('modoSTP').value;
+            var modoSTP = document.getElementById('modoSTP');
 
             // Esconder todos los campos primero
             campoModoStpPriority.style.display = 'none';
             campoVlanStpPriority.style.display = 'none';
             campoIntanciaStpPriority.style.display = 'none';
 
-            // Lógica para mostrar campos basada en la marca seleccionada y modoSTP
-            if (['HPV1910', '3COM', 'HPA5120'].includes(marcaSeleccionada)) {
+            // Limpiar las opciones del select de modoSTP
+            modoSTP.innerHTML = '<option value="">Seleccione...</option>';
+
+            // Lógica para mostrar campos basada en la marca seleccionada
+            if (['HPV1910', '3COM', 'HPA5120', 'CISCO'].includes(marcaSeleccionada)) {
                 campoModoStpPriority.style.display = 'block';
-                if (modoSTP === 'mstp') {
-                    campoIntanciaStpPriority.style.display = 'block';
-                } else if (modoSTP === 'rstp'){
-                    campoVlanStpPriority2.style.display = 'block';
+
+                // Agregar opciones al select de modoSTP
+                if (marcaSeleccionada === 'CISCO') {
+                    modoSTP.innerHTML += '<option value="pvst">PVST</option>';
+                    modoSTP.innerHTML += '<option value="mstp">MSTP</option>';
+                } else {
+                    modoSTP.innerHTML += '<option value="rstp">RSTP</option>';
+                    modoSTP.innerHTML += '<option value="pvst">PVST</option>';
+                    modoSTP.innerHTML += '<option value="mstp">MSTP</option>';
                 }
-            } else if (['CISCO', 'TPLINK'].includes(marcaSeleccionada)) {
-                campoModoStpPriority.style.display = 'none';
+            } else if (marcaSeleccionada === 'TPLINK') {
                 campoVlanStpPriority.style.display = 'block';
             }
         }
 
-        // Asegúrate de que el listener está bien configurado
-       /* document.getElementById('marca').addEventListener('change', mostrarCampoModoSTPPrioridad);
-        document.getElementById('modoSTP').addEventListener('change', function() {
-            if (document.getElementById('campoModoStpPriority').style.display !== 'none') {
-                mostrarCampoModoSTPPrioridad();
-            }
-        });*/
+        function mostrarCamposAdicionales() {
+            var modoSTP = document.getElementById('modoSTP').value;
+            var campoIntanciaStpPriority = document.getElementById('campoIntanciaStpPriority');
+            var campoVlanStpPriority = document.getElementById('campoVlanStpPriority');
 
+            // Esconder todos los campos primero
+            campoIntanciaStpPriority.style.display = 'none';
+            campoVlanStpPriority.style.display = 'none';
+
+            // Mostrar campos basados en la selección del modo STP
+            if (modoSTP === 'mstp') {
+                campoIntanciaStpPriority.style.display = 'block';
+            } else if (modoSTP === 'rstp' || modoSTP === 'pvst') {
+                campoVlanStpPriority.style.display = 'block';
+            }
+        }
     </script>
     <script src="/js/formularios.js"></script>
 </body>

@@ -1,11 +1,12 @@
-datos_logs:
+datos_snmp:
   hosts:
     switch1:
-      host: 192.168.20.5
+      host: 192.168.20.4
   vars:
     marca: CISCO
-    servidorIP: 192.168.20.8
-    trap: errors
+    comunidad: prueba
+    permisos: RO
+    id_list: '12'
     device_type: cisco_ios
     usuario: test
     contrasena: test

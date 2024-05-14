@@ -115,7 +115,7 @@ if (document.getElementById('device-form')) {
 
     if (marcaSeleccionada === 'CISCO') {
       device_type = 'cisco_ios';
-      if (modoSeleccionado == 'pvst'){
+      if (modoSeleccionado == 'stp'){
         modo_stp = 'pvst';
       }else if(modoSeleccionado == 'rstp'){
         modo_stp = 'rapid-pvst';
@@ -136,6 +136,7 @@ if (document.getElementById('device-form')) {
       marca: document.getElementById('marca').value,
       modoSTP: modo_stp,
       regionMSTP: document.getElementById('modoSTP').value === 'mstp' ? document.getElementById('regionMSTP').value : 'region0',
+      vlan: document.getElementById('modoSTP').value === 'pvst' ? document.getElementById('vlanID').value : 'none',
       user: document.getElementById('user').value,
       password: document.getElementById('password').value,
       device_type: device_type,
@@ -153,20 +154,32 @@ if (document.getElementById('device-form')) {
     // Asignar el device_type basado en la selección de la marca
     const marcaSeleccionada = document.getElementById('marca').value;
     let device_type;
+    
+    const modoSeleccionado = document.getElementById('modoSTP').value;
+    let modo_stp;
+
     if (marcaSeleccionada === 'CISCO') {
       device_type = 'cisco_ios';
+      if (modoSeleccionado == 'stp'){
+        modo_stp = 'pvst';
+      }else if(modoSeleccionado == 'rstp'){
+        modo_stp = 'rapid-pvst';
+      }else if (modoSeleccionado == 'mstp'){
+        modo_stp = 'mst'
+      }
     } else if (marcaSeleccionada === 'HPA5120') {
         device_type = 'hp_comware';
     } 
     else {
         device_type = 'none';  
+        modo_stp = modoSeleccionado;
     }
 
     const formData = {
       ip: document.getElementById('ip').value.split(',').map(ip => ip.trim()),
       marca: document.getElementById('marca').value,
-      modo: document.getElementById('marca').value === 'HPA5120' || document.getElementById('marca').value === 'HPV1910' || document.getElementById('marca').value === '3COM' ? document.getElementById('modoSTP').value : 'none',
-      vlan: document.getElementById('marca').value === 'CISCO' || document.getElementById('marca').value === 'TPLINK' || document.getElementById('modoSTP').value === 'rstp' ? document.getElementById('vlan').value : 'none',
+      modo: modo_stp,
+      vlan: document.getElementById('marca').value === 'TPLINK' || document.getElementById('modoSTP').value === 'rstp' ? document.getElementById('vlan').value : 'none',
       instance: document.getElementById('modoSTP').value === 'mstp' ? document.getElementById('instance').value : 'none', // Added this line
       prioridad: document.getElementById('prioridad').value,
       user: document.getElementById('user').value,

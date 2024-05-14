@@ -16,7 +16,7 @@ import bridge_id_root
 # Ingreso de Parametros - Comunidad SNMP, Direcciones IP
 #Fase 1
 print("-------------FASE 1 -----------------")
-nombreyaml = '/home/paola/Documentos/loginapp/topologia/inventarios/dispositivos.yaml'
+nombreyaml = '/home/paola/Documentos/app2024/topologia/inventarios/dispositivos.yaml'
 datos = obt_infoyam.infyam(nombreyaml)
 direc = datos.keys() #Direcciones IP Filtradas
 print(direc)
@@ -70,7 +70,7 @@ discovered_hosts = tree.generate_switch_names(direc)
 print('HOSTSS', discovered_hosts)
 
 OUTPUT_TOPOLOGY_FILENAME = 'topology.js'
-TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/loginapp/src/public/js/topology.js"
+TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/app2024/src/public/js/topology.js"
 TOPOLOGY_FILE_HEAD = f"\n\nvar topologyData = "
 TOPOLOGY_DICT = tree.generate_topology_json(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) 
 tree.write_topology_file(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH) 

@@ -4,6 +4,19 @@ import os
 import read_yaml
 
 def procesar_dispositivos_snmp(datos_yaml):
+    
+    """
+    Procesa una lista de dispositivos para configurar SNMP según la información proporcionada en un archivo YAML.
+
+    La función itera sobre cada grupo de dispositivos definido en el archivo YAML, extrae las configuraciones necesarias,
+    y aplica las configuraciones SNMP correspondientes utilizando diferentes bibliotecas y métodos según la marca y 
+    características del dispositivo.
+
+    Parámetros:
+        datos_yaml (dict): Diccionario cargado desde un archivo YAML que contiene la información de configuración
+                           para cada grupo de dispositivos.
+    """
+
     if not datos_yaml:
         print("No se proporcionaron datos válidos.")
         return
@@ -20,22 +33,22 @@ def procesar_dispositivos_snmp(datos_yaml):
         for host, config in datos_yaml[grupo]['hosts'].items():
             ip = config['host']
             try:
+                # Configuración SNMP específica por marca y modelo de dispositivo
                 if marca in ['3COM', 'HPV1910']:  
-                    # Usar Paramiko para dispositivos 3Com - HPV1910
+                    # Configuración para dispositivos 3Com - HPV1910 usando Paramiko
                     if id_list == "SN":
-                        config_snmp.configurar_snmp_3com(ip, user, password, community, permiso)
-                        print(f"Configuracion SNMP EXITOSA en {ip} {marca}.")
+                        config_snmp.configurar_snmp_3com(ip, user, password, community, permiso, save_config=True)
                     else:
-                        config_snmp.configurar_snmp_acl_3com(ip, user, password, community, permiso, id_list)
-                        print(f"Configuracion SNMP EXITOSA en {ip} {marca} con {id_list} como lista de acceso.")
+                        config_snmp.configurar_snmp_acl_3com(ip, user, password, community, permiso, id_list, save_config=True)
                     
                 elif marca == 'TPLINK':
-                    config_snmp.comandos_snmp(community, permiso)
-                    conexion_ssh.epmiko(user)
-                    print(f"Configuracion SNMP EXITOSA en {ip} {marca}.")
+                    # Configuración para dispositivos TPLINK usando un script SSH
+                    archivo = config_snmp.comandos_snmp_tplink(community, permiso)
+                    conexion_ssh.epmiko(user, password, ip, archivo)
+                    print(f"Configuración SNMP con comunidad '{community}' y permiso '{permiso}' completada exitosamente.")
 
                 else:
-                    # Para Cisco y HPA5120, se utiliza Netmiko
+                    # Configuración para dispositivos Cisco y HPA5120 usando Netmiko
                     dispositivo = {
                         'device_type': device_type,
                         'host': ip,
@@ -48,24 +61,20 @@ def procesar_dispositivos_snmp(datos_yaml):
                     if connection:
                         if marca == 'CISCO':
                             if id_list == "SN":
-                                config_snmp.configurar_snmp_cisco(connection, community, permiso)
-                                print(f"Configuracion SNMP EXITOSA en {ip} {marca}.")
+                                config_snmp.configurar_snmp_cisco(connection, community, permiso, save_config=True)
                             else:
-                                config_snmp.configurar_snmp_acl_cisco(connection, community, permiso, id_list)
-                                print(f"Configuracion SNMP EXITOSA en {ip} {marca} con {id_list} como lista de acceso.")
-
+                                config_snmp.configurar_snmp_acl_cisco(connection, community, permiso, id_list, save_config=True)
                         elif marca == 'HPA5120':
                             if id_list == "SN":
-                                config_snmp.configurar_snmp_hp(connection, community, permiso)
-                                print(f"Configuracion SNMP EXITOSA en {ip} {marca}.")
+                                config_snmp.configurar_snmp_hp(connection, community, permiso, save_config=True)
                             else:
-                                config_snmp.configurar_snmp_acl_hp(connection, community, permiso, id_list)
-                                print(f"Configuracion SNMP EXITOSA en {ip} {marca} con {id_list} como lista de acceso.")
+                                config_snmp.configurar_snmp_acl_hp(connection, community, permiso, id_list, save_config=True)
                         connection.disconnect()
             except Exception as e:
                 print(f"Error al configurar el dispositivo {ip}: {e}")
 
-base_path = "/home/paola/Documentos/loginapp/topologia/inventarios"
+# Uso del código
+base_path = "/home/paola/Documentos/app2024/modulo_automatizacion/registros"
 archivo = os.path.join(base_path, "datos_snmp.yaml")
 datos_yaml = read_yaml.cargar_datos_snmp(archivo)
 procesar_dispositivos_snmp(datos_yaml)

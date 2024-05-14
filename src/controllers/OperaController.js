@@ -84,7 +84,7 @@ function run_script(req, res) {
   }
 
   // Definir la ruta del script
-  const scriptPath = '/home/paola/Documentos/loginapp/src/configure/epolaris_install.sh';
+  const scriptPath = '/home/paola/Documentos/app2024/src/configure/epolaris_install.sh';
   
   // Ejecutar el script
   exec(`bash ${scriptPath}`, (error, stdout, stderr) => {

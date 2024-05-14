@@ -1,0 +1,20 @@
+Conectando al host: 10.0.1.13
+spawn plink -ssh -l networking -pw Ygvfe34a.2018 10.0.1.13
+The first key-exchange algorithm supported by the server is
+diffie-hellman-group1-sha1, which is below the configured warning threshold.
+Continue with connection? (y/n) y
+Using username "networking".
+Further authentication required
+
+Access granted. Press Return to begin session. 
+
+
+SW_ME_RECO.BIBIN>enable
+
+SW_ME_RECO.BIBIN#configure
+
+SW_ME_RECO.BIBIN(config)#snmp-server community prueba1 read-only
+Operation failed. The community already exists.
+
+
+SW_ME_RECO.BIBIN(config)#
