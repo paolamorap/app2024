@@ -48,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'configure')));
 app.use(express.static(path.join(__dirname, 'next')));
 app.use(express.static(path.join(__dirname, '..', '..', 'topologia', 'inventarios')));
+app.use(express.static(path.join(__dirname, '..', '..', 'topologia', 'balanceo')));
 app.use(express.static(path.join(__dirname, '..', '..', 'modulo_automatizacion', 'registros')));
 app.use(express.static(path.join(__dirname, '..', '..', 'modulo_automatizacion', 'comandos')));
 

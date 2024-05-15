@@ -1,12 +1,14 @@
-datos_snmp:
+datos_stp:
   hosts:
     switch1:
       host: 192.168.20.10
   vars:
     marca: CISCO
-    comunidad: prueba1
-    permisos: RW
-    id_list: SN
+    modo: modo0
+    interfaz: GigabitEthernet0/0
+    vlan: none
+    instance: none
+    costo: '600'
     device_type: cisco_ios
     usuario: test
     contrasena: test

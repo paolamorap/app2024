@@ -18,3 +18,5 @@ function operaciones_ini(req, res) {
     topo_ini: topo_ini,
     operaciones_ini: operaciones_ini,
   }
+
+  

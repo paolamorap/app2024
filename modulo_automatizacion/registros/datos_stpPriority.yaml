@@ -1,13 +1,13 @@
 datos_stp:
   hosts:
     switch1:
-      host: 192.168.20.2
+      host: 10.0.1.3
   vars:
     marca: CISCO
-    prioridad: '20480'
-    vlan: none
-    modo: mst
-    instance: '0'
+    prioridad: '2536'
+    vlan: '10'
+    modo: rapid-pvst
+    instance: none
     device_type: cisco_ios
-    usuario: test
-    contrasena: test
+    usuario: fdf
+    contrasena: fdf

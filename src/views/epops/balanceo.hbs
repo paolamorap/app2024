@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/estilos_datos.css">
+    <title>Balanceo de Carga</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">Balanceo de Carga</h1>
+        <form id="balanceo-form" class="form">
+            <label for="enlace">Seleccione un enlace:</label>
+            <select name="enlace" id="enlace">
+                {{#each datos.datos_web as |valor clave|}}
+                    <option value="{{clave}}">{{valor}}</option>
+                {{/each}}
+            </select>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script src="/js/formularios.js"></script>
+    
+</body>
+</html>

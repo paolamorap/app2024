@@ -79,8 +79,11 @@
                 // Agregar opciones al select de modoSTP
                 if (marcaSeleccionada === 'CISCO') {
                     modoSTP.innerHTML += '<option value="pvst">PVST</option>';
+                    modoSTP.innerHTML += '<option value="rpvst">RPVST</option>';
                     modoSTP.innerHTML += '<option value="mstp">MSTP</option>';
                 } else {
+                    
+                    modoSTP.innerHTML += '<option value="stp">STP</option>';
                     modoSTP.innerHTML += '<option value="rstp">RSTP</option>';
                     modoSTP.innerHTML += '<option value="pvst">PVST</option>';
                     modoSTP.innerHTML += '<option value="mstp">MSTP</option>';
@@ -102,7 +105,7 @@
             // Mostrar campos basados en la selección del modo STP
             if (modoSTP === 'mstp') {
                 campoIntanciaStpPriority.style.display = 'block';
-            } else if (modoSTP === 'rstp' || modoSTP === 'pvst') {
+            } else if (modoSTP === 'rpvst' || modoSTP === 'pvst') {
                 campoVlanStpPriority.style.display = 'block';
             }
         }

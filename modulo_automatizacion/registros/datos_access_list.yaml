@@ -1,12 +1,13 @@
-datos_snmp:
+datos_access_list:
   hosts:
     switch1:
       host: 192.168.20.10
   vars:
     marca: CISCO
-    comunidad: prueba1
-    permisos: RW
-    id_list: SN
+    ip_red: 192.168.20.0
+    mascara_wildcard: 0.0.0.255
+    id_list: '10'
+    n_rule: none
     device_type: cisco_ios
     usuario: test
     contrasena: test

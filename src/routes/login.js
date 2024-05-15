@@ -47,6 +47,9 @@ router.post('/stp', AutoController.guardarDispositivo);
 router.get('/stp1', OperaController.stp1);
 router.post('/stp1', AutoController.guardarDispositivo);
 
+router.get('/pathcost', OperaController.pathcost);
+router.post('/pathcost', AutoController.guardarDispositivo);
+
 router.get('/vlan', OperaController.vlan);
 router.post('/vlan', AutoController.guardarDispositivo);
 
@@ -57,6 +60,9 @@ router.post('/logs', AutoController.guardarDispositivo);
 
 router.get('/start_app', OperaController.start_app);
 router.get('/run_script', OperaController.run_script);  
+
+//BALANCEO DE CARGA
+router.get('/balanceo', OperaController.balanceo);
 
 
 module.exports = router;

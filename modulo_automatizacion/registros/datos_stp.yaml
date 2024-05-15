@@ -1,12 +1,10 @@
 datos_stp:
   hosts:
     switch1:
-      host: 10.0.1.16
+      host: 10.0.1.3
   vars:
-    marca: 3COM
-    modo: pvst
+    marca: HPA5120
     region: region0
-    vlan: ''
-    device_type: none
-    usuario: test
-    contrasena: test
+    device_type: hp_comware
+    usuario: f
+    contrasena: fd

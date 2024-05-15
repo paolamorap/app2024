@@ -288,7 +288,6 @@ function datosSTPActive (datos){
       marca: datos.marca,
       modo: datos.modoSTP,
       region: datos.regionMSTP,
-      vlan: datos.vlan,
       device_type: datos.device_type,
       usuario: datos.user,
       contrasena: datos.password,
@@ -361,6 +360,64 @@ function datosSTPPriority (datos){
     console.error('Error al actualizar el archivo datos_STPPriority.yaml:', error);
   }
 }
+
+function datosSTPCostos(datos){
+
+  console.log('Received datos:', datos);
+
+  
+  const ipsInvalidas = datos.ip.filter(ip => !esIPValida(ip));
+  if (ipsInvalidas.length > 0) {
+    return { exito: false, mensaje: `Error: Las siguientes direcciones IP no son válidas: ${ipsInvalidas.join(', ')}` };
+  }
+  
+  // Validación del valor del costo
+  const costo = parseInt(datos.costo);
+  if (isNaN(costo) || costo < 0 || costo > 200000) {
+    return { exito: false, mensaje: "Error: EL costo debe ser un número entre 0 y 200000." };
+  }
+
+  const archivoDispositivos = path.join(__dirname, '..', '..', 'modulo_automatizacion', 'registros', 'datos_stpCost.yaml');
+  // Aquí, asegúrate de que el archivo YAML existe o créalo con una estructura básica
+  if (!fs.existsSync(archivoDispositivos)) {
+    fs.writeFileSync(archivoDispositivos, yaml.dump({ datos_stp: { hosts: {} } }), 'utf8');
+  }
+
+  try {
+    let estructuraYaml = yaml.load(fs.readFileSync(archivoDispositivos, 'utf8')) || { datos_stp: { hosts: {} } };
+    let index = Object.keys(estructuraYaml.datos_stp.hosts).length;
+    let contadorswitch =1;
+
+    // Limpia la estructura actual de hosts
+    estructuraYaml.datos_stp.hosts = {};
+
+    datos.ip.forEach((ip, i) => {
+      index++;
+      estructuraYaml.datos_stp.hosts[`switch${contadorswitch}`] = { host: ip };
+      contadorswitch++;
+    });
+
+    estructuraYaml.datos_stp.vars = {
+      marca: datos.marca,
+      modo: datos.modo,
+      interfaz: datos.interfaz,
+      vlan: datos.vlan,
+      instance: datos.instance,
+      costo: datos.costo,
+      device_type: datos.device_type,
+      usuario: datos.user,
+      contrasena: datos.password,
+    };
+
+    fs.writeFileSync(archivoDispositivos, yaml.dump(estructuraYaml), 'utf8');
+    console.log(`Configurando dispositivos con IPs: ${datos.ip.join(', ')}.`);
+    return { exito: true, mensaje: `Configurando dispositivos con IPs: ${datos.ip.join(', ')}.` };
+    
+  } catch (error) {
+    console.error('Error al actualizar el archivo datos_STPCost.yaml:', error);
+  }
+}
+
 
 function datosVLAN (datos){
 
@@ -472,6 +529,9 @@ function datosLogs (datos){
 }
 
 
+
+
+
 function datosAcessList(datos){
 
   console.log('Received datos:', datos);
@@ -541,7 +601,7 @@ function guardarDispositivo(req, res) {
   } else if (tipoFormulario === 'data_snmp') {
 
     const resultado = datosSNMP(req.body);
-    console.log(resultado);
+  
 
     try {
       // Asegúrate de que la ruta al script Python sea correcta
@@ -663,11 +723,36 @@ function guardarDispositivo(req, res) {
       res.status(500).send('Error al procesar la configuración de LOGS.');
     }  
 
+  } else if (tipoFormulario === 'stpCost') {
+
+    const resultado = datosSTPCostos(req.body);
+
+    try {
+  
+      const pathToPythonScript = '/home/paola/Documentos/app2024/modulo_automatizacion/stp_cost_int.py';
+      const resPython = execSync(`python3 ${pathToPythonScript}`);
+      console.log('Respuesta de Python:', resPython.toString());
+
+      if (resultado.exito) {
+        res.status(200).send(resPython.toString());
+      } else {
+        res.status(200).send(resultado.mensaje);
+      }
+    } catch (error) {
+      console.error('Error ejecutando el script Python:', error);
+      res.status(500).send('Error al procesar la configuración de STP COST.');
+    }  
+
   } else {
       return res.status(400).send('Tipo de formulario inválido');
-  } 
+  }
+
+
+  
 }
 
+
+datosSTPCostos
 
 // Exportando todas las funciones
 module.exports = {

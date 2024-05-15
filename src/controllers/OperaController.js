@@ -1,4 +1,8 @@
 const { exec } = require('child_process');
+const path = require('path');
+var fs = require('fs');
+const yaml = require('js-yaml');
+
 
 function snmp(req, res) {
     if (req.session.loggedin ){
@@ -19,6 +23,14 @@ function stp(req, res) {
   function stp1(req, res) {
     if (req.session.loggedin ){
       res.render('epops/stp1', {name: req.session.name});
+    }else{
+      res.redirect('/');
+    }
+  }
+
+  function pathcost(req, res) {
+    if (req.session.loggedin ){
+      res.render('epops/pathcost', {name: req.session.name});
     }else{
       res.redirect('/');
     }
@@ -54,26 +66,67 @@ function stp(req, res) {
     } else {
         res.redirect('/');
     }
-}
-
-/*function run_script(req, res) {
-  if (req.session.loggedin) {
-      // Usar la ruta absoluta del script
-      const scriptPath = '/home/paola/Documentos/loginapp/src/configure/epolaris_install.sh';
-      
-      exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
-          if (error) {
-              console.error(`error: ${stderr}`);
-              return res.status(500).json({ success: false, message: 'Error al ejecutar el script', error: stderr });
-          }
-          console.log(`stdout: ${stdout}`);
-          res.json({ success: true, message: 'Script ejecutado correctamente', output: stdout });
-      });
-  } else {
-      res.redirect('/');
-      res.status(403).json({ success: false, message: 'No autorizado' });
   }
+
+  function cargarDatos() {
+    try {
+        const filePath = path.join(__dirname, '../../topologia/balanceo/balanceo_web.yaml');
+        const fileContents = fs.readFileSync(filePath, 'utf8');
+        return yaml.load(fileContents);
+    } catch (e) {
+        console.error(e);
+        return {};
+    }
+  }
+
+  function balanceo(req, res) {
+    if (req.session.loggedin) {
+      const datos = cargarDatos();
+      res.render('epops/balanceo', {
+        name: req.session.name,
+        datos: datos // Pasa los datos a la vista
+    });
+    } else {
+        res.redirect('/');
+    }
+  }
+
+  /*function balanceo(req, res) {
+    if (req.session.loggedin) {
+      const pathToPythonScript = '//home/paola/Documentos/app2024/topologia/main_balanceo.py';
+      const resPython = execSync(`python3 ${pathToPythonScript}`);
+      console.log('Respuesta de Python:', resPython.toString());
+      
+      const datos = cargarDatos();
+      res.render('epops/balanceo', {
+        name: req.session.name,
+        datos: datos // Pasa los datos a la vista
+    });
+    } else {
+        res.redirect('/');
+    }
+  }*/
+  /*function balanceo(req, res) {
+    if (req.session.loggedin) {
+      console.log(`ejecutandoooo`);
+        // Ejecutar el script de Python antes de cargar los datos
+        exec('python3 /home/paola/Documentos/app2024/topologia/main_balanceo.py', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error al ejecutar el script de Python: ${error}`);
+                return res.status(500).send('Error al procesar la solicitud de balanceo');
+            }
+            console.log(`Resultado del script: ${stdout}`);
+            const datos = cargarDatos(); // Carga los datos después de ejecutar el script
+            res.render('epops/balanceo', {
+                name: req.session.name,
+                datos: datos
+            });
+        });
+    } else {
+        res.redirect('/');
+    }
 }*/
+
 
 
 function run_script(req, res) {
@@ -105,6 +158,7 @@ function run_script(req, res) {
 }
 
 
+
   
     module.exports = {
       snmp: snmp,
@@ -115,4 +169,6 @@ function run_script(req, res) {
       access_list:access_list,
       start_app: start_app,
       run_script: run_script,
+      pathcost: pathcost,
+      balanceo: balanceo,
     }

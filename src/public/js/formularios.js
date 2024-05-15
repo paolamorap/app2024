@@ -31,7 +31,7 @@ if (document.getElementById('device-form')) {
       tipoFormulario: 'configuracion',
     };
 
-    enviarFormData(formData, '/configure');
+    enviarFormData1(formData, '/configure','device-form');
   });
 } else if(document.getElementById('snmp-form')){
     
@@ -98,7 +98,7 @@ if (document.getElementById('device-form')) {
     };
     
 
-    enviarFormData(formData, '/snmp');
+    enviarFormData1(formData, '/snmp','snmp-form');
   });
 
 } else if(document.getElementById('stpActive-form')){
@@ -136,14 +136,13 @@ if (document.getElementById('device-form')) {
       marca: document.getElementById('marca').value,
       modoSTP: modo_stp,
       regionMSTP: document.getElementById('modoSTP').value === 'mstp' ? document.getElementById('regionMSTP').value : 'region0',
-      vlan: document.getElementById('modoSTP').value === 'pvst' ? document.getElementById('vlanID').value : 'none',
       user: document.getElementById('user').value,
       password: document.getElementById('password').value,
       device_type: device_type,
       tipoFormulario: 'stpActive',
     };
 
-    enviarFormData(formData, '/stp');
+    enviarFormData1(formData, '/stp','stpActive-form');
   });
 
 } else if(document.getElementById('stpPriority-form')){
@@ -160,15 +159,16 @@ if (document.getElementById('device-form')) {
 
     if (marcaSeleccionada === 'CISCO') {
       device_type = 'cisco_ios';
-      if (modoSeleccionado == 'stp'){
+      if (modoSeleccionado == 'pvst'){
         modo_stp = 'pvst';
-      }else if(modoSeleccionado == 'rstp'){
+      }else if(modoSeleccionado == 'rpvst'){
         modo_stp = 'rapid-pvst';
       }else if (modoSeleccionado == 'mstp'){
         modo_stp = 'mst'
       }
     } else if (marcaSeleccionada === 'HPA5120') {
         device_type = 'hp_comware';
+        modo_stp = modoSeleccionado;
     } 
     else {
         device_type = 'none';  
@@ -179,7 +179,7 @@ if (document.getElementById('device-form')) {
       ip: document.getElementById('ip').value.split(',').map(ip => ip.trim()),
       marca: document.getElementById('marca').value,
       modo: modo_stp,
-      vlan: document.getElementById('marca').value === 'TPLINK' || document.getElementById('modoSTP').value === 'rstp' ? document.getElementById('vlan').value : 'none',
+      vlan: document.getElementById('marca').value === 'TPLINK' || document.getElementById('modoSTP').value === 'pvst' || document.getElementById('modoSTP').value === 'rpvst' ? document.getElementById('vlan').value : 'none',
       instance: document.getElementById('modoSTP').value === 'mstp' ? document.getElementById('instance').value : 'none', // Added this line
       prioridad: document.getElementById('prioridad').value,
       user: document.getElementById('user').value,
@@ -188,9 +188,7 @@ if (document.getElementById('device-form')) {
       tipoFormulario: 'stpPriority',
     };
 
-    console.log(formData)
-
-    enviarFormData(formData, '/stp1');
+    enviarFormData1(formData, '/stp1','stpPriority-form');
   });
 
 } else if(document.getElementById('vlan-form')){
@@ -223,7 +221,7 @@ if (document.getElementById('device-form')) {
     };
     
 
-    enviarFormData(formData, '/vlan');
+    enviarFormData1(formData, '/vlan','vlan-form');
   });
 } else if(document.getElementById('logs-form')){
     
@@ -255,7 +253,7 @@ if (document.getElementById('device-form')) {
 
     };
     
-    enviarFormData(formData, '/logs');
+    enviarFormData1(formData, '/logs', 'logs-form');
   });
 } else if(document.getElementById('uploadForm')){
     
@@ -263,7 +261,7 @@ if (document.getElementById('device-form')) {
     event.preventDefault(); // Previene la recarga de la página
     
     var formData = new FormData(this);
-    enviarFormData(formData, '/upload');
+    enviarFormData1(formData, '/upload','uploadForm');
   });
 } else if(document.getElementById('accesslist-form')){
     
@@ -297,7 +295,47 @@ if (document.getElementById('device-form')) {
 
     };
     
-    enviarFormData(formData, '/access_list');
+    enviarFormData1(formData, '/access_list', 'accesslist-form');
+  });
+} else if(document.getElementById('stpCost-form')){
+    
+  document.getElementById('stpCost-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previene la recarga de la página
+
+    // Asignar el device_type basado en la selección de la marca
+    const marcaSeleccionada = document.getElementById('marca').value;
+    let device_type;
+
+    const modoSeleccionado = document.getElementById('modoSTP').value;
+    let modo_stp;
+  
+    if (marcaSeleccionada === 'CISCO') {
+      device_type = 'cisco_ios';
+      modo_stp = 'modo0';
+    } else if (marcaSeleccionada === 'HPA5120') {
+        device_type = 'hp_comware';
+        modo_stp = modoSeleccionado;
+    } 
+    else {
+        device_type = 'none';  
+        modo_stp = modoSeleccionado;
+    }
+
+    const formData = {
+      ip: document.getElementById('ip').value.split(',').map(ip => ip.trim()),
+      interfaz: document.getElementById('interfaz').value,
+      marca: document.getElementById('marca').value,
+      modo: modo_stp,
+      costo: document.getElementById('costo').value,
+      vlan: document.getElementById('modoSTP').value === 'pvst' || document.getElementById('modoSTP').value === 'rpvst' ? document.getElementById('vlan').value : 'none',
+      instance: document.getElementById('modoSTP').value === 'mstp' ? document.getElementById('instance').value : 'none', 
+      user: document.getElementById('user').value,
+      password: document.getElementById('password').value,
+      device_type: device_type,
+      tipoFormulario: 'stpCost',
+    };
+
+    enviarFormData1(formData, '/pathcost', 'stpCost-form');
   });
 }
 
@@ -330,7 +368,7 @@ function mostrarCampoRegion(modoSeleccionado) {
 /*-------------------- FUNCION PARA ENVIAR DATOS A LOS ARCHIVOS YAML -------------------*/
 /* ------------------------------------------------------------------------------------ */
 
-function enviarFormData(formData, url) {
+/*function enviarFormData(formData, url) {
   fetch(url, {
     method: 'POST',
     headers: {
@@ -356,10 +394,45 @@ function enviarFormData(formData, url) {
   });
 
   // Resetear el formulario es opcional aquí, depende de si quieres hacerlo antes o después de la respuesta del servidor
+}*/
+
+function enviarFormData1(formData, url, formId) {
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('La petición al servidor falló.');
+    }
+    return response.text();
+  })
+  .then(mensaje => {
+    mostrarMensaje(mensaje, 'success');
+
+    // Resetear el formulario tras una respuesta exitosa
+    if (formId) {
+      document.getElementById(formId).reset();
+    }
+  })
+  .catch(error => {
+    mostrarMensaje('Error: ' + error.message, 'error');
+  });
 }
 
 
+function mostrarMensaje(mensaje, tipo) {
+  var messageContainer = document.getElementById('message-container');
+  messageContainer.textContent = mensaje;
+  messageContainer.className = 'message-container ' + tipo;
+  messageContainer.style.display = 'block';
 
-
+  setTimeout(() => {
+      messageContainer.style.display = 'none';
+  }, 6000);
+}
 
 
