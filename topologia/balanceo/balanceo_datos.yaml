@@ -1,19 +1,26 @@
 conexiones_disp:
-  conexion1:
+  enlace1:
+    host1:
+      IP: 192.168.20.4
+      interfaz1: G3/3
+    host2:
+      IP: 192.168.20.10
+      interfaz1: G0/2
+  enlace2:
     host1:
       IP: 192.168.20.4
       interfaz1: G0/2
     host2:
       IP: 192.168.20.3
       interfaz1: G0/1
-  conexion2:
+  enlace3:
     host1:
       IP: 192.168.20.4
       interfaz1: G1/1
     host2:
       IP: 192.168.20.3
       interfaz1: G0/2
-  conexion3:
+  enlace4:
     host1:
       IP: 192.168.20.4
       interfaz1: G0/3

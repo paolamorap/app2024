@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const path = require('path');
 var fs = require('fs');
 const yaml = require('js-yaml');
@@ -91,44 +91,79 @@ function stp(req, res) {
     }
   }
 
-  /*function balanceo(req, res) {
-    if (req.session.loggedin) {
-      const pathToPythonScript = '//home/paola/Documentos/app2024/topologia/main_balanceo.py';
-      const resPython = execSync(`python3 ${pathToPythonScript}`);
-      console.log('Respuesta de Python:', resPython.toString());
+  function cargarArchivo(req, res) {
+    if (!req.session.loggedin) {
+      return res.redirect('/');
+    }
+  
+    const pathToPythonScript = '/home/paola/Documentos/app2024/topologia/main_balanceo.py';
+    console.log(`Ejecutando script: ${pathToPythonScript}`);
+    exec(`python3 ${pathToPythonScript}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error al ejecutar el script: ${stderr}`);
+        return res.status(500).json({ success: false, message: 'Error al ejecutar el script', error: stderr });
+      }
       
-      const datos = cargarDatos();
-      res.render('epops/balanceo', {
-        name: req.session.name,
-        datos: datos // Pasa los datos a la vista
+      if (!req.session.loggedin) {
+        console.error('La sesión ha expirado antes de completar el script');
+        return res.status(403).json({ success: false, message: 'Sesión expirada' });
+      }
+  
+      console.log(`Script ejecutado correctamente: ${stdout}`);
+      res.json({ success: true, message: 'Script ejecutado correctamente', output: stdout });
     });
-    } else {
-        res.redirect('/');
-    }
+  }
+  
+  /*function procesarBalanceo(req, res){
+    const datos = req.body;
+    // Aquí puedes procesar los datos recibidos
+    console.log("Datos recibidos:", datos);
+    enlace_name = datos.enlace 
+
+
+    res.json({ message: "Datos recibidos y procesados correctamente" });
   }*/
-  /*function balanceo(req, res) {
-    if (req.session.loggedin) {
-      console.log(`ejecutandoooo`);
-        // Ejecutar el script de Python antes de cargar los datos
-        exec('python3 /home/paola/Documentos/app2024/topologia/main_balanceo.py', (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Error al ejecutar el script de Python: ${error}`);
-                return res.status(500).send('Error al procesar la solicitud de balanceo');
-            }
-            console.log(`Resultado del script: ${stdout}`);
-            const datos = cargarDatos(); // Carga los datos después de ejecutar el script
-            res.render('epops/balanceo', {
-                name: req.session.name,
-                datos: datos
-            });
-        });
-    } else {
-        res.redirect('/');
+
+  function procesarBalanceo(req, res) {
+    const datos = req.body;
+    console.log(datos)
+    const enlaceName = datos.enlace;
+
+    // Leer el archivo YAML existente
+    const filePath = path.join(__dirname, '..','..','topologia', 'balanceo', 'balanceo_datos.yaml');
+    const conexionesDisp = yaml.load(fs.readFileSync(filePath, 'utf8'));
+
+    // Extraer los datos correspondientes al enlace seleccionado
+    const enlaceData = conexionesDisp.conexiones_disp[enlaceName];
+    if (!enlaceData) {
+        return res.status(400).json({ message: `Enlace ${enlaceName} no encontrado` });
     }
-}*/
 
+    // Datos del formulario
+    const { modoSTP, vlan1, user, password } = datos;
 
+    // Crear el nuevo contenido YAML
+    const newYamlData = {
+        conexiones_disp: {
+            [enlaceName]: {
+                ...enlaceData,
+              vars: {
+                  modoSTP,
+                  vlan1,
+                  user,
+                    password
+                }
+            }
+        }
+    };
 
+    // Escribir los datos en un nuevo archivo YAML
+    const newFilePath = path.join(__dirname, '..','..','topologia', 'balanceo', 'configuraciones_balanceo.yaml');
+    fs.writeFileSync(newFilePath, yaml.dump(newYamlData, { indent: 2, lineWidth: 100 }));
+
+    res.json({ message: "Datos recibidos y procesados correctamente", newYamlData });
+}
+    
 function run_script(req, res) {
   // Verificar si el usuario está logueado
   if (!req.session.loggedin) {
@@ -171,4 +206,6 @@ function run_script(req, res) {
       run_script: run_script,
       pathcost: pathcost,
       balanceo: balanceo,
+      cargarArchivo: cargarArchivo,
+      procesarBalanceo: procesarBalanceo,
     }

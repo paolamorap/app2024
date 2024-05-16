@@ -149,9 +149,9 @@ def ob_yaml(lconex, lbl, d):
 
     
 
-def yaml_web (dp):
+def yaml_web(dp):
     # Crear la estructura de datos para el archivo YAML
-    datos_web = {f'enlace{i+1}': " - ".join(eval(dp[i])) for i in range(len(dp))}
+    datos_web = {f'enlace{i+1}': f"Enlace {i+1}: {' - '.join(eval(dp[i]))}" for i in range(len(dp))}
     yaml_data = {
         'datos_web': datos_web,
     }
@@ -161,13 +161,14 @@ def yaml_web (dp):
         yaml.dump(yaml_data, file, default_flow_style=False, sort_keys=False)
 
 
+
 def yaml_datos(conexiones):
     # Diccionario que contendrá todas las conexiones
     conexiones_dict = {'conexiones_disp': {}}
 
     # Iterar sobre cada grupo de conexiones
     for idx, grupo in enumerate(conexiones, start=1):
-        conexion_key = f'conexion{idx}'
+        conexion_key = f'enlace{idx}'
         conexiones_dict['conexiones_disp'][conexion_key] = {}
         host_index = 1
 

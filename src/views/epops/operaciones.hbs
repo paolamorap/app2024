@@ -80,11 +80,15 @@
         </a> 
       </div>
 
-      <div class="category">
-        <a href="/balanceo" class="dropbtn">
-            <img src="/image/iniciar.png" alt="Balanceo">
-            <p>Balanceo Carga</p>
-        </a>
+      <div class="category" id="loading">
+        <img id="loadingImage" src="/image/loading.gif" alt="Cargando..." style="display:none;">
+        <p id="loadingText" style="display:none;">Cargando configuración, por favor espere...</p>
+            
+        <button id="balanceo-btn" class="button-icon" onclick="ejecutarScript()">
+            <img src="/image/enviar.png" alt="Icono Configurar"> <!-- Asegúrate de tener un icono apropiado -->
+            <span>Balanceo</span>
+        </button>
+
       </div>
       
     </div>
@@ -135,10 +139,40 @@ function closeDropdownOnOutsideClick(event) {
   }
 }
 
+function ejecutarScript() {
+  document.getElementById('loadingImage').style.display = 'block'; // Muestra el GIF de carga
+  document.getElementById('loadingText').style.display = 'none'; // Oculta el párrafo
+  document.getElementById('balanceo-btn').style.display = 'none'; // Oculta el botón
+
+  fetch('/run1')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('balanceo-btn').style.display = 'block'; 
+        // Redirigir a la página de balanceo
+        window.location.href = '/balanceo';
+        
+      } else {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('balanceo-btn').style.display = 'block'; // Oculta el botón
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al ejecutar el script');
+    });
+}
+
 
 
 
 </script>
 </body>
 </html>
-

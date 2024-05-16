@@ -1,0 +1,13 @@
+conexiones_disp:
+  enlace2:
+    host1:
+      IP: 192.168.20.4
+      interfaz1: G0/2
+    host2:
+      IP: 192.168.20.3
+      interfaz1: G0/1
+    vars:
+      modoSTP: mstp
+      vlan1: '2'
+      user: tets
+      password: dsd
