@@ -1,40 +1,54 @@
-import yaml
+from pysnmp.entity.rfc3413.oneliner import cmdgen
+import re
 
-def generar_yaml(conexiones):
-    # Diccionario que contendrá todas las conexiones
-    conexiones_dict = {'conexiones_disp': {}}
+cmdGen = cmdgen.CommandGenerator()
 
-    # Iterar sobre cada grupo de conexiones
-    for idx, grupo in enumerate(conexiones, start=1):
-        conexion_key = f'conexion{idx}'
-        conexiones_dict['conexiones_disp'][conexion_key] = {}
-        host_index = 1
+def ma_int(direc, datos):
+    d2 = {}
+    f = 0
+    fif = []
+    for server_ip in direc:
+        if server_ip not in datos:
+            f = 1
+            fif.append(server_ip)
+            continue
+        
+        comunidad = datos[server_ip]["snmp"]
+        errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.bulkCmd(
+            cmdgen.CommunityData(comunidad),
+            cmdgen.UdpTransportTarget((server_ip, 161)),
+            0, 25,
+            '1.3.6.1.2.1.2.2.1.2'
+        )
+        c = 1
+        d1 = {}
+        if errorIndication:
+            f = 1
+            fif.append(server_ip)
+            continue
 
-        # Iterar sobre cada conexión individual en el grupo
-        for host_info in grupo:
-            ip, interfaz, ip_destino, interfaz_destino = host_info
-            host_key = f'host{host_index}'
-            host_index += 1
-            conexiones_dict['conexiones_disp'][conexion_key][host_key] = {
-                'IP': ip,
-                'interfaz1': interfaz
-            }
-            host_key = f'host{host_index}'
-            host_index += 1
-            conexiones_dict['conexiones_disp'][conexion_key][host_key] = {
-                'IP': ip_destino,
-                'interfaz1': interfaz_destino
-            }
+        for varBindTableRow in varBindTable:
+            for name, val in varBindTableRow:
+                if "Ethernet" in val.prettyPrint() and not("0/0" in val.prettyPrint()):
+                    cadena = val.prettyPrint()
+                    if datos[server_ip]["marca"] == "tplink":
+                        interface_name = cadena
+                    else:
+                        interface_name = cadena
+                    d1[str(c)] = interface_name
+                    c += 1
+        d2[str(server_ip)] = d1
+    return d2, f, fif
 
-    # Escribir el diccionario a un archivo YAML
-    with open('conexiones.yaml', 'w') as file:
-        yaml.dump(conexiones_dict, file, sort_keys=False, default_flow_style=False)
+# Ejemplo de uso
+direcciones = ["192.168.20.4", "192.168.20.3", "192.168.20.2"]  # IPs de ejemplo
+datos = {
+    "192.168.20.4": {"snmp": "public", "marca": "cisco"},
+    "192.168.20.3": {"snmp": "public", "marca": "cisco"},
+    "192.168.20.2": {"snmp": "public", "marca": "cisco"}
+}
 
-# Lista de ejemplo con conexiones
-conexiones = [
-    [('192.168.20.4', 'G0/2', '192.168.20.3', 'G0/1')],
-    [('192.168.20.4', 'G1/1', '192.168.20.3', 'G0/2')],
-    [('192.168.20.4', 'G0/3', '192.168.20.5', 'G0/2'), ('192.168.20.2', 'G0/2', '192.168.20.4', 'G1/0'), ('192.168.20.10', 'G0/2', '192.168.20.5', 'G1/0')]
-]
-
-generar_yaml(conexiones)
+resultado, error, fallidas = ma_int(direcciones, datos)
+print("Resultado:", resultado)
+print("Error:", error)
+print("IPs fallidas:", fallidas)

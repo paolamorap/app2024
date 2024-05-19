@@ -1,0 +1,29 @@
+
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+S2#
+S2#terminal width 511
+S2#terminal length 0
+S2#
+S2#
+S2#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+S2(config)#
+S2(config)#vlan 10
+S2(config-vlan)#exit
+S2(config)#spanning-tree mst configuration
+S2(config-mst)#instance 1 vlan 10
+S2(config-mst)#exit
+S2(config)#int GigabitEthernet0/1
+S2(config-if)#spanning-tree mst 1 cost 10
+S2(config-if)#
+S2(config-if)#end
+S2#
+S2#
+S2#exit

@@ -56,10 +56,10 @@ def procesar_dispositivos_logs(datos_yaml):
 
                     if connection:
                         if marca == 'CISCO':
-                            config_logs.configurar_logs_cisco(connection, servidorIP, trap, save_config=True)
+                            config_logs.configurar_logs_cisco(connection, servidorIP, trap, save_config=False)
 
                         elif marca == 'HPA5120':
-                            config_logs.configurar_logs_hp(connection, servidorIP, save_config=True)
+                            config_logs.configurar_logs_hp(connection, servidorIP, save_config=False)
                         connection.disconnect()
             except Exception as e:
                 print(f"Error al configurar el dispositivo {ip}: {e}")

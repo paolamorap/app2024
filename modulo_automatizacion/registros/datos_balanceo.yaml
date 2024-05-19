@@ -1,0 +1,15 @@
+conexiones_disp:
+  enlace:
+    host1:
+      IP: 192.168.20.4
+      interfaz1: GigabitEthernet0/2
+      marca: CISCO
+    host2:
+      IP: 192.168.20.3
+      interfaz1: GigabitEthernet0/1
+      marca: CISCO
+  vars:
+    modoSTP: mstp
+    vlan1: '10'
+    user: test
+    password: test

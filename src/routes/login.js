@@ -34,8 +34,9 @@ router.get('/topologia', TopoController.topo_ini);
 //RUTA PARA VISUALIZAR OPERACIONES
 router.get('/operaciones', TopoController.operaciones_ini);
 router.get('/run1', OperaController.cargarArchivo);
+
 router.get('/balanceo', OperaController.balanceo);
-router.post('/balanceo', OperaController.procesarBalanceo);
+router.post('/balanceo/procesar', OperaController.ejecutarBalanceo);
 
 //RUTAS DENTRO DEL MODULO DE OPERACIONES
 router.get('/snmp', OperaController.snmp);
