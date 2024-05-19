@@ -92,41 +92,41 @@ var topologyData = {
             "IP": "192.168.20.10",
             "icon": "switch",
             "id": 0,
-            "layerSortPreference": 0,
-            "marca": "Cisco",
-            "name": "S5.automatizacion.com"
+            "layerSortPreference": 3,
+            "marca": "CISCO",
+            "name": "S5"
         },
         {
             "IP": "192.168.20.2",
             "icon": "switch",
             "id": 1,
-            "layerSortPreference": 0,
-            "marca": "Cisco",
-            "name": "S1.automatizacion.com"
+            "layerSortPreference": 1,
+            "marca": "CISCO",
+            "name": "S1"
         },
         {
             "IP": "192.168.20.3",
             "icon": "switch",
             "id": 2,
-            "layerSortPreference": 0,
-            "marca": "Cisco",
-            "name": "S2.automatizacion.com"
+            "layerSortPreference": 2,
+            "marca": "CISCO",
+            "name": "S2"
         },
         {
             "IP": "192.168.20.4",
             "icon": "switch",
             "id": 3,
-            "layerSortPreference": 0,
-            "marca": "Cisco",
-            "name": "S3.automatizacion.com"
+            "layerSortPreference": 2,
+            "marca": "CISCO",
+            "name": "S3"
         },
         {
             "IP": "192.168.20.5",
             "icon": "switch",
             "id": 4,
-            "layerSortPreference": 0,
-            "marca": "Cisco",
-            "name": "S4.automatizacion.com"
+            "layerSortPreference": 2,
+            "marca": "CISCO",
+            "name": "S4"
         }
     ]
 };

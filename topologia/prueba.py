@@ -1,54 +1,34 @@
-from pysnmp.entity.rfc3413.oneliner import cmdgen
-import re
+def generate_link_key(source, target):
+    # Ordena los nodos para evitar duplicidad en la dirección del enlace
+    return tuple(sorted([source, target]))
 
-cmdGen = cmdgen.CommandGenerator()
+def analyze_topology_changes(current_topology, previous_topology):
+    current_links = {generate_link_key(link['srcDevice'], link['tgtDevice']): link for link in current_topology['links']}
+    previous_links = {generate_link_key(link['srcDevice'], link['tgtDevice']): link for link in previous_topology['links']}
 
-def ma_int(direc, datos):
-    d2 = {}
-    f = 0
-    fif = []
-    for server_ip in direc:
-        if server_ip not in datos:
-            f = 1
-            fif.append(server_ip)
-            continue
-        
-        comunidad = datos[server_ip]["snmp"]
-        errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.bulkCmd(
-            cmdgen.CommunityData(comunidad),
-            cmdgen.UdpTransportTarget((server_ip, 161)),
-            0, 25,
-            '1.3.6.1.2.1.2.2.1.2'
-        )
-        c = 1
-        d1 = {}
-        if errorIndication:
-            f = 1
-            fif.append(server_ip)
-            continue
+    added = {k: v for k, v in current_links.items() if k not in previous_links}
+    removed = {k: v for k, v in previous_links.items() if k not in current_links}
+    changed = {k: current_links[k] for k in current_links if k in previous_links and current_links[k] != previous_links[k]}
 
-        for varBindTableRow in varBindTable:
-            for name, val in varBindTableRow:
-                if "Ethernet" in val.prettyPrint() and not("0/0" in val.prettyPrint()):
-                    cadena = val.prettyPrint()
-                    if datos[server_ip]["marca"] == "tplink":
-                        interface_name = cadena
-                    else:
-                        interface_name = cadena
-                    d1[str(c)] = interface_name
-                    c += 1
-        d2[str(server_ip)] = d1
-    return d2, f, fif
+    return added, removed, changed
 
-# Ejemplo de uso
-direcciones = ["192.168.20.4", "192.168.20.3", "192.168.20.2"]  # IPs de ejemplo
-datos = {
-    "192.168.20.4": {"snmp": "public", "marca": "cisco"},
-    "192.168.20.3": {"snmp": "public", "marca": "cisco"},
-    "192.168.20.2": {"snmp": "public", "marca": "cisco"}
+# Simular datos de topología anterior y actual
+previous_topology = {
+    "links": [
+        {"srcDevice": "192.168.1.1", "tgtDevice": "192.168.1.2"},
+        {"srcDevice": "192.168.1.2", "tgtDevice": "192.168.1.3"}
+    ]
 }
 
-resultado, error, fallidas = ma_int(direcciones, datos)
-print("Resultado:", resultado)
-print("Error:", error)
-print("IPs fallidas:", fallidas)
+current_topology = {
+    "links": [
+        {"srcDevice": "192.168.1.1", "tgtDevice": "192.168.1.2"},  # Sin cambios
+        {"srcDevice": "192.168.1.2", "tgtDevice": "192.168.1.4"}   # Cambiado de .3 a .4
+    ]
+}
+
+added, removed, changed = analyze_topology_changes(current_topology, previous_topology)
+
+print("Added Links:", added)
+print("Removed Links:", removed)
+print("Changed Links:", changed)

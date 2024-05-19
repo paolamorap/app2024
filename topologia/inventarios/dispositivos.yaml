@@ -2,14 +2,19 @@ switchs_cisco:
   hosts:
     switch1:
       host: 192.168.20.10
+      ref: S5
     switch2:
       host: 192.168.20.2
+      ref: S1
     switch3:
       host: 192.168.20.3
+      ref: S2
     switch4:
       host: 192.168.20.4
+      ref: S3
     switch5:
       host: 192.168.20.5
+      ref: S4
   vars:
     user: test
     password: test

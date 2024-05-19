@@ -1,8 +1,11 @@
 import json
+import yaml
 from collections import deque
 from collections import defaultdict
+
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 import re
+
 cmdGen = cmdgen.CommandGenerator()
 
 icon_capability_map = {
@@ -136,6 +139,25 @@ def obtener_informacion_dispositivos(ips, datos):
 
     return resultados
 
+def informacion_dispositivos(nombre):
+    with open(nombre, "r") as archivo:
+           datos_yaml = yaml.safe_load(archivo)
+    
+    resultado = {}
+    
+    for grupo in datos_yaml:
+        tipo = datos_yaml[grupo]['vars'].get('tipo')
+        marca = datos_yaml[grupo]['vars'].get('marca')
+
+        for host, config in datos_yaml[grupo]['hosts'].items():
+            ip = config['host']  # Obtiene la IP correctamente
+            ref = config['ref']  # Obtiene la referencia correctamente
+            info_temp = {'tipo': tipo, 'marca': marca, 'ref': ref}  # Crea un nuevo diccionario para cada host
+            resultado[ip] = info_temp
+            
+    return resultado  
+        
+
 
 def generate_topology_json(*args):
     """
@@ -144,6 +166,7 @@ def generate_topology_json(*args):
     discovered_hosts, interconnections, b_root, conexiones_blk, info_disp = args
     host_id = 0
     origen = b_root
+    print(origen)
     # link_rep = contar_enlaces_duplicados(interconnections)  # Asumiendo que esto ya lo haces en alguna parte
     host_id_map = {}
     topology_dict = {'nodes': [], 'links': []}
@@ -199,6 +222,70 @@ def generate_topology_json(*args):
 
     return topology_dict
 
+def generate_topology_json1(*args):
+    """
+    JSON topology object generator.
+    """
+    discovered_hosts, interconnections, b_root, conexiones_blk, info_disp = args
+    host_id = 0
+    origen = b_root
+    # link_rep = contar_enlaces_duplicados(interconnections)  # Asumiendo que esto ya lo haces en alguna parte
+    host_id_map = {}
+    topology_dict = {'nodes': [], 'links': []}
+    
+    # Nuevo: Registro de enlaces entre pares de dispositivos para determinar par/impar
+    enlaces_entre_pares = {}
+    
+    for host in discovered_hosts:
+        host_id_map[host] = host_id
+        host_name = info_disp.get(host, {}).get('ref', 'Nombre desconocido')
+        marca_modelo = info_disp.get(host, {}).get('marca', 'Marca/Modelo desconocido')
+        tipo = info_disp.get(host, {}).get('tipo', 'switch')
+        name = f"{host_name}"
+        marca = f"{marca_modelo}"
+        icono = f"{tipo}"
+
+        topology_dict['nodes'].append({
+            'icon': icono,
+            'id': host_id,
+            'name': name,
+            'IP': host,
+            'marca': marca,
+            'layerSortPreference':  calcular_saltos(interconnections, origen, host),
+        })
+        host_id += 1
+        
+    link_id=0
+    
+    for link in conexiones_blk:
+        src, tgt = link[0][0], link[1][0]
+        bloq_s, blok_t = link[0][2], link[1][2]
+        par_clave = tuple(sorted([src, tgt]))  # Ordenamos para evitar duplicados
+
+        # Inicializamos el contador para este par si no existe
+        if par_clave not in enlaces_entre_pares:
+            enlaces_entre_pares[par_clave] = 0
+        # Incrementamos el contador para este par
+        enlaces_entre_pares[par_clave] += 1
+
+        # El índice es el contador actual del par
+        index = enlaces_entre_pares[par_clave]
+
+        topology_dict['links'].append({
+            'id': link_id,
+            'source': host_id_map[src],
+            'target': host_id_map[tgt],
+            'srcIfName': link[0][1],
+            'srcDevice': src,
+            'port_bloks': bloq_s,
+            'tgtIfName': link[1][1],
+            'tgtDevice': tgt,
+            'port_blokt': blok_t,
+            'index': index,  # Usamos el contador como índice
+        })
+        link_id += 1
+
+    return topology_dict
 # Función auxiliar si_shortname
 def if_shortname(interface):
     return interface

@@ -58,22 +58,24 @@ print("Ejecutando Fase 4 - Despliegue del Arbol")
 bridge_id_root_dis =  bridge_id_root.obtener_bridge_id_root_switch(direc, datos)
 root_bridge_id = bridge_id_root.obtener_bridge_id_root(bridge_id_root_dis)
 b_root = bridge_id_root.encontrar_ip_por_bridge_id(b_id,root_bridge_id) 
-#print('B ROOT', b_root)
+print('B ROOT', b_root)
 bloq_int=tree.identificar_interfaces_bloqueadas(nodb, info_int)
 interconnections = tree.connection_tree_web(l,info_int)
 #print('INTERCONEXIONES', interconnections)
 
 conexiones_blok = tree.marcar_puertos_bloqueados(interconnections, bloq_int)
 #print('CONEXION BLOCKS', conexiones_blok)
-info_disp = tree.obtener_informacion_dispositivos(direc,datos)
-#print('INFO DISP', info_disp)
+#info_disp1 = tree.obtener_informacion_dispositivos(direc,datos)
+info_disp = tree.informacion_dispositivos(nombreyaml)
+print('INFO DISP', info_disp)
 discovered_hosts = tree.generate_switch_names(direc)
-#print('HOSTSS', discovered_hosts)
+print('HOSTSS', discovered_hosts)
+
 
 OUTPUT_TOPOLOGY_FILENAME = 'topology.js'
 TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/app2024/src/public/js/topology.js"
 TOPOLOGY_FILE_HEAD = f"\n\nvar topologyData = "
-TOPOLOGY_DICT = tree.generate_topology_json(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) 
+TOPOLOGY_DICT = tree.generate_topology_json1(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) 
 tree.write_topology_file(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH) 
 
 s, dp = loadbalance.ob_yaml(l,nodb,info_int)

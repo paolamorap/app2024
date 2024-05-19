@@ -211,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
         horizontal();
         var shell = new Shell();
         shell.start();
