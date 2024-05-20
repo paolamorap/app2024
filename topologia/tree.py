@@ -2,6 +2,7 @@ import json
 import yaml
 from collections import deque
 from collections import defaultdict
+import os
 
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 import re
@@ -51,8 +52,7 @@ def marcar_puertos_bloqueados(conexiones, puertos_bloqueados):
     
     # Nueva lista para almacenar conexiones con el indicador de bloqueo
     conexiones_blok = []
-
-    # Recorrer cada par de conexión y marcar si está bloqueado
+    
     for conexion in conexiones:
         conexion_actualizada = []
         for ip, puerto in conexion:
@@ -295,3 +295,154 @@ def write_topology_file(topology_json, header, dst):
         topology_file.write(header)
         topology_file.write(json.dumps(topology_json, indent=4, sort_keys=True))
         topology_file.write(';')
+
+
+#*********************************************************************************************************************
+
+def write_topology_cache(topology_json, dst):
+    with open(dst, 'w') as cached_file:
+        cached_file.write(json.dumps(topology_json, indent=4, sort_keys=True))
+
+def read_cached_topology(filename):
+    if not os.path.exists(filename):
+        return {}
+    if not os.path.isfile(filename):
+        return {}
+    cached_topology = {}
+    with open(filename, 'r') as file:
+        try:
+            cached_topology = json.loads(file.read())
+        except:
+            return {}
+    return cached_topology
+
+def get_topology_diff(cached, current):
+    """
+    Topology diff analyzer and generator.
+    Accepts two valid topology dicts as an input.
+    Returns:
+    - dict with added and deleted nodes,
+    - dict with added and deleted links,
+    - dict with merged input topologies with extended
+      attributes for topology changes visualization
+    """
+    diff_nodes = {'added': [], 'deleted': []}
+    diff_links = {'added': [], 'deleted': []}
+    diff_merged_topology = {'nodes': [], 'links': []}
+    # Parse links from topology dicts into the following format:
+    # (topology_link_obj, (source_hostnme, source_port), (dest_hostname, dest_port))
+    cached_links = [(x, ((x['srcDevice'], x['srcIfName']), (x['tgtDevice'], x['tgtIfName']))) for x in cached['links']]
+    links = [(x, ((x['srcDevice'], x['srcIfName']), (x['tgtDevice'], x['tgtIfName']))) for x in current['links']]
+    # Parse nodes from topology dicts into the following format:
+    # (topology_node_obj, (hostname,))
+    # Some additional values might be added for comparison later on to the tuple above.
+    cached_nodes = [(x, (x['name'],)) for x in cached['nodes']]
+    nodes = [(x, (x['name'],)) for x in current['nodes']]
+    # Search for deleted and added hostnames.
+    node_id = 0
+    host_id_map = {}
+    for raw_data, node in nodes:
+        if node in [x[1] for x in cached_nodes]:
+            raw_data['id'] = node_id
+            host_id_map[raw_data['name']] = node_id
+            raw_data['is_new'] = 'no'
+            raw_data['is_dead'] = 'no'
+            diff_merged_topology['nodes'].append(raw_data)
+            node_id += 1
+            continue
+        diff_nodes['added'].append(node)
+        raw_data['id'] = node_id
+        host_id_map[raw_data['name']] = node_id
+        raw_data['is_new'] = 'yes'
+        raw_data['is_dead'] = 'no'
+        diff_merged_topology['nodes'].append(raw_data)
+        node_id += 1
+    for raw_data, cached_node in cached_nodes:
+        if cached_node in [x[1] for x in nodes]:
+            continue
+        diff_nodes['deleted'].append(cached_node)
+        raw_data['id'] = node_id
+        host_id_map[raw_data['name']] = node_id
+        raw_data['is_new'] = 'no'
+        raw_data['is_dead'] = 'yes'
+        raw_data['icon'] = 'dead_node'
+        diff_merged_topology['nodes'].append(raw_data)
+        node_id += 1
+    # Search for deleted and added interconnections.
+    # Interface change on some side is considered as
+    # one interconnection deletion and one interconnection insertion.
+    # Check for permutations as well:
+    # ((h1, Gi1), (h2, Gi2)) and ((h2, Gi2), (h1, Gi1)) are equal.
+    link_id = 0
+    for raw_data, link in links:
+        src, dst = link
+        if not (src, dst) in [x[1] for x in cached_links] and not (dst, src) in [x[1] for x in cached_links]:
+            diff_links['added'].append((src, dst))
+            raw_data['id'] = link_id
+            link_id += 1
+            raw_data['source'] = host_id_map[src[0]]
+            raw_data['target'] = host_id_map[dst[0]]
+            raw_data['is_new'] = 'yes'
+            raw_data['is_dead'] = 'no'
+            diff_merged_topology['links'].append(raw_data)
+            continue
+        raw_data['id'] = link_id
+        link_id += 1
+        raw_data['source'] = host_id_map[src[0]]
+        raw_data['target'] = host_id_map[dst[0]]
+        raw_data['is_new'] = 'no'
+        raw_data['is_dead'] = 'no'
+        diff_merged_topology['links'].append(raw_data)
+    for raw_data, link in cached_links:
+        src, dst = link
+        if not (src, dst) in [x[1] for x in links] and not (dst, src) in [x[1] for x in links]:
+            diff_links['deleted'].append((src, dst))
+            raw_data['id'] = link_id
+            link_id += 1
+            raw_data['source'] = host_id_map[src[0]]
+            raw_data['target'] = host_id_map[dst[0]]
+            raw_data['is_new'] = 'no'
+            raw_data['is_dead'] = 'yes'
+            diff_merged_topology['links'].append(raw_data)
+    return diff_nodes, diff_links, diff_merged_topology
+
+def print_diff(diff_result):
+    """
+    Formatted get_topology_diff result
+    console print function.
+    """
+    diff_nodes, diff_links, *ignore = diff_result
+    if not (diff_nodes['added'] or diff_nodes['deleted'] or diff_links['added'] or diff_links['deleted']):
+        print('No topology changes since last run.')
+        return
+    print('Topology changes have been discovered:')
+    if diff_nodes['added']:
+        print('')
+        print('^^^^^^^^^^^^^^^^^^^^')
+        print('New Network Devices:')
+        print('vvvvvvvvvvvvvvvvvvvv')
+        for node in diff_nodes['added']:
+            print(f'Hostname: {node[0]}')
+    if diff_nodes['deleted']:
+        print('')
+        print('^^^^^^^^^^^^^^^^^^^^^^^^')
+        print('Deleted Network Devices:')
+        print('vvvvvvvvvvvvvvvvvvvvvvvv')
+        for node in diff_nodes['deleted']:
+            print(f'Hostname: {node[0]}')
+    if diff_links['added']:
+        print('')
+        print('^^^^^^^^^^^^^^^^^^^^^^')
+        print('New Interconnections:')
+        print('vvvvvvvvvvvvvvvvvvvvvv')
+        for src, dst in diff_links['added']:
+            print(f'From {src[0]}({src[1]}) To {dst[0]}({dst[1]})')
+    if diff_links['deleted']:
+        print('')
+        print('^^^^^^^^^^^^^^^^^^^^^^^^^')
+        print('Deleted Interconnections:')
+        print('vvvvvvvvvvvvvvvvvvvvvvvvv')
+        for src, dst in diff_links['deleted']:
+            print(f'From {src[0]}({src[1]}) To {dst[0]}({dst[1]})')
+    print('')
+

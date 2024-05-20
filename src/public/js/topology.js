@@ -9,10 +9,10 @@ var topologyData = {
             "port_blokt": false,
             "source": 1,
             "srcDevice": "192.168.20.2",
-            "srcIfName": "G3/1",
+            "srcIfName": "G3/0",
             "target": 2,
             "tgtDevice": "192.168.20.3",
-            "tgtIfName": "G2/2"
+            "tgtIfName": "G2/1"
         },
         {
             "id": 1,
@@ -21,10 +21,10 @@ var topologyData = {
             "port_blokt": false,
             "source": 1,
             "srcDevice": "192.168.20.2",
-            "srcIfName": "G0/2",
+            "srcIfName": "G0/1",
             "target": 3,
             "tgtDevice": "192.168.20.4",
-            "tgtIfName": "G1/0"
+            "tgtIfName": "G0/3"
         },
         {
             "id": 2,
@@ -33,10 +33,10 @@ var topologyData = {
             "port_blokt": false,
             "source": 1,
             "srcDevice": "192.168.20.2",
-            "srcIfName": "G0/1",
+            "srcIfName": "G0/0",
             "target": 4,
             "tgtDevice": "192.168.20.5",
-            "tgtIfName": "G0/1"
+            "tgtIfName": "G0/0"
         },
         {
             "id": 3,
@@ -45,10 +45,10 @@ var topologyData = {
             "port_blokt": false,
             "source": 3,
             "srcDevice": "192.168.20.4",
-            "srcIfName": "G1/2",
+            "srcIfName": "G1/1",
             "target": 0,
             "tgtDevice": "192.168.20.10",
-            "tgtIfName": "G0/2"
+            "tgtIfName": "G0/1"
         },
         {
             "id": 4,
@@ -57,10 +57,10 @@ var topologyData = {
             "port_blokt": true,
             "source": 3,
             "srcDevice": "192.168.20.4",
-            "srcIfName": "G0/2",
+            "srcIfName": "G0/1",
             "target": 2,
             "tgtDevice": "192.168.20.3",
-            "tgtIfName": "G0/1"
+            "tgtIfName": "G0/0"
         },
         {
             "id": 5,
@@ -69,10 +69,10 @@ var topologyData = {
             "port_blokt": true,
             "source": 3,
             "srcDevice": "192.168.20.4",
-            "srcIfName": "G1/1",
+            "srcIfName": "G1/0",
             "target": 2,
             "tgtDevice": "192.168.20.3",
-            "tgtIfName": "G0/2"
+            "tgtIfName": "G0/1"
         },
         {
             "id": 6,
@@ -81,10 +81,10 @@ var topologyData = {
             "port_blokt": true,
             "source": 3,
             "srcDevice": "192.168.20.4",
-            "srcIfName": "G0/3",
+            "srcIfName": "G0/2",
             "target": 4,
             "tgtDevice": "192.168.20.5",
-            "tgtIfName": "G0/2"
+            "tgtIfName": "G0/1"
         }
     ],
     "nodes": [

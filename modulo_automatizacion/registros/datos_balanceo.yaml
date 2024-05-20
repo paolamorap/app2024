@@ -2,7 +2,7 @@ conexiones_disp:
   enlace:
     host1:
       IP: 192.168.20.4
-      interfaz1: GigabitEthernet0/2
+      interfaz1: GigabitEthernet1/0
       marca: CISCO
     host2:
       IP: 192.168.20.3
