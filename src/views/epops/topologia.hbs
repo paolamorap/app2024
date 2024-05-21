@@ -2,74 +2,82 @@
 <html>
 <head>
     <title>TOPOLOGIA CENTRO SUR</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon"> <!-- Agregar esta línea para el favicon -->
-    <meta charset = "utf-8">
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="/bower_components/next-bower/css/next.css">
     <style>
-        /* Estilos personalizados para los botones */
+        .controls-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #ffff; /* Un fondo claro para destacar la zona */
+            padding: 10px 0;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 100px; /* Espacio entre botones */
+            margin-bottom: 10px; /* Espacio debajo del grupo de botones */
+        }
+
         button {
-            background-color: #0081E5; /* Azul un poco más intenso */
-            border: none; /* Sin borde */
-            color: white; /* Color de texto */
-            padding: 10px 20px; /* Espaciado interno */
-            text-align: center; /* Alineación del texto */
-            text-decoration: none; /* Sin subrayado */
-            display: inline-block; /* Mostrar como bloque en línea */
-            font-size: 15px; /* Tamaño de fuente */
-            margin: 1px 1px; /* Margen exterior */
-            cursor: pointer; /* Cursor al pasar sobre el botón */
-            border-radius: 10px; /* Radio de borde */
+            background: linear-gradient(145deg, #009fdf, #006fad);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px; /* Bordes ligeramente redondeados */
+            cursor: pointer;
+            font-size: 15px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
         }
-        /* Cambiar color de fondo al pasar el cursor sobre el botón */
+
         button:hover {
-            background-color: #00469D; /* Un tono más oscuro para el hover */
-            transform: scale(1.05);
+            background: linear-gradient(145deg, #007dce, #004e8e);
+            box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
         }
-        button:active{
-            transform: scale(0.9);
+
+        #lastReloadTime {
+            color: #333;
+            font-size: 14px;
         }
     </style>
-        <script type="text/javascript" src="/bower_components/next-bower/js/next.js"></script>
-        <script type="text/javascript" src="/js/topology.js"></script>
-        <script type="text/javascript" src="/js/topologia.js"></script>
-        <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        checkForChanges();
 
-        document.getElementById('updateTopologyButton').addEventListener('click', function() {
-            updateTopology();
-        });
-    });
+        
+    </style>
+    <script type="text/javascript" src="/bower_components/next-bower/js/next.js"></script>
+    <script type="text/javascript" src="/js/topology1.js"></script>
+    <script type="text/javascript" src="/js/topologia.js"></script>
+    <script type="text/javascript">
+        // Función que muestra la hora actual y recarga la página cada 1 minuto
+        function updateLastReloadTime() {
+            var now = new Date();
+            var display = now.getHours() + ":" + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes() + ":" + (now.getSeconds() < 10 ? '0' : '') + now.getSeconds();
+            document.getElementById('lastReloadTime').innerText = 'Última recarga: ' + display;
+        }
 
-    function checkForChanges() {
-        fetch('/public/js/changes_flag.json')
-            .then(response => response.json())
-            .then(data => {
-                if (data.changes) {
-                    document.getElementById('updateTopologyButton').style.display = 'inline-block';
-                } else {
-                    document.getElementById('updateTopologyButton').style.display = 'none';
-                }
-            })
-            .catch(error => console.error('Error loading change flag:', error));
-    }
+        window.onload = function() {
+            updateLastReloadTime(); // Actualizar al cargar la página
+            setInterval(function() {
+                window.location.href = window.location.href; // Forzar recarga desde el servidor
+            }, 60000); // 60000 milisegundos = 1 minuto
+        }
 
-    function updateTopology() {
-        fetch('/api/updateTopology') // Asume que tienes un endpoint que maneja esta actualización
-            .then(() => {
-                console.log('Topología actualizada');
-                // Opcionalmente, recargar datos o algo similar
-                document.getElementById('updateTopologyButton').style.display = 'none';
-            })
-            .catch(error => console.error('Error updating topology:', error));
-    }
     </script>
-
 </head>
-<body>
-    <button onclick="horizontal()">Horizontal layout</button>
-    <button onclick="vertical()">Vertical layout</button>
-    <button id="toggleLabelsButton">Interfaces</button>
-    <button id="updateTopologyButton">Actualizar Topología</button>
-</body>
+
+<div class="controls-container">
+    <div class="button-row">
+        <button onclick="horizontal()">Diseño Horizontal</button>
+        <button onclick="vertical()">Diseño Vertical</button>
+        <button id="toggleLabelsButton">Interfaces</button>
+    </div>
+    <p id="lastReloadTime"></p> <!-- Elemento para mostrar la hora de la última recarga -->
+</div>
+
+
+
 </html>
+

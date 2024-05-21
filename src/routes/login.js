@@ -1,4 +1,5 @@
 const express = require('express');
+
 const LoginController = require('../controllers/LoginController');
 const AutoController = require('../controllers/AutoController');
 const TopoController = require('../controllers/TopoController');
@@ -29,7 +30,10 @@ router.post('/upload', AutoController.uploadYAML, AutoController.uploadYAMLFile)
 
 
 //RUTA PARA VISUALIZAR TOPOLOGIA
-router.get('/topologia', TopoController.topo_ini);
+//router.get('/topologia', TopoController.topo_ini);
+router.get('/topologia', TopoController.chageDetect);
+router.post('/topologia', TopoController.update_Topology)
+router.get('/check-change', TopoController.checkChange);
 
 //RUTA PARA VISUALIZAR OPERACIONES
 router.get('/operaciones', TopoController.operaciones_ini);

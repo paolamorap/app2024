@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), #6dd5ed 40%, #2193b0); /* Fondo en degradado iniciando con blanco */
+  background-image: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
   font-family: 'Arial', sans-serif;
   color: #000; /* Texto en negro para contrastar con el fondo claro */
 }
@@ -25,26 +25,30 @@ body {
 .text-3xl {
   font-size: 2.25rem;
   color: #2193b0; /* Color coherente con el degradado */
-  margin-bottom: 2rem; /* Espacio debajo del título */
+  margin-bottom: 4rem; /* Espacio debajo del título */
 }
 
 .button-icon {
   display: inline-block;
-  margin: 1rem;
-  background: white; /* Fondo blanco para los botones */
+  margin: 2rem;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  background:#edf6f7; /* Fondo crema claro */
   padding: 1rem;
   border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra más visible para dar profundidad */
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .button-icon:hover {
   transform: translateY(-10px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande al pasar el ratón */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra aún más grande y más oscura al pasar el ratón */
 }
 
 .button-icon img {
-  width: 160px; /* Tamaño fijo para las imágenes */
+  display: block; /* Hace que la imagen sea un bloque para centrar fácilmente */
+  width: 180px; /* Tamaño fijo para las imágenes */
+  margin: auto;
   height: auto;
 }
 
@@ -62,6 +66,7 @@ body {
 .overlay {
   position: relative;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%); /* Transición suave de transparente a blanco */
+  background: #FFFFFF;
   display: flex;
   justify-content: center;
   align-items: center;

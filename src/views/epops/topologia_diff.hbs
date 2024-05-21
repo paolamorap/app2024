@@ -30,13 +30,19 @@
         }
     </style>
     <script type="text/javascript" src="/bower_components/next-bower/js/next.js"></script>
-    <script type="text/javascript" src="/js/topology.js"></script>
-    <script type="text/javascript" src="/js/topologia.js"></script>
+    <script type="text/javascript" src="/js/diff_topology.js"></script>
+    <script type="text/javascript" src="/js/configuration_topology_diff.js"></script>
+
+    
 </head>
 <body>
     <button onclick="horizontal()">Horizontal layout</button>
     <button onclick="vertical()">Vertical layout</button>
     <button id="toggleLabelsButton">Interfaces</button>
-    <button id="updateTopologyButton">Actualizar Topología</button>
+    <form action="/topologia" method="post">
+        <button type="submit">Confirmar Cambios</button>
+    </form>
+
 </body>
+
 </html>

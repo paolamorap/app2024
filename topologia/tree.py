@@ -336,23 +336,24 @@ def get_topology_diff(cached, current):
     # Parse nodes from topology dicts into the following format:
     # (topology_node_obj, (hostname,))
     # Some additional values might be added for comparison later on to the tuple above.
-    cached_nodes = [(x, (x['name'],)) for x in cached['nodes']]
-    nodes = [(x, (x['name'],)) for x in current['nodes']]
-    # Search for deleted and added hostnames.
+    cached_nodes = [(x, (x['IP'],)) for x in cached['nodes']]
+    nodes = [(x, (x['IP'],)) for x in current['nodes']]
+        
     node_id = 0
     host_id_map = {}
     for raw_data, node in nodes:
         if node in [x[1] for x in cached_nodes]:
             raw_data['id'] = node_id
-            host_id_map[raw_data['name']] = node_id
+            host_id_map[raw_data['IP']] = node_id
             raw_data['is_new'] = 'no'
             raw_data['is_dead'] = 'no'
             diff_merged_topology['nodes'].append(raw_data)
             node_id += 1
             continue
+    
         diff_nodes['added'].append(node)
         raw_data['id'] = node_id
-        host_id_map[raw_data['name']] = node_id
+        host_id_map[raw_data['IP']] = node_id
         raw_data['is_new'] = 'yes'
         raw_data['is_dead'] = 'no'
         diff_merged_topology['nodes'].append(raw_data)
@@ -362,20 +363,17 @@ def get_topology_diff(cached, current):
             continue
         diff_nodes['deleted'].append(cached_node)
         raw_data['id'] = node_id
-        host_id_map[raw_data['name']] = node_id
+        host_id_map[raw_data['IP']] = node_id
         raw_data['is_new'] = 'no'
         raw_data['is_dead'] = 'yes'
         raw_data['icon'] = 'dead_node'
         diff_merged_topology['nodes'].append(raw_data)
         node_id += 1
-    # Search for deleted and added interconnections.
-    # Interface change on some side is considered as
-    # one interconnection deletion and one interconnection insertion.
-    # Check for permutations as well:
-    # ((h1, Gi1), (h2, Gi2)) and ((h2, Gi2), (h1, Gi1)) are equal.
+    
     link_id = 0
     for raw_data, link in links:
         src, dst = link
+        
         if not (src, dst) in [x[1] for x in cached_links] and not (dst, src) in [x[1] for x in cached_links]:
             diff_links['added'].append((src, dst))
             raw_data['id'] = link_id
@@ -393,6 +391,7 @@ def get_topology_diff(cached, current):
         raw_data['is_new'] = 'no'
         raw_data['is_dead'] = 'no'
         diff_merged_topology['links'].append(raw_data)
+
     for raw_data, link in cached_links:
         src, dst = link
         if not (src, dst) in [x[1] for x in links] and not (dst, src) in [x[1] for x in links]:
@@ -404,6 +403,7 @@ def get_topology_diff(cached, current):
             raw_data['is_new'] = 'no'
             raw_data['is_dead'] = 'yes'
             diff_merged_topology['links'].append(raw_data)
+            
     return diff_nodes, diff_links, diff_merged_topology
 
 def print_diff(diff_result):

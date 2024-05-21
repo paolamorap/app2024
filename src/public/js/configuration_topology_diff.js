@@ -189,12 +189,35 @@ document.addEventListener('DOMContentLoaded', function() {
             nodeConfig: {
                 label: 'model.IP',
                 iconType: 'model.icon',
+                color: function(model) {
+                    if (model.get('is_new') === 'yes') {
+                        return '#148D09'; // Verde para nodos nuevos
+                    }
+                    if (model.get('is_dead') === 'yes') {
+                        return '#E40039'; // Verde para nodos nuevos
+                    }
+                }
             },
             linkConfig: {
-                linkType: 'parallel',
+                linkType: 'curve', // Modificado para usar curvas
                 sourcelabel: 'model.srcIfName',
                 targetlabel: 'model.tgtIfName',
-                
+                style: function(model) {
+                    if (model._data.is_dead === 'yes') {
+                        // Los enlaces eliminados tienen el atributo 'is_dead' establecido en 'yes'
+                        return { 'stroke-dasharray': '5' }; // Hacerlos discontinuos
+                    }
+                },
+                color: function(model) {
+                    if (model._data.is_dead === 'yes') {
+                        // Los enlaces eliminados tienen el atributo 'is_dead' establecido en 'yes'
+                        return '#E40039'; // Rojo
+                    }
+                    if (model._data.is_new === 'yes') {
+                        // Los enlaces nuevos tienen el atributo 'is_new' establecido en 'yes'
+                        return '#148D09'; // Verde
+                    }
+                },
             },
             showIcon: true,
             linkInstanceClass: 'CustomLinkClass', 
@@ -211,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+        
         horizontal();
         var shell = new Shell();
         shell.start();

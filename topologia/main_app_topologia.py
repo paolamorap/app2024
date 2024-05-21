@@ -62,39 +62,37 @@ def good_luck_have_fun():
     """Main script logic"""
     nombreyaml = '/home/paola/Documentos/app2024/topologia/inventarios/dispositivos.yaml'
     discovered_hosts, interconnections, b_root, conexiones_blok, info_disp = datos_topologia(nombreyaml)
-    TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/app2024/src/public/js/topology.js"
+    TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/app2024/src/public/js/topology1.js" 
     TOPOLOGY_DIFF_PATH = r"/home/paola/Documentos/app2024/src/public/js/diff_topology.js"
+
     TOPOLOGY_FILE_HEAD = f"\n\nvar topologyData = "
-    CACHED_TOPOLOGY_FILENAME = r"/home/paola/Documentos/app2024/src/public/js/cached_topology.json"
-    TOPOLOGY_DICT = tree.generate_topology_json1(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) 
-    CACHED_TOPOLOGY = tree.read_cached_topology(CACHED_TOPOLOGY_FILENAME)
-
-    tree.write_topology_file(TOPOLOGY_DICT) 
-    tree.write_topology_cache(TOPOLOGY_DICT, CACHED_TOPOLOGY_FILENAME)
-    tree.write_topology_file(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH) 
-
+    CACHED_TOPOLOGY_FILENAME = r"/home/paola/Documentos/app2024/src/public/js/cached_topology.json" #LEEEEEE
+    TOPOLOGY_DICT = tree.generate_topology_json1(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) #TOPOLOGY 1
+    CACHED_TOPOLOGY = tree.read_cached_topology(CACHED_TOPOLOGY_FILENAME) #LEEE   
+    tree.write_topology_file(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH)   
     print('Open main.html in a project root with your browser to view the topology')
 
     if CACHED_TOPOLOGY:
         DIFF_DATA = tree.get_topology_diff(CACHED_TOPOLOGY, TOPOLOGY_DICT)
         tree.print_diff(DIFF_DATA)
-        tree.write_topology_file(DIFF_DATA[2], dst=TOPOLOGY_DIFF_PATH)
+        tree.write_topology_file(DIFF_DATA[2], TOPOLOGY_FILE_HEAD, dst=TOPOLOGY_DIFF_PATH)
+
         # Verifica si hay cambios en los nodos o enlaces
         topology_is_changed = (len(DIFF_DATA[0]['added']) > 0 or
                             len(DIFF_DATA[0]['deleted']) > 0 or
                             len(DIFF_DATA[1]['added']) > 0 or
                             len(DIFF_DATA[1]['deleted']) > 0)
         if topology_is_changed:
-            # Escribe un archivo de bandera
+            tree.write_topology_cache(TOPOLOGY_DICT, CACHED_TOPOLOGY_FILENAME)
             with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
                 json.dump({'changes': True}, f)
-        else:
-            with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
-                json.dump({'changes': False}, f)
 
     else:
         #escribe la topología actual en el archivo de diferencias si falta el caché
         tree.write_topology_file(TOPOLOGY_DICT, dst=TOPOLOGY_DIFF_PATH)
 
 if __name__ == '__main__':
-    good_luck_have_fun()
+    while True:
+        good_luck_have_fun()
+        time.sleep(100)  # Espera una hora antes de ejecutar nuevamente
+

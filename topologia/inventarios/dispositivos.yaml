@@ -15,6 +15,9 @@ switchs_cisco:
     switch5:
       host: 192.168.20.5
       ref: S4
+    switch6:
+      host: 192.168.20.9
+      ref: S6 
   vars:
     user: test
     password: test
