@@ -1,53 +1,44 @@
-from pysnmp.entity.rfc3413.oneliner import cmdgen
+from pysnmp.hlapi import getCmd, CommunityData, UdpTransportTarget, SnmpEngine, ContextData, ObjectType, ObjectIdentity
+import re
 
-# Generador de comandos SNMP
-cmdGen = cmdgen.CommandGenerator()
-
-def bri_id(ips, datos):
+def obtener_informacion_dispositivos(ips, datos):
     resultados = {}
-    fallo = 0
-    fallos_individuales = {}
-
     for server_ip in ips:
         comunidad = datos[server_ip]["snmp"]
-        errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.bulkCmd(
-            cmdgen.CommunityData(comunidad),
-            cmdgen.UdpTransportTarget((server_ip, 161)),
-            0, 25,
-            '1.3.6.1.2.1.17.2.5'
-        )
-
-        if errorIndication:
-            print('Error en:', server_ip, 'Error:', errorIndication)
-            fallo = 1
-            fallos_individuales[server_ip] = str(errorIndication)
-            continue
+        # Diccionario temporal para almacenar los resultados de esta IP
+        info_temp = {'host_name': None}
         
-        if errorStatus:
-            print('Error en:', server_ip, 'Status:', errorStatus.prettyPrint())
-            fallo = 1
-            fallos_individuales[server_ip] = errorStatus.prettyPrint()
-            continue
+        # Obtener el Host Name (sysName)
+        errorIndication, errorStatus, errorIndex, varBinds = next(
+            getCmd(
+                SnmpEngine(),
+                CommunityData(comunidad),
+                UdpTransportTarget((server_ip, 161)),
+                ContextData(),
+                ObjectType(ObjectIdentity('1.3.6.1.2.1.1.5.0'))
+            )
+        )
+        if not errorIndication and not errorStatus and varBinds:
+            full_hostname = varBinds[0][1].prettyPrint()
+            # Utilizar expresión regular para extraer la parte antes del primer punto
+            match = re.match(r"([^\.]+)", full_hostname)
+            if match:
+                info_temp['host_name'] = match.group(1)
+            else:
+                info_temp['host_name'] = full_hostname  # Usar el hostname completo si no se encuentra un punto
+        
+        # Almacenar los resultados
+        resultados[server_ip] = info_temp
 
-        for varBindTableRow in varBindTable:
-            for name, val in varBindTableRow:
-                print('IP:', server_ip, 'OID:', name.prettyPrint(), 'Value:', val.prettyPrint())
-                # Guardar los valores que terminan en ".1"
-                if (name.prettyPrint()).split('.')[-1] == "1":
-                    resultados[server_ip] = val.prettyPrint()[2::]
+    return resultados
 
-    return resultados, fallo, fallos_individuales
-
-# Lista de IPs de dispositivos y sus datos de comunidad SNMP
+# Lista de IPs y datos SNMP (comunidades) de los dispositivos
 ips = ['192.168.20.2', '192.168.20.3']
 datos = {
     '192.168.20.2': {'snmp': 'public'},
     '192.168.20.3': {'snmp': 'public'}
 }
 
-# Llamar a la función y mostrar los resultados
-resultados, fallo, fallos_individuales = bri_id(ips, datos)
-print("Resultados finales:", resultados)
-print("Fallo general:", fallo)
-print("Fallos por IP:", fallos_individuales)
-
+# Llamada a la función y mostrar resultados
+resultados = obtener_informacion_dispositivos(ips, datos)
+print(resultados)

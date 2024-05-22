@@ -12,6 +12,7 @@ import obt_infoyam
 import dtsnmp
 import bridge_id_root
 import loadbalance
+import obt_root
 
 # Ingreso de Parametros - Comunidad SNMP, Direcciones IP
 #Fase 1
@@ -28,7 +29,7 @@ print("Ejecutando Fase 2 - Almacenamiento de Datos")
 b_id,f1,fif1 = bridge_id.bri_id(direc,datos)
 st_inf,f2,fif2 = stp_info.stp_inf(direc,datos)
 f = f1 or f2
-
+#b_root,froot,fifroot = obt_root.obtr(datos,iptp)
 fif = dtsnmp.snmt(fif1,fif2)
 
 #print (b_id)

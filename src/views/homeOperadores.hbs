@@ -17,7 +17,7 @@
             <img src="/image/topologia.jpeg" alt="Imagen de Topología">
             <span>TOPOLOGÍA</span>
         </a>
-        <a href="/estadisticas" class="button-icon">
+        <a href="javascript:void(0);" class="button-icon" id="estadisticas-link">
             <img src="/image/estadisticas.jpeg" alt="Imagen de Estadísticas">
             <span>ESTADÍSTICAS</span>
         </a>
@@ -35,6 +35,12 @@
     <p>Paola Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
   </div>
 </footer>
-
 </body>
+
+<script>
+document.getElementById('estadisticas-link').addEventListener('click', function() {
+    window.location.href = "http://127.0.0.1:3000/d/Hh3FU0ESz/red-wan-region-3-centrosur?orgId=1&refresh=5s";
+});
+</script>
+
 </html>

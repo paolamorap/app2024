@@ -37,17 +37,9 @@ def obtener_bridge_id_root_switch(ips,datos):
 def obtener_bridge_id_root(ip_values):
     contador = Counter(ip_values.values())
     # Encontrar el bridge ID root 
-    bridge_id_root, _ = contador.most_common(1)[0]
-    return bridge_id_root
+    bridge_id_root, _  = contador.most_common(1)[0]
 
-#def encontrar_ip_por_bridge_id(diccionario_bridge_id, bridge_id_buscado):
-    # Quitamos el prefijo '0x0000' vida real y en simu 0x5000 si está presente, ya que no se encuentra en los valores del diccionario
-    #bridge_id_buscado = bridge_id_buscado.lower().replace('0x5000', '')
-    # Buscar en el diccionario
-    #for ip, bridge_id in diccionario_bridge_id.items():
-        #if bridge_id.lower() == bridge_id_buscado:
-            #return ip
-    #return "No se encontró la IP correspondiente."
+    return bridge_id_root
 
 def encontrar_ip_por_bridge_id(diccionario_bridge_id, bridge_id_buscado):
     # Eliminar los primeros 6 caracteres del bridge_id_buscado

@@ -23,4 +23,3 @@ def b_conex(direc,b_id,stp_in):
                     pass
     return lc
 
-

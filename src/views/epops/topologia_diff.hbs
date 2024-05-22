@@ -6,28 +6,33 @@
     <meta charset = "utf-8">
     <link rel="stylesheet" href="/bower_components/next-bower/css/next.css">
     <style>
-        /* Estilos personalizados para los botones */
+        .button-row {
+            display: flex;
+            justify-content: center; /* Centra los botones horizontalmente */
+            gap: 100px; /* Espacio entre botones */
+            margin-bottom: 10px; /* Espacio debajo del grupo de botones */
+            width: 100%; /* Ocupar el ancho completo del contenedor padre */
+            background-color: #ffff; /* Un fondo claro para destacar la zona */
+            padding: 10px 0; /* Padding vertical */
+        }
+
         button {
-            background-color: #0081E5; /* Azul un poco más intenso */
-            border: none; /* Sin borde */
-            color: white; /* Color de texto */
-            padding: 10px 20px; /* Espaciado interno */
-            text-align: center; /* Alineación del texto */
-            text-decoration: none; /* Sin subrayado */
-            display: inline-block; /* Mostrar como bloque en línea */
-            font-size: 15px; /* Tamaño de fuente */
-            margin: 1px 1px; /* Margen exterior */
-            cursor: pointer; /* Cursor al pasar sobre el botón */
-            border-radius: 10px; /* Radio de borde */
+            background: linear-gradient(145deg, #009fdf, #006fad);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px; /* Bordes ligeramente redondeados */
+            cursor: pointer;
+            font-size: 15px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
         }
-        /* Cambiar color de fondo al pasar el cursor sobre el botón */
+
         button:hover {
-            background-color: #00469D; /* Un tono más oscuro para el hover */
-            transform: scale(1.05);
+            background: linear-gradient(145deg, #007dce, #004e8e);
+            box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
         }
-        button:active{
-            transform: scale(0.9);
-        }
+
     </style>
     <script type="text/javascript" src="/bower_components/next-bower/js/next.js"></script>
     <script type="text/javascript" src="/js/diff_topology.js"></script>
@@ -36,12 +41,15 @@
     
 </head>
 <body>
-    <button onclick="horizontal()">Horizontal layout</button>
-    <button onclick="vertical()">Vertical layout</button>
-    <button id="toggleLabelsButton">Interfaces</button>
-    <form action="/topologia" method="post">
-        <button type="submit">Confirmar Cambios</button>
-    </form>
+    <div class="button-row">
+        <button onclick="horizontal()">Horizontal layout</button>
+        <button onclick="vertical()">Vertical layout</button>
+        <button id="toggleLabelsButton">Interfaces</button>
+        <form action="/topologia" method="post">
+            <button type="submit">Confirmar Cambios</button>
+        </form>
+    </div>
+
 
 </body>
 

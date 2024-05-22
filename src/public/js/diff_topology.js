@@ -50,6 +50,20 @@ var topologyData = {
             "is_dead": "no",
             "is_new": "no",
             "port_bloks": false,
+            "port_blokt": true,
+            "source": 2,
+            "srcDevice": "192.168.20.3",
+            "srcIfName": "G1/0",
+            "target": 0,
+            "tgtDevice": "192.168.20.10",
+            "tgtIfName": "G0/3"
+        },
+        {
+            "id": 4,
+            "index": 1,
+            "is_dead": "no",
+            "is_new": "no",
+            "port_bloks": false,
             "port_blokt": false,
             "source": 3,
             "srcDevice": "192.168.20.4",
@@ -59,7 +73,7 @@ var topologyData = {
             "tgtIfName": "G0/1"
         },
         {
-            "id": 4,
+            "id": 5,
             "index": 1,
             "is_dead": "no",
             "is_new": "no",
@@ -73,7 +87,7 @@ var topologyData = {
             "tgtIfName": "G0/0"
         },
         {
-            "id": 5,
+            "id": 6,
             "index": 2,
             "is_dead": "no",
             "is_new": "no",
@@ -87,7 +101,7 @@ var topologyData = {
             "tgtIfName": "G0/1"
         },
         {
-            "id": 6,
+            "id": 7,
             "index": 1,
             "is_dead": "no",
             "is_new": "no",

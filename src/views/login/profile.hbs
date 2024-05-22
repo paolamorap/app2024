@@ -8,6 +8,25 @@
   <link rel="stylesheet" href="/css/estilos_main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
   <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+  <style>
+    .custom-button {
+        background: linear-gradient(145deg, #009fdf, #006fad);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 15px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        transition: all 0.2s ease;
+    }
+
+    .custom-button:hover {
+        background: linear-gradient(145deg, #007dce, #004e8e);
+        box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+    }
+
+</style>
 </head>
 <body class="bg-gray-200">
   <nav class="flex items-center py-4 nav-color text-white shadow-md">
@@ -39,8 +58,8 @@
       </div>
 
       <!-- Botón para cambiar la contraseña -->
-      <div class="text-right">
-        <button onclick="toggleChangePassword()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      <div class="text-right button-row"> <!-- Usa la clase button-row para aplicar el estilo -->
+        <button onclick="toggleChangePassword()" class="custom-button">
           Cambiar Contraseña
         </button>
       </div>
@@ -66,7 +85,7 @@
             </label>
             <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
-          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <button type="submit" class="custom-button">
             Actualizar Contraseña
           </button>
         </form>

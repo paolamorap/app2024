@@ -1,30 +1,30 @@
 .nav-color {
-    /* Degradado azul suave */
-    background-image: linear-gradient(to right, #6dd5ed, #2193b0);
-  }
-  .nav-link, .logout-button {
-    transition: background-color 0.2s, transform 0.2s;
-  }
-  .nav-link:hover, .logout-button:hover {
-    background-color: #2A69AC; /* Azul marino más claro */
-    transform: translateY(-5px); /* Eleva ligeramente el botón */
-  }
-  .logout-button {
-    background-color: #5590C6; /* Azul claro para el logout */
-  }
-  .rounded-button {
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 9999px; /* Botones completamente redondeados */
-  }
-  /* Nuevo estilo para el logo */
-  .logo {
-    width: 250px; /* O un valor específico, como 200px */
-    height: auto; /* Mantiene la proporción de aspecto del logo */
-    max-width: 250px; /* O el máximo que desees que crezca el logo */
-    max-height: 100%; /* Mantiene la altura proporcional al ancho */
-    transform: translateX(100px);
-  }
+  /* Degradado azul suave */
+  background-image: linear-gradient(to right, #6dd5ed, #52b4cc);
+}
+.nav-link, .logout-button {
+  transition: background-color 0.2s, transform 0.2s;
+}
+.nav-link:hover, .logout-button:hover {
+  background-color: #2A69AC; /* Azul marino más claro */
+  transform: translateY(-5px); /* Eleva ligeramente el botón */
+}
+.logout-button {
+  background-color: #5590C6; /* Azul claro para el logout */
+}
+.rounded-button {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 9999px; /* Botones completamente redondeados */
+}
+/* Nuevo estilo para el logo */
+.logo {
+  width: 250px; /* O un valor específico, como 200px */
+  height: auto; /* Mantiene la proporción de aspecto del logo */
+  max-width: 250px; /* O el máximo que desees que crezca el logo */
+  max-height: 100%; /* Mantiene la altura proporcional al ancho */
+  transform: translateX(100px);
+}
