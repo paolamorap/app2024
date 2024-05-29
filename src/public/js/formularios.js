@@ -11,7 +11,7 @@ if (document.getElementById('device-form')) {
     let device_type;
     if (marcaSeleccionada === 'CISCO') {
       device_type = 'cisco_ios';
-    } else if (marcaSeleccionada === 'HPA5120') {
+    } else if (marcaSeleccionada === 'HP-A5120') {
         device_type = 'hp_comware';
     } 
     else {

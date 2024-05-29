@@ -33,9 +33,9 @@ app.use(bodyParser.json());
 app.use(myconnection(mysql, {
     host: 'localhost',
     user: 'root',
-    password: 'pollito0101',
+    password: 'admin',
     port: 3306,
-    database: 'curso'
+    database: 'epolaris'
 }));
 
 app.use(session({

@@ -68,41 +68,12 @@ def main_top(direc):
     discovered_hosts = tree.generate_switch_names(direc)
 
     print("------------- EJECUTANDO FASE 5 (GENERANDO ARCHIVOS DE DESPLIEGUE) -------------------")
-    """
-    TOPOLOGY_FILE_PATH = r"/home/paola/Documentos/app2024/src/public/js/topology1.js" 
-    TOPOLOGY_DIFF_PATH = r"/home/paola/Documentos/app2024/src/public/js/diff_topology.js"
-    CACHED_TOPOLOGY_FILENAME = r"/home/paola/Documentos/app2024/src/public/js/cached_topology.json" 
-
-    TOPOLOGY_FILE_HEAD = f"\n\nvar topologyData = "
-    TOPOLOGY_DICT = tree.generar_topologia_fija(discovered_hosts, interconnections,b_root_punta,conexiones_blok, hostname, info_disp)
-    CACHED_TOPOLOGY = tree.leer_cache(CACHED_TOPOLOGY_FILENAME) 
-    tree.guardar_archivo_topologia(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH)
-
-    if CACHED_TOPOLOGY:
-        DIFF_DATA = tree.generar_topologia_diferencias(CACHED_TOPOLOGY, TOPOLOGY_DICT)
-        tree.print_diff(DIFF_DATA)
-        tree.guardar_archivo_topologia(DIFF_DATA[2], TOPOLOGY_FILE_HEAD, dst=TOPOLOGY_DIFF_PATH)
-
-        # Verifica si hay cambios en los nodos o enlaces
-        topologia_cambio = (len(DIFF_DATA[0]['added']) > 0 or
-                            len(DIFF_DATA[0]['deleted']) > 0 or
-                            len(DIFF_DATA[1]['added']) > 0 or
-                            len(DIFF_DATA[1]['deleted']) > 0)
-        if topologia_cambio:
-            tree.guardar_cache(TOPOLOGY_DICT, CACHED_TOPOLOGY_FILENAME)
-            with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
-                json.dump({'changes': True}, f)
-
-    else:
-        #escribe la topología actual en el archivo de diferencias si falta el caché
-        tree.guardar_archivo_topologia(TOPOLOGY_DICT, dst=TOPOLOGY_DIFF_PATH)
-    """
 
     RUTA_ARCHIVO_TOPOLOGIA = r"/home/paola/Documentos/app2024/src/public/js/topology1.js"
     RUTA_ARCHIVO_DIFERENCIAS_TOPOLOGIA = r"/home/paola/Documentos/app2024/src/public/js/diff_topology.js"
     RUTA_ARCHIVO_TOPOLOGIA_CACHE = r"/home/paola/Documentos/app2024/src/public/js/cached_topology.json"
 
-    CABECERA_ARCHIVO_TOPOLOGIA = f"\n\nvar datosTopologia = "
+    CABECERA_ARCHIVO_TOPOLOGIA = f"\n\nvar topologyData = "
     DICCIONARIO_TOPOLOGIA = tree.generar_topologia_fija(discovered_hosts, interconnections,b_root_punta,conexiones_blok, hostname, info_disp)
     TOPOLOGIA_CACHEADA = tree.leer_cache(RUTA_ARCHIVO_TOPOLOGIA_CACHE)
     tree.guardar_archivo_topologia(DICCIONARIO_TOPOLOGIA, CABECERA_ARCHIVO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA)
@@ -119,7 +90,7 @@ def main_top(direc):
                             len(DATOS_DIFERENCIA[1]['deleted']) > 0)
         if cambio_topologia:
             tree.guardar_cache(DICCIONARIO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA_CACHE)
-            with open('/home/paola/Documentos/app2024/src/public/js/bandera_cambios.json', 'w') as f:
+            with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
                 json.dump({'changes': True}, f)
 
     else:

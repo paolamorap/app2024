@@ -1,0 +1,9 @@
+influxdb==5.3.2
+netmiko==4.3.0
+networkx==3.3
+numpy==1.26.4
+paramiko==3.4.0
+ping3==4.0.8
+pysnmp==4.4.12
+pyTelegramBotAPI==4.18.1
+PyYAML==6.0.1

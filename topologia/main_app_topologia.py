@@ -22,13 +22,15 @@ def datos_topologia(archivo_dispositivos):
 
     print("------------------- EJECUTANDO FASE 2 (INFORMACION DE STP) ------------------------)")
     b_id,f1,fif1 = bridge_id.bri_id(direc,datos)
+    print(b_id)
     st_inf,f2,fif2 = stp_info.stp_inf(direc,datos)
     f = f1 or f2
     fif = dtsnmp.snmt(fif1,fif2)
+    print(st_inf)
 
     print("--------------- EJECUTANDO FASE 3 (IDENTIFICACION DE CONEXIONES) ------------------)")
     l = com_conex.b_conex(direc,b_id,st_inf)
-    #print('CONEXIONES',l)
+    print('CONEXIONES',l)
     #Mapeo de Las etiquetas
     info_int,f3,fif3 = map_int.ma_int(direc,datos)
     #print('INTERFACES',info_int)
@@ -41,8 +43,11 @@ def datos_topologia(archivo_dispositivos):
     bridge_id_root_dis =  bridge_id_root.obtener_bridge_id_root_switch(direc, datos)
     root_bridge_id = bridge_id_root.obtener_bridge_id_root(bridge_id_root_dis)
     b_root = bridge_id_root.encontrar_ip_por_bridge_id(b_id,root_bridge_id) 
+    #b_root = "c401.1147.0001"
+    print('BROOT', b_root)
     bloq_int=tree.identificar_interfaces_bloqueadas(nodb, info_int)
     interconnections = tree.connection_tree_web(l,info_int)
+    print("CONECIONES2:", interconnections)
     conexiones_blok = tree.marcar_puertos_bloqueados(interconnections, bloq_int)
     #print('CONEXION BLOCKS', conexiones_blok)
     hostname = tree.obtener_hostname_dispositivos(direc,datos)
@@ -110,7 +115,7 @@ def good_luck_have_fun():
                             len(DATOS_DIFERENCIA[1]['deleted']) > 0)
         if cambio_topologia:
             tree.guardar_cache(DICCIONARIO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA_CACHE)
-            with open('/home/paola/Documentos/app2024/src/public/js/bandera_cambios.json', 'w') as f:
+            with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
                 json.dump({'changes': True}, f)
 
     else:
