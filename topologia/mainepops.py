@@ -77,7 +77,8 @@ def main_top(direc):
     DICCIONARIO_TOPOLOGIA = tree.generar_topologia_fija(discovered_hosts, interconnections,b_root_punta,conexiones_blok, hostname, info_disp)
     TOPOLOGIA_CACHEADA = tree.leer_cache(RUTA_ARCHIVO_TOPOLOGIA_CACHE)
     tree.guardar_archivo_topologia(DICCIONARIO_TOPOLOGIA, CABECERA_ARCHIVO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA)
-
+    tree.guardar_cache(DICCIONARIO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA_CACHE)
+    
     if TOPOLOGIA_CACHEADA:
         DATOS_DIFERENCIA = tree.generar_topologia_diferencias(TOPOLOGIA_CACHEADA, DICCIONARIO_TOPOLOGIA)
         tree.imprimir_diferencias(DATOS_DIFERENCIA)
@@ -89,7 +90,7 @@ def main_top(direc):
                             len(DATOS_DIFERENCIA[1]['added']) > 0 or
                             len(DATOS_DIFERENCIA[1]['deleted']) > 0)
         if cambio_topologia:
-            tree.guardar_cache(DICCIONARIO_TOPOLOGIA, RUTA_ARCHIVO_TOPOLOGIA_CACHE)
+            
             with open('/home/paola/Documentos/app2024/src/public/js/changes_flag.json', 'w') as f:
                 json.dump({'changes': True}, f)
 

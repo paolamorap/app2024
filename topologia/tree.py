@@ -231,13 +231,8 @@ def generar_topologia_diferencias(cached, current):
     diff_nodes = {'added': [], 'deleted': []}
     diff_links = {'added': [], 'deleted': []}
     diff_merged_topology = {'nodes': [], 'links': []}
-    # Parse links from topology dicts into the following format:
-    # (topology_link_obj, (source_hostnme, source_port), (dest_hostname, dest_port))
     cached_links = [(x, ((x['srcDevice'], x['srcIfName']), (x['tgtDevice'], x['tgtIfName']))) for x in cached['links']]
     links = [(x, ((x['srcDevice'], x['srcIfName']), (x['tgtDevice'], x['tgtIfName']))) for x in current['links']]
-    # Parse nodes from topology dicts into the following format:
-    # (topology_node_obj, (hostname,))
-    # Some additional values might be added for comparison later on to the tuple above.
     cached_nodes = [(x, (x['IP'],)) for x in cached['nodes']]
     nodes = [(x, (x['IP'],)) for x in current['nodes']]
         
