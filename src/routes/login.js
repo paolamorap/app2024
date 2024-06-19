@@ -37,6 +37,7 @@ router.get('/check-change', TopoController.checkChange);
 
 //RUTA PARA VISUALIZAR OPERACIONES
 router.get('/operaciones', TopoController.operaciones_ini);
+router.get('/configuracion-aplicacion', TopoController.configuraciones_ini);
 router.get('/run1', OperaController.cargarArchivo);
 
 router.get('/balanceo', OperaController.balanceo);

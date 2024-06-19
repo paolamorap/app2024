@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), #84ACE3 100%, #84ACE3); /* Fondo en degradado iniciando con blanco */
+    font-family: Arial, sans-serif;
+    color: #000; /* Texto en negro para contrastar con el fondo claro */
+  }
+  
+  .overlay {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 75%); /* Transición suave de transparente a blanco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 59vh;
+  }
+  
+  .container {
+    background: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
+    border-radius: 20px;
+    padding: 40px;
+    width: 60%;
+    max-width: 1000px; /* Más ancho para acomodar mejor el contenido */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .title {
+    margin-bottom: 1.5rem;
+    font-size: 2.25rem; /* Tamaño más grande para el título */
+    color: #2A69AC; /* Color coherente con el degradado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para el título */
+  }
+  
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .category {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra todo horizontalmente */
+    justify-content: center; /* Centra todo verticalmente */
+  }
+  .category img {
+    width: 100px; /* Tamaño fijo para las imágenes */
+    height: auto;
+    display: inline-block;
+    margin: 1rem;
+    background: white; /* Fondo blanco para los botones */
+    padding: 1rem;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande al pasar el ratón */
+    
+  }
+  .category p {
+    font-size: 1rem;
+    color: #103863; /* Texto en negro */
+    font-weight: bold;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0; /* Asegurarse de que no haya padding predeterminado */
+  }
+  .social-icons li {
+    margin: 0 10px;
+  }
+  .social-icons a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .logo-img {
+    width: 70px; /* Tamaño fijo del logo */
+    height: 70px; /* Tamaño fijo del logo */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    object-fit: cover; /* Asegurar que la imagen cubra el espacio sin deformarse */
+    overflow: hidden; /* Prevenir desbordamiento en caso de que la imagen no sea perfectamente cuadrada */
+  }
+  
+  .footer {
+    background: #4e81b8;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  .footer p {
+    margin: 0.5rem 0;
+  }
+  .footer .company-info p,
+  .footer .social-links a {
+    margin: 10px 0; /* Espacio entre elementos */
+  }
+  
+  .footer a {
+    color: #ffffff; /* Color de los enlaces: blanco */
+    text-decoration: none; /* Sin subrayado */
+    padding: 2px; /* Espaciado interno para hacerlos más clickeables */
+    display: inline-block;
+    font-size: 16px; /* Tamaño de la fuente */
+  }
+  
+  .footer a:hover,
+  .footer a:focus {
+    color: #add8e6; /* Cambia el color al pasar el mouse: azul clarito */
+  }
+  
+  .footer .social-links {
+    margin: 10px 0; /* Espaciado entre las líneas */
+  }
+  
+  .footer .social-links a {
+    margin: 0 10px; /* Espaciado entre los enlaces */
+  }
+  
+  .footer .company-info p {
+    margin: 5px 0; /* Espaciado entre los párrafos */
+  }
+  
+  
+  
+  .dropbtn {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .dropbtn:hover {
+    background-color: rgba(255, 255, 255, 1); /* Menos opacidad al pasar el mouse */
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(146, 191, 221, 0.973); /* LightBlue con opacidad */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1;
+  }
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .upload-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .upload-btn:hover {
+    background-color: #45a049;
+  }
+  input[type="file"] {
+    display: none;
+  }
+  form {
+    margin-top: 10px;
+  }
+  
+  .text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Cambio para alinear contenido al inicio */
+    padding-top: 10vh; /* Agrega un padding arriba para bajar un poco el contenido */
+    height: 70vh; /* Reduce la altura para que el contenido esté más arriba */
+    font-weight: bold;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+  }
+  
+  .text-3xl {
+    font-size: 2.25rem;
+    color: #2A69AC; /* Color coherente con el degradado */
+    margin-bottom: rem; /* Espacio debajo del título */
+  }
+  
+  .button-icon {
+    display: inline-block;
+    margin: 1rem;
+    background: white; /* Fondo blanco para los botones */
+    padding: 1rem;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    
+  }
+  .button-icon:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande al pasar el ratón */
+  }
+  .button-icon img {
+    width: 100px; /* Tamaño fijo para las imágenes */
+    height: auto;
+  }
+  .button-icon span {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #103863;
+  }
+  
+  

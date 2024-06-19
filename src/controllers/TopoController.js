@@ -83,6 +83,14 @@ function operaciones_ini(req, res) {
   }
 }
 
+function configuraciones_ini(req, res) {
+  if (req.session.loggedin ){
+    res.render('epops/configuracion-aplicacion', {name: req.session.name});
+  }else{
+    res.redirect('/');
+  }
+}
+
   module.exports = {
     topo_ini: topo_ini,
     topo_inicial: topo_inicial,
@@ -90,6 +98,7 @@ function operaciones_ini(req, res) {
     update_Topology: update_Topology,
     chageDetect: chageDetect,
     checkChange: checkChange,
+    configuraciones_ini : configuraciones_ini,
   }
 
 
