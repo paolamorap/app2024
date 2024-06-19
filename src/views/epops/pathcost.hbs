@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="titulo">Cambiar el costo de una interfaz de un Switch</h1>
+        <h1 class="titulo">Configurar costo de ruta de un conmutador</h1>
         <form id="stpCost-form" class="form">
             <label for="ip">Direcciones IP</label>
             <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1" required>
@@ -16,20 +16,26 @@
             <input type="text" id="interfaz" name="interfaz" placeholder="Ejemplo: GigabitEthernet0/1" required>
 
             <label for="marca">Modelo del dispositivo</label>
-            <select id="marca" name="marca" required class="form-control" onchange="mostrarCamposAdicionales()">
-                <option value="">Seleccione...</option>
-                <option value="HPA5120">HP A5120</option>
-                <option value="HPV1910">HP V1910</option>
-                <option value="3COM">3COM BASELINE</option>
-                <option value="TPLINK">TP-LINK</option>
-                <option value="CISCO">CISCO</option>
-            </select>
+            <div class="select-container">
+                <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoLogs(this.value)">
+                    <option value="">Seleccione...</option>
+                    <option value="HPA5120">HP A5120</option>
+                    <option value="HPV1910">HP V1910</option>
+                    <option value="3COM">3COM BASELINE</option>
+                    <option value="TPLINK">TP-LINK</option>
+                    <option value="CISCO">CISCO</option>
+                </select>
+                <span class="select-arrow"></span>
+            </div>
 
             <div id="modoContainer" style="display: none;"> <!-- Contenedor para el modo, inicialmente oculto -->
                 <label for="modoSTP">Modo</label>
-                <select id="modoSTP" name="modoSTP" class="form-control" onchange="mostrarCamposSegunModo()">
-                    <option value="">Seleccione...</option>
-                </select>
+                <div class="select-container">
+                    <select id="modoSTP" name="modoSTP" class="form-control" onchange="mostrarCamposSegunModo()">
+                        <option value="">Seleccione...</option>
+                    </select>
+                    <span class="select-arrow"></span>
+                </div>
             </div>
 
 

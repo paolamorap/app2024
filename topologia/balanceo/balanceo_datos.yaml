@@ -1,14 +1,1 @@
-conexiones_disp:
-  enlace1:
-    host1:
-      IP: 192.168.122.4
-      interfaz1: GigabitEthernet0/0
-    host2:
-      IP: 192.168.122.2
-      interfaz1: GigabitEthernet0/2
-    host3:
-      IP: 192.168.122.3
-      interfaz1: GigabitEthernet0/2
-    host4:
-      IP: 192.168.122.4
-      interfaz1: GigabitEthernet0/1
+conexiones_disp: {}

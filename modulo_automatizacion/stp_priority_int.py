@@ -2,6 +2,7 @@ import conexion_ssh
 import config_stp
 import os
 import read_yaml
+import time
 
 def procesar_dispositivos_stpPriority(datos_yaml):
     
@@ -67,4 +68,8 @@ def procesar_dispositivos_stpPriority(datos_yaml):
 base_path = "/home/paola/Documentos/app2024/modulo_automatizacion/registros"
 archivo = os.path.join(base_path, "datos_stpPriority.yaml")
 datos_yaml = read_yaml.cargar_datos_snmp(archivo)
+time_ini = time.time()
 procesar_dispositivos_stpPriority(datos_yaml)
+time_fin = time.time()
+times = time_fin - time_ini
+print('El algoritmo de configurar STP Prioridad tardo: ', times)

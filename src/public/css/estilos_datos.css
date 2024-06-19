@@ -17,63 +17,79 @@ body {
 
 .titulo {
     font-size: 24px;
-    color: #333;
+    color: #2A69AC;
     margin-bottom: 16px;
     font-weight: bold;
     text-align: center;
 }
+
 .form {
     display: flex;
     flex-direction: column;
-    
 }
 
-/* Estilos para el select específicamente */
-.form select {
-    border: 2px solid #6dd5ed; /* Borde turquesa */
+/* Contenedor para select y flecha */
+.select-container {
+    position: relative;
+    margin-bottom: 16px; /* Espaciado uniforme */
+}
+
+.select-container select {
+    width: 100%;
+    border: 2px solid #2A69AC; /* Borde turquesa */
     border-radius: 10px; /* Bordes redondeados */
     padding: 12px;
     font-size: 16px; /* Tamaño de texto más grande para mejor legibilidad */
-    margin-bottom: 8px; /* Espaciado uniforme */
     -webkit-appearance: none; /* Remueve la apariencia predeterminada en WebKit/Blink */
     -moz-appearance: none; /* Remueve la apariencia predeterminada en Firefox */
     appearance: none; /* Remueve la apariencia predeterminada */
-    background-color: white; /* Fondo turquesa */
-    color:  #b0b0b0   ; /* Texto en color blanco para contraste */
+    background-color: white; /* Fondo blanco */
+    color: #b0b0b0; /* Texto en color azul */
+}
 
+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #2A69AC; /* Color de la flecha */
+    pointer-events: none; /* Evitar que la flecha sea clickeable */
 }
 
 /* Estilo para enfocar el select */
-.form select:focus {
+.select-container select:focus {
     outline: none;
-    border-color: #2193b0; /* Oscurece el borde al enfocar */
+    border-color: #2A69AC; /* Oscurece el borde al enfocar */
     background-color: #e8f0fe;
-    color: #333; /* Color de texto más oscuro para mejor legibilidad */
+    color: #b0b0b0; /* Color de texto más oscuro para mejor legibilidad */
 }
 
-/* Estilos para los inputs y select */
+/* Estilos para los inputs */
 .form input[type=text],
 .form input[type=number],
 .form input[type=password] {
-    border: 2px solid #6dd5ed; /* Borde turquesa */
+    border: 2px solid #2A69AC; /* Borde turquesa */
     border-radius: 10px; /* Bordes redondeados */
     padding: 12px;
     font-size: 16px; /* Tamaño de texto más grande para mejor legibilidad */
     margin-bottom: 8px; /* Espaciado uniforme */
 }
 
-/* Estilo para enfocar los inputs y select */
+/* Estilo para enfocar los inputs */
 .form input[type=text]:focus,
-.form input[type=text]:focus,
+.form input[type=number]:focus,
 .form input[type=password]:focus {
     outline: none;
-    border-color: #2193b0; /* Oscurece el borde al enfocar */
+    border-color: #2A69AC; /* Oscurece el borde al enfocar */
     background-color: #e8f0fe;
 }
 
 /* Estilos para cambiar el color del texto placeholder */
-.form input::placeholder,
-.form select::placeholder {
+.form input::placeholder {
     color: #b0b0b0; /* Esto es un gris claro, cambia el código del color a lo que prefieras */
     opacity: 1; /* Asegúrate de que el navegador no aplique una opacidad baja al placeholder */
 }
@@ -87,7 +103,7 @@ label {
 /* Estilos para el botón de guardar dispositivo */
 .form button.btn {
     padding: 15px;
-    background-image: linear-gradient(to right, #6dd5ed, #2193b0); /* Degradado */
+    background-image: linear-gradient(to right, #85aae2, #2A69AC); /* Degradado */
     color: white;
     border: none;
     border-radius: 10px; /* Bordes redondeados */
@@ -98,9 +114,8 @@ label {
 }
 
 .form button.btn:hover {
-    background-image: linear-gradient(to right, #2193b0, #6dd5ed); /* Inversión del degradado */
+    background-image: linear-gradient(to right, #84b7e7, #5687af); /* Inversión del degradado */
 }
-
 
 /* Ajuste de los mensajes de error */
 .message-container {

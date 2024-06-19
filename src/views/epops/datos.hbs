@@ -7,31 +7,37 @@
 </head>
 <body>
     <div class="container">
-        <h1 class = "titulo" >Ingreso de datos del dispositivo</h1>
+        <h1 class="titulo">Ingreso de datos del dispositivo</h1>
         
         <form id="device-form" class="form">
             <label for="tipo_dispositivo">Tipo de Dispositivo</label>
-            <select id="tipo_dispositivo" name="tipo_dispositivo" required class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="router">Router</option>
-                <option value="switch">Switch</option>
-            </select>
+            <div class="select-container">
+                <select id="tipo_dispositivo" name="tipo_dispositivo" required class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="router">Router</option>
+                    <option value="switch">Switch</option>
+                </select>
+                <span class="select-arrow"></span>
+            </div>
             
             <label for="ip">IP</label>
             <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1" required>
             
             <label for="marca">Modelo del dispositivo</label>
-            <select id="marca" name="marca" required class="form-control" >
-                <option value="">Seleccione...</option>
-                <option value="HP-A5120">HP A5120</option>
-                <option value="HP-V1910">HP V1910</option>
-                <option value="3COM-BASELINE">3COM BASELINE</option>
-                <option value="TPLINK">TP-LINK</option>
-                <option value="CISCO">CISCO</option>
-            </select>
+            <div class="select-container">
+                <select id="marca" name="marca" required class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="HP-A5120">HP A5120</option>
+                    <option value="HP-V1910">HP V1910</option>
+                    <option value="3COM-BASELINE">3COM BASELINE</option>
+                    <option value="TPLINK">TP-LINK</option>
+                    <option value="CISCO">CISCO</option>
+                </select>
+                <span class="select-arrow"></span>
+            </div>
             
             <label for="comunidad">Comunidad SNMP</label>
-            <input type="text" id="comunidad" name="comunidad" placeholder="Ejemplo: prueba" required >
+            <input type="text" id="comunidad" name="comunidad" placeholder="Ejemplo: prueba" required>
             
             <label for="region">Región MSTP</label>
             <input type="text" id="region" name="region" placeholder="Ejemplo: region3" required>
@@ -47,7 +53,6 @@
 
         <!-- Mensaje de respuesta -->
         <div id="message-container" class="message-container"></div>
-        
     </div>
     <script src="/js/formularios.js"></script>
 </body>

@@ -22,20 +22,26 @@
         <form id="balanceo-form" class="form">
             
             <label for="enlace">Seleccione un enlace:</label>
-            <select name="enlace" id="enlace" required>
-                {{#each datos.datos_web as |valor clave|}}
-                    <option value="{{clave}}">{{valor}}</option>
-                {{/each}}
-            </select>
+            <div class="select-container">
+                <select name="enlace" id="enlace" required class="form-control">
+                    {{#each datos.datos_web as |valor clave|}}
+                        <option value="{{clave}}">{{valor}}</option>
+                    {{/each}}
+                </select>
+                <span class="select-arrow"></span>
+            </div>
 
             <label for="modoSTP">Modo STP</label>
-            <select id="modoSTP" name="modoSTP" required class="form-control">
-                <option value="">Seleccione...</option>
-                <option value="mstp">MSTP</option>
-            </select>
+            <div class="select-container">
+                <select id="modoSTP" name="modoSTP" required class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="mstp">MSTP</option>
+                </select>
+                <span class="select-arrow"></span>
+            </div>
 
             <label for="vlan1">Vlan</label>
-            <input type="text" id="vlan1" name="vlan1" placeholder="Rango de VLANs que desea permitir que pase en el enlace no bloquedo">
+            <input type="text" id="vlan1" name="vlan1" placeholder="Rango de VLANs que desea permitir que pase en el enlace no bloqueado">
 
             <label for="user">Usuario</label>
             <input type="text" id="user" name="user" placeholder="Usuario" required>
@@ -47,7 +53,6 @@
         </form>
         <div id="message-container" class="message-container"></div>
     </div>
-
 
     <script src="/js/balanceo.js"></script>
 </body>

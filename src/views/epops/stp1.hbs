@@ -7,29 +7,35 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="titulo">Prioridad STP del Switch</h1>
+        <h1 class="titulo">Configurar prioridad STP del conmutador</h1>
         <form id="stpPriority-form" class="form">
             <label for="ip">Direcciones IP</label>
-            <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1" required>
+            <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1, 192.168.1.2, ..." required>
 
             <label for="marca">Modelo del dispositivo</label>
-            <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoModoSTPPrioridad()">
-                <option value="">Seleccione...</option>
-                <option value="HPA5120">HP A5120</option>
-                <option value="HPV1910">HP V1910</option>
-                <option value="3COM">3COM BASELINE</option>
-                <option value="TPLINK">TP-LINK</option>
-                <option value="CISCO">CISCO</option>
-            </select>
+            <div class="select-container">
+                <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoModoSTPPrioridad()">
+                    <option value="">Seleccione...</option>
+                    <option value="HPA5120">HP A5120</option>
+                    <option value="HPV1910">HP V1910</option>
+                    <option value="3COM">3COM BASELINE</option>
+                    <option value="TPLINK">TP-LINK</option>
+                    <option value="CISCO">CISCO</option>
+                </select>
+                <span class="select-arrow"></span>
+            </div>
 
             <div id="campoModoStpPriority" style="display: none;">
                 <label for="modoSTP">Modo STP Implementado</label>
-                <select id="modoSTP" name="modoSTP" class="form-control" onchange="mostrarCamposAdicionales()">
-                    <option value="">Seleccione...</option>
-                    <option value="rstp">RSTP</option>
-                    <option value="pvst">PVST</option>
-                    <option value="mstp">MSTP</option>
-                </select>
+                <div class="select-container">
+                    <select id="modoSTP" name="modoSTP" class="form-control" onchange="mostrarCamposAdicionales()">
+                        <option value="">Seleccione...</option>
+                        <option value="rstp">RSTP</option>
+                        <option value="pvst">PVST</option>
+                        <option value="mstp">MSTP</option>
+                    </select>
+                    <span class="select-arrow"></span>
+                </div>
             </div>
 
             <div id="campoIntanciaStpPriority" style="display: none;">

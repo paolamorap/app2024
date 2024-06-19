@@ -1,15 +1,18 @@
 switchs_cisco:
   hosts:
     switch1:
-      host: 192.168.20.45
+      host: 192.168.122.2
     switch2:
-      host: 192.168.20.2
+      host: 192.168.122.3
     switch3:
-      host: 192.168.20.3
+      host: 192.168.122.4
     switch4:
-      host: 192.168.20.4
+      host: 192.168.122.5
     switch5:
-      host: 192.168.20.5
+      host: 192.168.122.6
+    switch6:
+      host: 192.168.122.7
+
   vars:
     user: test
     password: test
@@ -18,23 +21,3 @@ switchs_cisco:
     tipo: switch
     marca: CISCO
     device_type: cisco_ios
-switchs_hp:
-  hosts:
-    switch1:
-      host: 192.168.20.31
-    switch2:
-      host: 192.168.20.23
-    switch3:
-      host: 192.168.20.32
-    switch4:
-      host: 192.168.20.10
-    switch5:
-      host: 192.168.20.52
-  vars:
-    user: test
-    password: test
-    comunidad_snmp: public
-    region_mstp: region3
-    tipo: switch
-    marca: hp
-    device_type: hp_comware

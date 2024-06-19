@@ -1,10 +1,14 @@
 datos_access_list:
   hosts:
     switch1:
-      host: 192.168.20.10
+      host: 192.168.122.2
+    switch2:
+      host: 192.168.122.3
+    switch3:
+      host: 192.168.122.4
   vars:
     marca: CISCO
-    ip_red: 192.168.20.0
+    ip_red: 192.168.122.0
     mascara_wildcard: 0.0.0.255
     id_list: '10'
     n_rule: none

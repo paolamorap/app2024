@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/estilos_op.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <div class="overlay">
   <div class="container">
-    <h1 class="title">CONFIGURACIÓN DE SERVICIOS</h1>
+    <h1 class="title">Configuración de Servicios</h1>
     <div class="categories">
       <!-- Categoría 1 -->
       <div class="category">
         <button class="dropbtn" onclick="toggleDropdown('dropdown-configuraciones')">
-        <img src="/image/configuraciones.png" alt="CONF INICIAL">
+        <img src="/image/configurar_app_epolaris.png" alt="CONF INICIAL">
       </button>
-        <p>CONFIGURACIÓN INICIAL</p>
+        <p>Configuración Inicial</p>
         <div id="dropdown-configuraciones" class="dropdown-content">
         <!-- Agrega aquí tus enlaces o contenido del menú -->
         
@@ -26,7 +27,7 @@
 
       <div class="category">
         <button class="dropbtn" onclick="toggleDropdown('dropdown-snmp')">
-        <img src="/image/snmp.png" alt="SNMP">
+        <img src="/image/snmp_epolaris.png" alt="SNMP">
       </button>
         <p>SNMP</p>
         <div id="dropdown-snmp" class="dropdown-content">
@@ -39,7 +40,7 @@
 
       <div class="category">
         <button class="dropbtn" onclick="toggleDropdown('dropdown-stp')">
-        <img src="/image/stp.png" alt="STP">
+        <img src="/image/stp_epolaris.png" alt="STP">
       </button>
         <p>STP</p>
         <div id="dropdown-stp" class="dropdown-content">
@@ -52,9 +53,9 @@
 
       <div class="category">
         <button class="dropbtn" onclick="toggleDropdown('dropdown-vlan')">
-        <img src="/image/vlan.png" alt="VLAN">
+        <img src="/image/vlan_epolaris.png" alt="VLAN">
       </button>
-        <p>VLANs</p>
+        <p>Vlans</p>
         <div id="dropdown-vlan" class="dropdown-content">
         <!-- Agrega aquí tus enlaces o contenido del menú -->
         <a href="/vlan">Crear VLAN</a>
@@ -63,9 +64,9 @@
 
       <div class="category">
         <button class="dropbtn" onclick="toggleDropdown('dropdown-logs')">
-        <img src="/image/snmp.png" alt="LOGS">
+        <img src="/image/logs_epolaris.png" alt="LOGS">
       </button>
-        <p>LOGS</p>
+        <p>Logs</p>
         <div id="dropdown-logs" class="dropdown-content">
         <!-- Agrega aquí tus enlaces o contenido del menú -->
         <a href="/logs">Configurar Logs</a>
@@ -73,10 +74,10 @@
       </div>
 
 
-      <div class="category">
+      <div class="category" >
         <a href="/start_app" class="dropbtn">
-            <img src="/image/iniciar.png" alt="INICIAR APP">
-            <p>INICIAR APLICACIÓN</p>
+            <img src="/image/iniciar_app_epolaris.png" alt="INICIAR APP">
+            <p>Iniciar App</p>
         </a> 
       </div>
 
@@ -85,8 +86,8 @@
         <p id="loadingText" style="display:none;">Cargando configuración, por favor espere...</p>
             
         <button id="balanceo-btn" class="button-icon" onclick="ejecutarScript()">
-            <img src="/image/enviar.png" alt="Icono Configurar"> <!-- Asegúrate de tener un icono apropiado -->
-            <span>BALANCEO</span>
+            <img src="/image/balanceo_carga_epolaris.png" alt="Icono Configurar"> <!-- Asegúrate de tener un icono apropiado -->
+            <span>Balanceo</span>
         </button>
 
       </div>
@@ -103,8 +104,17 @@
     </ul>
     <p>© 2024 EPOLARIS NETWORK C.A. Todos los derechos reservados.</p>
     <p>Universidad de Cuenca | Cuenca-Ecuador</p>
-    <p>Edwin Lima Huayllas | Teléfono: 0963636085 | edwin.lima@ucuenca.edu.ec</p>
-    <p>Paola Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+    <p>Edwin Anibal Lima Huayllas | Teléfono: 0963636085 | edwin.lima@ucuenca.edu.ec</p>
+    <div class="social-links">
+      <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://www.instagram.com/edwiin.jpg/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://www.linkedin.com/in/edwin-lima-7534b5199" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <p>Paola Alexandra Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+    <div class="social-links">
+      <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://www.instagram.com/paomora0/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="https://www.linkedin.com/in/paola-mora-pedroza-b71b46231" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
   </div>
 </footer>
 

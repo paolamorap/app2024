@@ -124,7 +124,7 @@ body {
     padding: 0; /* Asegurarse de que no haya padding predeterminado */
   }
   .footer {
-    background: #333;
+    background: #4e81b8;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -138,13 +138,27 @@ body {
   margin: 10px 0; /* Espacio entre elementos */
   }
   
-  .footer .social-links a {
-  color:  #17202a; /* Color de los enlaces */
-  text-decoration: none; /* Sin subrayado */
-  padding: 5px 10px; /* Espaciado interno para hacerlos más clickeables */
+  .footer a {
+    color: #ffffff; /* Color de los enlaces: blanco */
+    text-decoration: none; /* Sin subrayado */
+    padding: 2px; /* Espaciado interno para hacerlos más clickeables */
+    display: inline-block;
+    font-size: 16px; /* Tamaño de la fuente */
   }
   
-  .footer .social-links a:hover,
-  .footer .social-links a:focus {
-  text-decoration: underline; /* Subrayado al pasar el mouse o enfocar */
+  .footer a:hover,
+  .footer a:focus {
+    color: #add8e6; /* Cambia el color al pasar el mouse: azul clarito */
+  }
+  
+  .footer .social-links {
+    margin: 10px 0; /* Espaciado entre las líneas */
+  }
+  
+  .footer .social-links a {
+    margin: 0 10px; /* Espaciado entre los enlaces */
+  }
+  
+  .footer .company-info p {
+    margin: 5px 0; /* Espaciado entre los párrafos */
   }

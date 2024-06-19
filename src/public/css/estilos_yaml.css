@@ -1,9 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 1), #6dd5ed 40%, #2193b0); /* Fondo en degradado iniciando con blanco */
+    background: linear-gradient(to right,#84ACE3,#84ACE3); /* Fondo en degradado iniciando con blanco */
     font-family: Arial, sans-serif;
-    color: #000; /* Texto en negro */
+    color: #2A69AC; /* Texto en negro */
   }
   .overlay {
     position: relative;
@@ -11,42 +11,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 70vh;
   }
-  .container {
-    background: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
-    border-radius: 20px;
-    padding: 40px;
-    width: 80%;
-    max-width: 1000px; /* Más ancho para acomodar mejor el contenido */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  }
-  .title {
-    margin-bottom: 1.5rem;
-    font-size: 2.25rem; /* Tamaño más grande para el título */
-    color: #2A2A2A;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para el título */
-  }
-  
-  .categories {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    text-align: center;
-  }
-  .category {
-  padding: 10px;
-  position: relative; /* Esto es crucial para la correcta posición del menú desplegable */
-  }
-  .category img {
-    width: 70px; /* Más grande para mejor visibilidad */
-    height: 70px;
-    margin-bottom: 1rem;
-  }
-  .category p {
-    font-size: 1rem;
-    color: #000; /* Texto en negro */
-  }
+ 
   .social-icons {
     display: flex;
     justify-content: center;
@@ -71,7 +38,7 @@ body {
   }
   
   .footer {
-    background: #333;
+    background: #4e81b8;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -85,15 +52,29 @@ body {
   margin: 10px 0; /* Espacio entre elementos */
   }
   
-  .footer .social-links a {
-  color:  #17202a; /* Color de los enlaces */
-  text-decoration: none; /* Sin subrayado */
-  padding: 5px 10px; /* Espaciado interno para hacerlos más clickeables */
+  .footer a {
+    color: #ffffff; /* Color de los enlaces: blanco */
+    text-decoration: none; /* Sin subrayado */
+    padding: 2px; /* Espaciado interno para hacerlos más clickeables */
+    display: inline-block;
+    font-size: 16px; /* Tamaño de la fuente */
   }
   
-  .footer .social-links a:hover,
-  .footer .social-links a:focus {
-  text-decoration: underline; /* Subrayado al pasar el mouse o enfocar */
+  .footer a:hover,
+  .footer a:focus {
+    color: #add8e6; /* Cambia el color al pasar el mouse: azul clarito */
+  }
+  
+  .footer .social-links {
+    margin: 10px 0; /* Espaciado entre las líneas */
+  }
+  
+  .footer .social-links a {
+    margin: 0 10px; /* Espaciado entre los enlaces */
+  }
+  
+  .footer .company-info p {
+    margin: 5px 0; /* Espaciado entre los párrafos */
   }
   
   .dropbtn {
@@ -106,7 +87,7 @@ body {
   .dropdown-content {
   display: none;
   position: absolute;
-  background-color: rgba(173, 216, 230, 0.8); /* LightBlue con opacidad */
+  background-color: linear-gradient(to right,#84ACE3,#84ACE3);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   border-radius: 5px;
@@ -129,12 +110,9 @@ body {
     background-color: #45a049;
   }
   
-
-  
   form {
     margin-top: 10px;
   }
-  
 
   .dropzone {
     border: 2px dashed #ccc;
@@ -180,7 +158,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    background-color: #4CAF50; /* Verde para éxito */
+    background-color: #66bb69; /* Verde para éxito */
     color: white;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -211,10 +189,8 @@ body {
     display: inline-block;
     width: 24px; /* o el tamaño que prefieras */
     height: 24px;
-    background-image: url('/image/enviar.png');
+    background-image: url('/image/enviar_epolaris.png');
     background-size: cover;
     margin-right: 10px;
   }
-  
-  
-  
+

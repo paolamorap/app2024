@@ -2,6 +2,7 @@ import conexion_ssh
 import config_snmp
 import os
 import read_yaml
+import time
 
 def procesar_dispositivos_snmp(datos_yaml):
     
@@ -76,5 +77,9 @@ def procesar_dispositivos_snmp(datos_yaml):
 # Uso del código
 base_path = "/home/paola/Documentos/app2024/modulo_automatizacion/registros"
 archivo = os.path.join(base_path, "datos_snmp.yaml")
+time_ini = time.time()
 datos_yaml = read_yaml.cargar_datos_snmp(archivo)
 procesar_dispositivos_snmp(datos_yaml)
+time_fin = time.time()
+times = time_fin - time_ini
+print('El algoritmo de crear una comunidad SNMP tardo: ', times)

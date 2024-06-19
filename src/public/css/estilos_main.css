@@ -1,6 +1,6 @@
 .nav-color {
   /* Degradado azul suave */
-  background-image: linear-gradient(to right, #6dd5ed, #52b4cc);
+  background-image: linear-gradient(to right,#84ACE3,#84ACE3);
 }
 .nav-link, .logout-button {
   transition: background-color 0.2s, transform 0.2s;
@@ -9,9 +9,7 @@
   background-color: #2A69AC; /* Azul marino más claro */
   transform: translateY(-5px); /* Eleva ligeramente el botón */
 }
-.logout-button {
-  background-color: #5590C6; /* Azul claro para el logout */
-}
+
 .rounded-button {
   padding: 8px 16px;
   border: none;

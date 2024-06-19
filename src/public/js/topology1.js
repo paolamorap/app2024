@@ -33,13 +33,25 @@ var topologyData = {
             "port_blokt": false,
             "source": 1,
             "srcDevice": "192.168.122.3",
-            "srcIfName": "G0/1",
+            "srcIfName": "G1/0",
             "target": 3,
             "tgtDevice": "192.168.122.5",
-            "tgtIfName": "G0/0"
+            "tgtIfName": "G0/1"
         },
         {
             "id": 3,
+            "index": 2,
+            "port_bloks": false,
+            "port_blokt": true,
+            "source": 1,
+            "srcDevice": "192.168.122.3",
+            "srcIfName": "G1/1",
+            "target": 3,
+            "tgtDevice": "192.168.122.5",
+            "tgtIfName": "G0/2"
+        },
+        {
+            "id": 4,
             "index": 1,
             "port_bloks": false,
             "port_blokt": true,
@@ -49,6 +61,30 @@ var topologyData = {
             "target": 1,
             "tgtDevice": "192.168.122.3",
             "tgtIfName": "G0/2"
+        },
+        {
+            "id": 5,
+            "index": 1,
+            "port_bloks": false,
+            "port_blokt": false,
+            "source": 2,
+            "srcDevice": "192.168.122.4",
+            "srcIfName": "G0/2",
+            "target": 4,
+            "tgtDevice": "192.168.122.6",
+            "tgtIfName": "G0/1"
+        },
+        {
+            "id": 6,
+            "index": 1,
+            "port_bloks": false,
+            "port_blokt": false,
+            "source": 3,
+            "srcDevice": "192.168.122.5",
+            "srcIfName": "G0/3",
+            "target": 5,
+            "tgtDevice": "192.168.122.7",
+            "tgtIfName": "G0/1"
         }
     ],
     "nodes": [
@@ -58,7 +94,7 @@ var topologyData = {
             "id": 0,
             "layerSortPreference": 1,
             "marca": "CISCO",
-            "name": "S1"
+            "name": "S1_Cuenca"
         },
         {
             "IP": "192.168.122.3",
@@ -66,7 +102,7 @@ var topologyData = {
             "id": 1,
             "layerSortPreference": 2,
             "marca": "CISCO",
-            "name": "S2"
+            "name": "S2_Totoracocha"
         },
         {
             "IP": "192.168.122.4",
@@ -74,7 +110,7 @@ var topologyData = {
             "id": 2,
             "layerSortPreference": 2,
             "marca": "CISCO",
-            "name": "S3"
+            "name": "S3_Ricaurte"
         },
         {
             "IP": "192.168.122.5",
@@ -82,15 +118,23 @@ var topologyData = {
             "id": 3,
             "layerSortPreference": 3,
             "marca": "CISCO",
-            "name": "S4"
+            "name": "S4_UCuenca"
         },
         {
             "IP": "192.168.122.6",
             "icon": "switch",
             "id": 4,
-            "layerSortPreference": 0,
+            "layerSortPreference": 3,
             "marca": "CISCO",
-            "name": "None"
+            "name": "S5_Bibin"
+        },
+        {
+            "IP": "192.168.122.7",
+            "icon": "switch",
+            "id": 5,
+            "layerSortPreference": 4,
+            "marca": "CISCO",
+            "name": "S6_Valle"
         }
     ]
 };

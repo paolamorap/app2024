@@ -18,37 +18,42 @@
   font-size: 1.875rem; /* Ajuste de tamaño de fuente del título */
   line-height: 2.25rem;
 }
+
 .text-4xl {
   font-size: 2.25rem; /* Hacer el título más grande */
   line-height: 2.5rem;
-  color: #2193b0; /* Color azul turquesa */
+  color: #84ACE3;
   margin-bottom: 1.5rem; /* Espaciado debajo del título para separarlo del formulario */
 }
-
 
 .focus\:bg-white:focus {
   background-color: #fff;
   outline: none;
-  border-color: #6dd5ed; /* Asegúrate de que este estilo se aplique correctamente */
+  border-color: #6485b3; /* Asegúrate de que este estilo se aplique correctamente */
   box-shadow: 0 0 0 3px rgba(109, 213, 237, 0.5); /* Considera ajustar la sombra */
 }
 
-
 /* Personaliza los inputs */
-input[type=email], input[type=password], input[type=text]{
-  border: 2px solid #6dd5ed; /* Borde turquesa */
+input[type=email], input[type=password], input[type=text] {
+  border: 2px solid #2A69AC; /* Borde azul */
   border-radius: 10px; /* Bordes redondeados */
+}
+
+input[type=email]:focus, input[type=password]:focus, input[type=text]:focus {
+  border-color: #2A69AC; /* Borde azul al enfocar */
+  box-shadow: 0 0 0 3px rgba(42, 105, 172, 0.5); /* Sombra azul al enfocar */
+  outline: none;
 }
 
 /* Estilo del botón de envío */
 .bg-blue-500 {
-  background-image: linear-gradient(to right, #6dd5ed, #2193b0); /* Degradado de azul a turquesa */
+  background-image: linear-gradient(to right, #84ACE3, #84ACE3); /* Degradado de azul a turquesa */
   transition: transform 0.2s, box-shadow 0.2s; /* Transición suave para dinamismo */
 }
 
 /* Hover y focus del botón de envío */
 .hover\:bg-blue-600:hover, .focus\:bg-blue-700:focus {
-  background-image: linear-gradient(to right, #37aee2, #1f90cc); /* Degradado ligeramente más oscuro al pasar el ratón y enfocar */
+  background-image: linear-gradient(to right, #2A69AC, #2A69AC); /* Degradado ligeramente más oscuro al pasar el ratón y enfocar */
   box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el ratón */
   transform: translateY(-2px); /* Movimiento ligero al pasar el ratón */
 }
@@ -56,4 +61,18 @@ input[type=email], input[type=password], input[type=text]{
 /* Mensaje de error */
 .text-red-500 {
   color: #e3342f; /* Rojo para errores */
+}
+
+/* Navegación */
+.nav-color {
+  background-image: linear-gradient(to right, #84ACE3, #84ACE3); /* Degradado azul suave */
+}
+
+.nav-link, .logout-button {
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.nav-link:hover, .logout-button:hover {
+  background-color: #2A69AC; /* Azul marino más claro */
+  transform: translateY(-5px); /* Eleva ligeramente el botón */
 }

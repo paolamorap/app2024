@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     props: {
                         'class': 'sourcelabel',
                         'alignment-baseline': 'text-after-edge',
-                        'text-anchor': 'start'
+                        'text-anchor': 'start',
+                        'style': 'font-size: 8px;'
                     }
                 }, {
                     name: 'target',
@@ -26,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     props: {
                         'class': 'targetlabel',
                         'alignment-baseline': 'text-after-edge',
-                        'text-anchor': 'end'
+                        'text-anchor': 'end',
+                        'style': 'font-size: 8px;'
                     }
                 });
                 return view;
@@ -182,8 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize topology
         var topo = new nx.graphic.Topology({
-            width: 1500,
-            height: 670,
+            width: 1920,
+            height: 1000,
             dataProcessor: 'force',
             identityKey: 'id',
             nodeConfig: {

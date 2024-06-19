@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     props: {
                         'class': 'sourcelabel',
                         'alignment-baseline': 'text-after-edge',
-                        'text-anchor': 'start'
+                        'text-anchor': 'start',
+                        'style': 'font-size: 8px;'
                     }
                 }, {
                     name: 'target',
@@ -26,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     props: {
                         'class': 'targetlabel',
                         'alignment-baseline': 'text-after-edge',
-                        'text-anchor': 'end'
+                        'text-anchor': 'end',
+                        'style': 'font-size: 8px;'
                     }
                 });
                 return view;
@@ -55,10 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     line = line.pad(20 * stageScale, 20 * stageScale);
 
                     if (this.sourcelabel()) {
+                        x1 = 0;
+                        y1 = 0;
                         el = this.view('source');
                         point = line.start;
-                        el.set('x', point.x );
-                        el.set('y', point.y );
+                        el.set('x', point.x +x1);
+                        el.set('y', point.y +y1);
                         el.set('text', this.sourcelabel());
                         el.set('transform', 'rotate(' + angle + ' ' + (point.x - deltaX) + ',' + (point.y - deltaY) + ')');
                         el.setStyle('font-size', 10 * stageScale);
@@ -66,10 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         this.view('source').visible(showLabels); 
                     }
                     if (this.targetlabel()) {
+                        x1 = 0;
+                        y1 = 0;
                         el = this.view('target');
                         point = line.end;
-                        el.set('x', point.x );
-                        el.set('y', point.y );
+                        el.set('x', point.x +x1);
+                        el.set('y', point.y +y1);
                         el.set('text', this.targetlabel());
                         el.set('transform', 'rotate(' + angle + ' ' + (point.x - deltaX) + ',' + (point.y - deltaY) + ')');
                         el.setStyle('font-size', 10 * stageScale);
@@ -77,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         this.view('target').visible(showLabels);
                     }
                 }
-            }             
+            } 
+
         });
 
         nx.define('CustomNodeTooltip', nx.ui.Component, {
@@ -150,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         
-
         var currentLayout = 'auto'
 
         horizontal = function() {
@@ -182,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize topology
         var topo = new nx.graphic.Topology({
-            width: 1500,
-            height: 670,
+            width: 1920,
+            height: 1000,
             dataProcessor: 'force',
             identityKey: 'id',
             nodeConfig: {
