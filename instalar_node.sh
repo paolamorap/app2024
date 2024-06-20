@@ -6,13 +6,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-# Actualizar el índice de paquetes
-echo ==============================================================
-echo ================ ACTUALIZACION DEL SISTEMA ===================
-echo ==============================================================
-apt update
-apt upgrade -y
-
 # Instalar curl si no está instalado
 echo ==============================================================
 echo =================== INSTALACION DE CURL  =====================
@@ -26,6 +19,7 @@ echo ==============================================================
 # Añadir el repositorio de NodeSource para Node.js v20.x
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 # Instalar Node.js y npm
+echo "--------------- *Intalando node.js y npm* ------------------"
 apt install -y nodejs
 # Verificar la versión de Node.js
 NODE_VERSION=$(node -v)
@@ -34,10 +28,27 @@ NPM_VERSION=$(npm -v)
 if [[ "$NODE_VERSION" =~ ^v20\. && "$NPM_VERSION" =~ ^10\. ]]; then
   echo "Node.js y npm ya están en las versiones correctas."
 else
-  echo "Instalación completa:"
   echo "Node.js version: $NODE_VERSION"
   echo "npm version: $NPM_VERSION"
 fi
+
+# Instalar las dependencias de node desde el package
+echo "--------- *Intalando dependencias para node.js.* ------------"
+npm install
+
+echo ==============================================================
+echo ===================== INSTALANDO PM2  ========================
+echo ==============================================================
+#Instalar PM2 globalmente:
+npm install -g pm2
+
+echo ==============================================================
+echo ================== INICINADO APLICACION  =====================
+echo ==============================================================
+#Iniciar la aplicación con PM2:
+pm2 start app.js
+echo "-- *Verificar que el estado de la aplicacion sea exitoso.* --"
+pm2 list
 
 echo ==============================================================
 echo ==================== SCRIP COMPLETADO ========================
