@@ -1,18 +1,14 @@
 datos_snmp:
   hosts:
     switch1:
-      host: 192.168.122.2
-    switch2:
       host: 192.168.122.3
-    switch3:
+    switch2:
       host: 192.168.122.4
-    switch4:
-      host: 192.168.122.5
   vars:
     marca: CISCO
-    comunidad: tesisep
+    comunidad: prueba
     permisos: RO
-    id_list: '10'
+    id_list: SN
     device_type: cisco_ios
     usuario: test
     contrasena: test

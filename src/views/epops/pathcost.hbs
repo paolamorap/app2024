@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="titulo">Configurar costo de ruta de un conmutador</h1>
+        <h1 class="titulo">Configurar costo de ruta</h1>
         <form id="stpCost-form" class="form">
             <label for="ip">Direcciones IP</label>
             <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1" required>
@@ -15,7 +15,7 @@
             <label for="interfaz">Nombre de la Interfaz</label>
             <input type="text" id="interfaz" name="interfaz" placeholder="Ejemplo: GigabitEthernet0/1" required>
 
-            <label for="marca">Modelo del dispositivo</label>
+            <label for="marca">Marca del dispositivo</label>
             <div class="select-container">
                 <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoLogs(this.value)">
                     <option value="">Seleccione...</option>
@@ -43,12 +43,12 @@
             <input type="number" id="costo" name="costo" placeholder="Rango 0 - 200000" required>
 
             <div id="campoIntanciaStpPriority" style="display: none;">
-                <label for="instance">Numero de instance</label>
+                <label for="instance">Número de instancia</label>
                 <input type="number" id="instance" name="instance" placeholder="Ingrese el numero de la instance">
             </div>
 
             <div id="campoVlanStpPriority" style="display: none;">
-                <label for="vlan">Numero de la VLAN</label>
+                <label for="vlan">Número de la Vlan</label>
                 <input type="number" id="vlan" name="vlan" placeholder="Ingrese el numero de VLAN">
             </div>
         

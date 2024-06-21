@@ -82,4 +82,4 @@ datos_yaml = read_yaml.cargar_datos_snmp(archivo)
 procesar_dispositivos_snmp(datos_yaml)
 time_fin = time.time()
 times = time_fin - time_ini
-print('El algoritmo de crear una comunidad SNMP tardo: ', times)
+#print('El algoritmo de crear una comunidad SNMP tardo: ', times)

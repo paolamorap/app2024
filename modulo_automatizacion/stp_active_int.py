@@ -72,4 +72,4 @@ time_ini = time.time()
 procesar_dispositivos_stpActive(datos_yaml)
 time_fin = time.time()
 times = time_fin - time_ini
-print('El algoritmo de configurar STP se tardo: ', times)
+#print('El algoritmo de configurar STP se tardo: ', times)

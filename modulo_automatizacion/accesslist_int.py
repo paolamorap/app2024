@@ -75,4 +75,4 @@ time_ini = time.time()
 procesar_dispositivos_accesslist(datos_yaml)
 time_fin = time.time()
 times = time_fin - time_ini
-print('El algoritmo de configurar lista de acceso tardo: ', times)
+#print('La configuracion se demoro: ', times)

@@ -1,11 +1,11 @@
 datos_access_list:
   hosts:
     switch1:
-      host: 192.168.122.2
-    switch2:
       host: 192.168.122.3
-    switch3:
+    switch2:
       host: 192.168.122.4
+    switch3:
+      host: 192.168.122.5
   vars:
     marca: CISCO
     ip_red: 192.168.122.0

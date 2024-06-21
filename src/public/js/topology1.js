@@ -73,18 +73,6 @@ var topologyData = {
             "target": 4,
             "tgtDevice": "192.168.122.6",
             "tgtIfName": "G0/1"
-        },
-        {
-            "id": 6,
-            "index": 1,
-            "port_bloks": false,
-            "port_blokt": false,
-            "source": 3,
-            "srcDevice": "192.168.122.5",
-            "srcIfName": "G0/3",
-            "target": 5,
-            "tgtDevice": "192.168.122.7",
-            "tgtIfName": "G0/1"
         }
     ],
     "nodes": [
@@ -127,14 +115,6 @@ var topologyData = {
             "layerSortPreference": 3,
             "marca": "CISCO",
             "name": "S5_Bibin"
-        },
-        {
-            "IP": "192.168.122.7",
-            "icon": "switch",
-            "id": 5,
-            "layerSortPreference": 4,
-            "marca": "CISCO",
-            "name": "S6_Valle"
         }
     ]
 };

@@ -2,15 +2,9 @@ datos_stp:
   hosts:
     switch1:
       host: 192.168.122.2
-    switch2:
-      host: 192.168.122.3
-    switch3:
-      host: 192.168.122.4
-    switch4:
-      host: 192.168.122.5
   vars:
     marca: CISCO
-    prioridad: '32768'
+    prioridad: '24576'
     vlan: none
     modo: mst
     instance: '0'
