@@ -26,9 +26,9 @@ def procesar_dispositivos_balanceo(datos_yaml):
         for host, config in datos_yaml[grupo]['enlace'].items():
             
             ip = config['IP']
-            print(ip)
+            #print(ip)
             interfaz = config['interfaz1']
-            print(interfaz)
+            #print(interfaz)
             marca = config['marca']
 
             if marca == 'CISCO':
@@ -39,8 +39,8 @@ def procesar_dispositivos_balanceo(datos_yaml):
                 device='none'
 
             device_type = device
-            print(marca)
-            print(device_type)
+            #print(marca)
+            #print(device_type)
 
             try:
                 # Configuración SNMP específica por marca y modelo de dispositivo

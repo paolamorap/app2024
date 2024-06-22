@@ -2,6 +2,20 @@ from pysnmp.entity.rfc3413.oneliner import cmdgen
 
 cmdGen = cmdgen.CommandGenerator()
 def stp_status(direc,stpi,datos):
+    """
+    Permite obtener los puertos bloqueados por el protocolo STP de un switch 
+    
+    Parameters:
+    direc(list):    Direcciones IP de los dispositivos que se requiere conocer la información    
+    stpi(dict):     Interfaces de los switches
+    datos(dict):    Datos con información de los switches de la Red
+    
+    Return:
+    sl(list):   Lista con la Dirección IP y el puerto bloqueado del dispositivo
+    f(int):     Bandera para detectar errores en consulta SNMP
+    fif(list):  Direcciones IP que tuvieron fallas en la consulta
+    """
+    
     sl = []
     f=0
     fif=[]

@@ -8,10 +8,10 @@ import stp_blk
 import verstp
 import time 
 import tree
-import obt_infoyam
+import obt_infyam
 import dtsnmp
 import bridge_id_root
-import loadbalance
+import loadBalanceo
 import json
 import psutil
 import os
@@ -26,7 +26,7 @@ def monitor_usage():
 
 def datos_topologia(archivo_dispositivos):
     print("-------------- EJECUTANDO FASE 1 (RECOLECCION DE DATOS DEL YAML) ------------------")
-    datos = obt_infoyam.infyam(archivo_dispositivos)
+    datos = obt_infyam.infyam(archivo_dispositivos)
     direc = datos.keys() #Direcciones IP Filtradas
 
     print("------------------- EJECUTANDO FASE 2 (INFORMACION DE STP) ------------------------")

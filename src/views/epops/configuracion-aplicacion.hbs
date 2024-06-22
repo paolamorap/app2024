@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/estilos_configuracion.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/estilos_configuracion.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="overlay">
-  <div class="container">
-    <h1 class="title">Configuración de la Aplicación</h1>
-    
-    <div class="categories">
-      <div class="category">
-        <button class="dropbtn" onclick="toggleDropdown('dropdown-configuraciones')">
-          <img src="/image/configurar_app_epolaris.png" alt="CONF INICIAL">
-        </button>
-        <p>Configuración Inicial</p>
-        <div id="dropdown-configuraciones" class="dropdown-content">
-          <a href="/upload">Archivo YAML</a>
-          <a href="/configure">Agregar Dispositivos</a>
+  <div class="overlay">
+    <div class="container">
+      <h1 class="title">Configuración de la Aplicación</h1>
+      
+      <div class="categories">
+        <div class="category">
+          <button class="dropbtn" onclick="toggleDropdown('dropdown-configuraciones')">
+            <img src="/image/configurar_app_epolaris.png" alt="Configuración Inicial">
+          </button>
+          <p>Configuración Inicial</p>
+          <div id="dropdown-configuraciones" class="dropdown-content">
+            <a href="/upload">Archivo YAML</a>
+            <a href="/configure">Agregar Dispositivos</a>
+          </div>
         </div>
-      </div>
 
-      <div class="category">
-        <a href="/start_app" class="dropbtn">
-          <img src="/image/iniciar_app_epolaris.png" alt="INICIAR APP">
+        <div class="category">
+          <button class="dropbtn" onclick="toggleDropdown('dropdown-iniciar')">
+            <img src="/image/iniciar_app_epolaris.png" alt="Iniciar App">
+          </button>
           <p>Iniciar App</p>
-        </a> 
+          <div id="dropdown-iniciar" class="dropdown-content">
+            <a href="/start_app">Iniciar App</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <button class="dropbtn" onclick="toggleDropdown('dropdown-detener')">
+            <img src="/image/stop_epolaris.png" alt="Detener App">
+          </button>
+          <p>Detener App</p>
+          <div id="dropdown-detener" class="dropdown-content">
+            <a href="/stop_app">Detener App</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<footer class="footer">
+  <footer class="footer">
   <div class="company-info">
     <ul class="social-icons">
       <li><img src="/image/logo1.png" alt="Logo" class="logo-img"></li>
@@ -45,7 +58,6 @@
       <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       <a href="https://www.instagram.com/edwiin.jpg/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
       <a href="https://www.linkedin.com/in/edwin-lima-7534b5199" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-    </div>
     <p>Paola Alexandra Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
     <div class="social-links">
       <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
@@ -55,32 +67,32 @@
   </div>
 </footer>
 
-<script>
-var openDropdown = null;
+  <script>
+    var openDropdown = null;
 
-function toggleDropdown(dropdownId) {
-  var dropdown = document.getElementById(dropdownId);
-  if (dropdown.style.display === 'block') {
-    dropdown.style.display = 'none';
-    openDropdown = null;
-  } else {
-    if (openDropdown) {
-      openDropdown.style.display = 'none';
+    function toggleDropdown(dropdownId) {
+      var dropdown = document.getElementById(dropdownId);
+      if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        openDropdown = null;
+      } else {
+        if (openDropdown) {
+          openDropdown.style.display = 'none';
+        }
+        dropdown.style.display = 'block';
+        openDropdown = dropdown;
+        document.removeEventListener('click', closeDropdownOnOutsideClick, true);
+        document.addEventListener('click', closeDropdownOnOutsideClick, true);
+      }
     }
-    dropdown.style.display = 'block';
-    openDropdown = dropdown;
-    document.removeEventListener('click', closeDropdownOnOutsideClick, true);
-    document.addEventListener('click', closeDropdownOnOutsideClick, true);
-  }
-}
 
-function closeDropdownOnOutsideClick(event) {
-  if (openDropdown && !openDropdown.contains(event.target)) {
-    openDropdown.style.display = 'none';
-    openDropdown = null;
-    document.removeEventListener('click', closeDropdownOnOutsideClick, true);
-  }
-}
-</script>
+    function closeDropdownOnOutsideClick(event) {
+      if (openDropdown && !openDropdown.contains(event.target)) {
+        openDropdown.style.display = 'none';
+        openDropdown = null;
+        document.removeEventListener('click', closeDropdownOnOutsideClick, true);
+      }
+    }
+  </script>
 </body>
 </html>

@@ -7,14 +7,14 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="titulo">Configurar servidor de Logs</h1>
+        <h1 class="titulo">Configurar servidor de logs</h1>
         
         <form id="logs-form" class="form">
             
-            <label for="ip">IP</label>
+            <label for="ip">Dirección IP</label>
             <input type="text" id="ip" name="ip" placeholder="Ejemplo: 192.168.1.1, 192.168.1.2, ... " required>
             
-            <label for="marca">Modelo del dispositivo</label>
+            <label for="marca">Marca del dispositivo</label>
             <div class="select-container">
                 <select id="marca" name="marca" required class="form-control" onchange="mostrarCampoLogs(this.value)">
                     <option value="">Seleccione...</option>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             
-            <label for="servidorIP">IP Servidor de Log</label>
+            <label for="servidorIP">Dirección IP Servidor de Log</label>
             <input type="text" id="servidorIP" name="servidorIP" placeholder="Servidor IP" required>
 
             <label for="user">Usuario</label>

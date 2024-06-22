@@ -1,17 +1,17 @@
 datos_vlan:
   hosts:
     switch1:
-      host: 192.168.122.2
-    switch2:
       host: 192.168.122.3
-    switch3:
+    switch2:
       host: 192.168.122.4
-    switch4:
+    switch3:
       host: 192.168.122.5
+    switch4:
+      host: 192.168.122.6
   vars:
     marca: CISCO
-    id: '23'
-    name_vlan: vlan23
+    id: '20'
+    name_vlan: pruebatesis
     device_type: cisco_ios
     usuario: test
     contrasena: test

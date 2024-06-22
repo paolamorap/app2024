@@ -1,11 +1,25 @@
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 
 cmdGen = cmdgen.CommandGenerator()
-a = {}
-f=0
 
 def stp_inf(direc,datos):
-    f=0
+    """
+    Funcion para obtener la información de un grupo de switches acerca del protocolo STP 
+    Información:
+    Bridge ID/ Bridge Designed
+    Interfaces Conectadas
+
+    Parameters:
+    direc(list):    Direcciones IP de los switches
+    datos(dict):    Información de los switches
+    
+    Return:
+    stp_data(dict):     Diccionario con la información STP por dispositivo
+    f(int):             Bandera para control de errores en la consulta SNMP
+    fif(dict):          Diccionario con los switches que tuvieron problemas en la consulta
+    """
+    stp_data = {}
+    f = 0
     fif = {}
     for server_ip in direc:       
         comunidad = datos[server_ip]["snmp"]
@@ -33,10 +47,9 @@ def stp_inf(direc,datos):
         for varBindTableRow1 in varBindTable1:
             for name1, val1 in varBindTableRow1:
                 pd.append((str(name1).split(".")[-1], (val1.prettyPrint())[-12:]))
-        a[server_ip] = [db,pd]
+        stp_data[server_ip] = [db,pd]
         if errorIndication1 !=None:
             f = 1
             fif[server_ip] = ""
 
-    return a,f,fif
-
+    return stp_data,f,list(fif.keys())

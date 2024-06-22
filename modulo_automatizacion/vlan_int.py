@@ -76,4 +76,4 @@ time_ini = time.time()
 procesar_dispositivos_vlan(datos_yaml)
 time_fin = time.time()
 times = time_fin - time_ini
-print('El algoritmo de crear Vlans tardo: ', times)
+#print('El algoritmo de crear Vlans tardo: ', times)

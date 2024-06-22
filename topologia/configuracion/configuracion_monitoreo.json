@@ -1,0 +1,12 @@
+{
+    "montiempoexec": 10,
+    "montoleranciaping": 5,
+    "moninterfaces": 5,
+    "wartiempointe": 5,
+    "warnuminte":5,
+    "wartiempologs": 5,
+    "warnumlogs":300,
+    "cputiempo":20, 
+    "cpuvalref":12,
+    "servidor_logs":"192.168.122.1" 
+}

@@ -9,7 +9,8 @@ def bri_id(ips,datos):
     fif = {}
 
     for server_ip in ips:
-        comunidad = datos[server_ip]["snmp"]
+        comunidad = datos[server_ip]['snmp']
+        print(comunidad)
         errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.bulkCmd(
             cmdgen.CommunityData(comunidad),
             cmdgen.UdpTransportTarget((server_ip, 161)),

@@ -1,24 +1,30 @@
 import yaml
 
-# Obtener las IPs de los switches TPLink
+
 def filtplink(nombre):
-    # Cargar el archivo YAML
+    """
+    Funcion para consultar la información de los switch TpLink
+
+    Parameters:
+    nombre(str):    
+
+    Return:
+    ips_tplink(list):           Lista de Direcciones IP de los switch TpLink
+    credenciales_tplink(list):  Lista con las credenciales de los switch TpLink
+    """
     with open(nombre, "r") as archivo:
        datos = yaml.safe_load(archivo)
-
     ips_tplink = []
     credenciales_tplink = {}
-
     # Obtener las IPs de los switches TPLink y las credenciales SSH
-    if 'switches_tplink' in datos:
-        configuracion_tplink = datos['switches_tplink']
+    if 'switchs_tplink' in datos:
+        configuracion_tplink = datos['switchs_tplink']
         for switch, detalles in configuracion_tplink['hosts'].items():
-            if 'epops_host' in detalles:
-                ip = detalles['epops_host']
+            if 'host' in detalles:
+                ip = detalles['host']
                 ips_tplink.append(ip)
                 credenciales_tplink[ip] = {
-                    'usuario': configuracion_tplink['vars'].get('epops_user'),
-                    'contraseña': configuracion_tplink['vars'].get('epops_ssh_pass')
+                    'usuario': configuracion_tplink['vars'].get('usuario'),
+                    'contrasena': configuracion_tplink['vars'].get('contrasena')
                 }
-
     return ips_tplink, credenciales_tplink

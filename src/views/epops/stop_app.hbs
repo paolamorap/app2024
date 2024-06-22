@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciando Aplicación</title>
+    <link rel="stylesheet" href="/css/estilos_loading.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="loading">
+        <img id="loadingImage" src="/image/loading.gif" alt="Cargando..." style="display:none;">
+        <p id="loadingText" style="display:none;">Cargando configuración, por favor espere...</p>
+        
+        <button id="startButton" class="button-icon" onclick="ejecutarScript()">
+            <img src="/image/inicia_confi_epolaris.png" alt="Icono Configurar"> <!-- Asegúrate de tener un icono apropiado -->
+            <span>Stop</span>
+        </button>
+
+    </div>
+    <div id="complete" style="display:none;">
+        <!-- Aquí el contenido que se mostrará después de completar la carga -->
+        <img src="/image/correcto3.gif" alt="Completado">
+        <p>Algoritmo detenido con éxito.</p>
+        <a href="/">Volver a HOME</a>
+    </div>
+
+    <footer class="footer">
+        <div class="company-info">
+            <ul class="social-icons">
+            <li><img src="/image/logo1.png" alt="Logo" class="logo-img"></li>
+            </ul>
+            <p>© 2024 EPOLARIS NETWORK C.A. Todos los derechos reservados.</p>
+            <p>Universidad de Cuenca | Cuenca-Ecuador</p>
+            <p>Edwin Anibal Lima Huayllas | Teléfono: 0963636085 | edwin.lima@ucuenca.edu.ec</p>
+            <div class="social-links">
+            <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://www.instagram.com/edwiin.jpg/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.linkedin.com/in/edwin-lima-7534b5199" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <p>Paola Alexandra Mora Pedroza | Teléfono: 0963636085 | alexandra.mora@ucuenca.edu.ec</p>
+            <div class="social-links">
+            <a href="https://wa.me/593963636085" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://www.instagram.com/paomora0/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.linkedin.com/in/paola-mora-pedroza-b71b46231" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+    function ejecutarScript() {
+        document.getElementById('loadingImage').style.display = 'block'; // Muestra el GIF de carga
+        document.getElementById('loadingText').style.display = 'none'; // Oculta el párrafo
+        document.getElementById('startButton').style.display = 'none'; // Oculta el botón
+
+        fetch('/stop_algoritmo')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('complete').style.display = 'block';
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al ejecutar el script');
+            });
+    }
+
+    </script>
+
+</body>
+</html>

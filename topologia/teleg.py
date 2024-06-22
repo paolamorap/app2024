@@ -1,10 +1,10 @@
 import telebot
 
 # Token de tu bot de Telegram
-TOKEN = '6719870472:AAFerw5_cbcI1w_3kMqfqw963cwQYTIrcP8'
+TOKEN = '7253793564:AAGfn17WZVzCwbMV3wlXMXP0BHMWpeOj8uQ'
 
 # ID de chat al que quieres enviar el mensaje
-chat_id = -4179209636
+chat_id = 1818741662
 
 # Inicializar el bot con tu token
 bot = telebot.TeleBot(TOKEN)

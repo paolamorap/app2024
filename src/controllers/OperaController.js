@@ -95,8 +95,10 @@ function stp(req, res) {
     if (!req.session.loggedin) {
       return res.redirect('/');
     }
+
+    
   
-    const pathToPythonScript = '/home/paola/Documentos/app2024/topologia/main_balanceo.py';
+    const pathToPythonScript = '/home/paola/Documentos/app2024/topologia/mainBalanceo.py';
     console.log(`Ejecutando script: ${pathToPythonScript}`);
     exec(`python3 ${pathToPythonScript}`, (error, stdout, stderr) => {
       if (error) {
@@ -195,7 +197,7 @@ function ejecutarBalanceo(req, res) {
   const resultado = procesarBalanceo(req.body);
 
   if (!resultado.exito) {
-    return res.status(400).json({ message: resultado.mensaje });
+    return res.status(500).json({ message: resultado.mensaje });
   }
 
   if (tipoFormulario === 'balanceo') {
@@ -242,6 +244,42 @@ function run_script(req, res) {
   });
 }
 
+function stop_app(req, res) {
+  if (req.session.loggedin) {
+      res.render('epops/stop_app', { name: req.session.name });
+  } else {
+      res.redirect('/');
+  }
+}
+
+function stop(req, res) {
+  // Verificar si el usuario está logueado
+  if (!req.session.loggedin) {
+      // Redirigir y terminar la ejecución inmediatamente después
+      return res.redirect('/');
+  }
+
+  // Definir la ruta del script
+  const scriptPath = '/home/paola/Documentos/app2024/src/configure/epolaris_stop_sistema.sh';
+  
+  // Ejecutar el script
+  exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+          console.error(`Error al ejecutar el script: ${stderr}`);
+          return res.status(500).json({ success: false, message: 'Error al ejecutar el script', error: stderr });
+      }
+      
+      // Comprobar de nuevo el estado de la sesión antes de enviar la respuesta
+      if (!req.session.loggedin) {
+          console.error('La sesión ha expirado antes de completar el script');
+          return res.status(403).json({ success: false, message: 'Sesión expirada' });
+      }
+
+      console.log(`Script ejecutado correctamente: ${stdout}`);
+      res.json({ success: true, message: 'Script ejecutado correctamente', output: stdout });
+  });
+}
+
 
   
     module.exports = {
@@ -258,4 +296,6 @@ function run_script(req, res) {
       cargarArchivo: cargarArchivo,
       procesarBalanceo: procesarBalanceo,
       ejecutarBalanceo: ejecutarBalanceo,
+      stop:stop,
+      stop_app:stop_app
     }

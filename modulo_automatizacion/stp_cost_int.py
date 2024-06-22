@@ -75,4 +75,4 @@ time_ini = time.time()
 procesar_dispositivos_stpCost(datos_yaml)
 time_fin = time.time()
 times = time_fin - time_ini
-print('El algoritmo de configurar costo de ruta tardo: ', times)
+#print('El algoritmo de configurar costo de ruta tardo: ', times)

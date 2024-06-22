@@ -11,7 +11,7 @@ import tree
 import obt_infoyam
 import dtsnmp
 import bridge_id_root
-import loadbalance
+import loadBalanceo
 import obt_root
 
 # Ingreso de Parametros - Comunidad SNMP, Direcciones IP
@@ -80,11 +80,11 @@ TOPOLOGY_FILE_HEAD = f"\n\nvar topologyData = "
 TOPOLOGY_DICT = tree.generate_topology_json1(discovered_hosts, interconnections,b_root,conexiones_blok, info_disp) 
 tree.write_topology_file(TOPOLOGY_DICT,TOPOLOGY_FILE_HEAD,TOPOLOGY_FILE_PATH) 
 
-s, dp = loadbalance.ob_yaml(l,nodb,info_int)
+s, dp = loadBalanceo.ob_yaml(l,nodb,info_int)
 
 
-loadbalance.yaml_web(dp)
-loadbalance.yaml_datos(s)
+loadBalanceo.yaml_web(dp)
+loadBalanceo.yaml_datos(s)
 
 print("------------FIN----------")
 

@@ -1,4 +1,15 @@
 def id_red(con):
+    """
+    Permite identificar enlaces redundantes
+
+    Parameters
+    con(list):   Lista con tuplas que representan las conexiones entre switches
+
+    Returns
+
+    conexredun(list):   Lista con enlaces Redundantes
+    conexredun1(list):  Lista con enlaces no Redundantes
+    """
     # Crear una nueva lista para almacenar las conexiones modificadas
     conm = []
     # Iterar sobre cada tupla de conexiones

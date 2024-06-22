@@ -3,8 +3,6 @@
         {
             "id": 0,
             "index": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": false,
             "source": 0,
@@ -17,8 +15,6 @@
         {
             "id": 1,
             "index": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": false,
             "source": 0,
@@ -31,8 +27,6 @@
         {
             "id": 2,
             "index": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": false,
             "source": 1,
@@ -45,8 +39,6 @@
         {
             "id": 3,
             "index": 2,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": true,
             "source": 1,
@@ -59,8 +51,6 @@
         {
             "id": 4,
             "index": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": true,
             "source": 2,
@@ -73,8 +63,6 @@
         {
             "id": 5,
             "index": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "port_bloks": false,
             "port_blokt": false,
             "source": 2,
@@ -90,8 +78,6 @@
             "IP": "192.168.122.2",
             "icon": "switch",
             "id": 0,
-            "is_dead": "no",
-            "is_new": "no",
             "layerSortPreference": 1,
             "marca": "CISCO",
             "name": "S1_Cuenca"
@@ -100,8 +86,6 @@
             "IP": "192.168.122.3",
             "icon": "switch",
             "id": 1,
-            "is_dead": "no",
-            "is_new": "no",
             "layerSortPreference": 2,
             "marca": "CISCO",
             "name": "S2_Totoracocha"
@@ -110,8 +94,6 @@
             "IP": "192.168.122.4",
             "icon": "switch",
             "id": 2,
-            "is_dead": "no",
-            "is_new": "no",
             "layerSortPreference": 2,
             "marca": "CISCO",
             "name": "S3_Ricaurte"
@@ -120,8 +102,6 @@
             "IP": "192.168.122.5",
             "icon": "switch",
             "id": 3,
-            "is_dead": "no",
-            "is_new": "no",
             "layerSortPreference": 3,
             "marca": "CISCO",
             "name": "S4_UCuenca"
@@ -130,8 +110,6 @@
             "IP": "192.168.122.6",
             "icon": "switch",
             "id": 4,
-            "is_dead": "no",
-            "is_new": "no",
             "layerSortPreference": 3,
             "marca": "CISCO",
             "name": "S5_Bibin"

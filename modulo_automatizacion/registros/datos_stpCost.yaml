@@ -1,13 +1,9 @@
 datos_stp:
   hosts:
     switch1:
-      host: 192.168.122.2
-    switch2:
-      host: 192.168.122.3
-    switch3:
-      host: 192.168.122.4
-    switch4:
       host: 192.168.122.5
+    switch2:
+      host: 192.168.122.6
   vars:
     marca: CISCO
     modo: modo0

@@ -23,7 +23,7 @@ def configurar_balanceo_cisco(connection, vlan_id, interfaz,save_config=False):
         connection.send_config_set(commands)
         if save_config:
             connection.send_command('write memory')
-        print(f"Configuración de balanceo de carga completada exitosamente")
+        print(f"Configuración de balanceo de carga completada exitosamente.")
     except Exception as e:
         print(f"Error al configurar balanceo de carga: {e}")
 

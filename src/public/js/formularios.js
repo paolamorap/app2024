@@ -364,37 +364,6 @@ function mostrarCampoRegion(modoSeleccionado) {
 }
 
 
-/* ------------------------------------------------------------------------------------ */
-/*-------------------- FUNCION PARA ENVIAR DATOS A LOS ARCHIVOS YAML -------------------*/
-/* ------------------------------------------------------------------------------------ */
-
-/*function enviarFormData(formData, url) {
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('La petición al servidor falló.');
-    }
-    return response.text();
-  })
-  .then(mensaje => {
-    const messageContainer = document.getElementById('message-container');
-    messageContainer.textContent = mensaje;
-    messageContainer.style.display = 'block'; // Muestra el mensaje
-  })
-  .catch(error => {
-    const messageContainer = document.getElementById('message-container');
-    messageContainer.textContent = 'Error:' + error.message;
-    messageContainer.style.display = 'block'; // Muestra el error
-  });
-
-  // Resetear el formulario es opcional aquí, depende de si quieres hacerlo antes o después de la respuesta del servidor
-}*/
 
 function enviarFormData1(formData, url, formId) {
   fetch(url, {

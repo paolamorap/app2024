@@ -1,4 +1,6 @@
 import yaml
+import os
+
 def ordenar_ip(l):
     """
     Permitira ordenadar los pares de conexiones en orden numerico
@@ -113,23 +115,6 @@ def obtener_direcciones_unicas(lista_de_listas):
     return direcciones_por_lista
 
 
-def ob_yaml1(lconex,lbl,d):
-    """
-    Obtener información para el archivo YAML
-    lconex: list    Lista de conexiones
-    lbl: list       Lisa de puertos bloqueados
-    d:dict          Lista con nombres de interfaces
-    """
-    
-    lcn = (ordenar_ip(eliminar_numeros(lconex)))
-    lbl1 = [tupla for tupla in lconex if any(elemento in tupla for elemento in lbl)]
-    lbln = ordenar_ip(eliminar_numeros(lbl1))
-    s = conteo_conex(lbl,lbln,lcn,lconex,lbl1,d)
-    dp = obtener_direcciones_unicas(s)
-
-    print('DB', dp)
-    print('s',s) 
-
 def ob_yaml(lconex, lbl, d):
     """
     Obtener información para el archivo YAML
@@ -147,31 +132,45 @@ def ob_yaml(lconex, lbl, d):
     return s, dp
 
 
-    
-
 def yaml_web(dp):
+    """
+    Genera y escribe un archivo YAML con los enlaces redundantes (direcciones IP de las conexiones).
+    Este archivo yaml sera empleado para visualizar los enlaces redundantes en la pagina web. 
+    
+    Parámetros:
+    - dp (list): Lista de enlaces redundantes.
+    
+    """
     # Crear la estructura de datos para el archivo YAML
     datos_web = {f'enlace{i+1}': f"Enlace {i+1}: {' - '.join(eval(dp[i]))}" for i in range(len(dp))}
     yaml_data = {
         'datos_web': datos_web,
     }
 
+    current_dir = os.path.dirname(__file__)
+    segmento_topologiafija = "balanceo/balanceo_web.yaml"
+    ruta= os.path.join(current_dir, segmento_topologiafija)
+
     # Escribir los datos en un archivo YAML
-    with open('/home/paola/Documentos/app2024/topologia/balanceo/balanceo_web.yaml', 'w') as file:
+    with open(ruta, 'w') as file:
         yaml.dump(yaml_data, file, default_flow_style=False, sort_keys=False)
 
 
-
 def yaml_datos(conexiones):
+    """
+    Genera y escribe un archivo YAML con los enlaces redundantes (direcciones IP de las conexiones) y 
+    sus respectivas interfaces.
+    
+    Parámetros:
+    - conexiones (list): Lista de enlaces redundantes con sus respectivas interfaces. 
+    """
     # Diccionario que contendrá todas las conexiones
     conexiones_dict = {'conexiones_disp': {}}
-
     # Iterar sobre cada grupo de conexiones
     for idx, grupo in enumerate(conexiones, start=1):
         conexion_key = f'enlace{idx}'
         conexiones_dict['conexiones_disp'][conexion_key] = {}
         host_index = 1
-
         # Iterar sobre cada conexión individual en el grupo
         for host_info in grupo:
             ip, interfaz, ip_destino, interfaz_destino = host_info
@@ -187,11 +186,10 @@ def yaml_datos(conexiones):
                 'IP': ip_destino,
                 'interfaz1': interfaz_destino
             }
-
     # Escribir el diccionario a un archivo YAML
-    with open('/home/paola/Documentos/app2024/topologia/balanceo/balanceo_datos.yaml', 'w') as file:
+    current_dir = os.path.dirname(__file__)
+    segmento_topologiafija = "balanceo/balanceo_datos.yaml"
+    ruta= os.path.join(current_dir, segmento_topologiafija)
+
+    with open(ruta, 'w') as file:
         yaml.dump(conexiones_dict, file, sort_keys=False, default_flow_style=False)
-
-
-
-

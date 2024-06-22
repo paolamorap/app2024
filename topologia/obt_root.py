@@ -29,7 +29,7 @@ def obtr(datos,l2):
             0, 2,
             '1.3.6.1.2.1.17.2.5'
         )
-
+        c = 0
         # Procesar los resultados
         if errorIndication:
             print(f"Error: {errorIndication}")
@@ -38,10 +38,11 @@ def obtr(datos,l2):
         else:
             for varBindTableRow in varBindTable:
                 for name, val in varBindTableRow:
-                    ro =  str(val.prettyPrint())[-12:]
+                    if c < 1:    
+                        ro =  str(val.prettyPrint())[-12:]
+                        c +=1
                     
         return ro,f,fif
         
     except Exception as e:
         print(f"Error al obtener estadísticas: {e}")  
-

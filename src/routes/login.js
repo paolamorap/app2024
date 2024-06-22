@@ -70,6 +70,9 @@ router.post('/logs', AutoController.guardarDispositivo);
 router.get('/start_app', OperaController.start_app);
 router.get('/run_script', OperaController.run_script);  
 
+router.get('/stop_app', OperaController.stop_app);
+router.get('/stop_algoritmo', OperaController.stop);  
+
 //BALANCEO DE CARGA
 //router.post('/balanceo', OperaController.cargarArchivo);
 

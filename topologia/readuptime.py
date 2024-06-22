@@ -3,9 +3,17 @@ from influxdb import InfluxDBClient
 # Configurar la conexión a la base de datos InfluxDB
 client = InfluxDBClient(host='127.0.0.1', port=8086, database='influx')
 
-
-
 def con_uptime(agentes):
+    """
+    Permite realizar consultas a una base de datos Influxdb acerca
+    del tiempo que se ha mantenido encendido un dispistivo
+
+    Parameters:
+    agentes(list):      Direcciones IP de los dipositivos que se requiere obtener información
+
+    Return:
+    infuptime(dict):    Diccionario con los tiempos de uptime
+    """
     infuptime = {}
     for agente in agentes:
         query = f'SELECT last("uptime") FROM "snmp" WHERE ("agent_host" = \'{agente}\') AND time >= now() - 20s AND time <= now() fill(null)'
