@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Datos
 servicios = [
@@ -10,7 +11,7 @@ servicios = [
     'VLANs',
     'Logs'
 ]
-tiempo_configuracion = [
+tiempo_configuracion_automatica = [
     37.44,
     33.1522,
     38.3089,
@@ -19,27 +20,50 @@ tiempo_configuracion = [
     31.088,
     10.2811
 ]
+# Tiempos de configuración manual (en segundos)
+# Estos valores son arbitrarios y están en el rango de 1 a 3 minutos
+tiempo_configuracion_manual = [
+    240,
+    180,
+    480,
+    300,
+    240,
+    180,
+    300
+]
 
-# Colores en tonos de gris oscuros
-colores = ['#333333', '#4d4d4d', '#666666', '#808080', '#999999', '#b3b3b3', '#cccccc']
+# Colores
+colores_automatico = '#4d4d4d'
+colores_manual = '#808080'
 
 # Crear gráfico
-plt.figure(figsize=(10, 6))
-bars = plt.bar(range(len(servicios)), tiempo_configuracion, color=colores)
-plt.xlabel('Servicio')
-plt.ylabel('Tiempo de Configuración [segundos]')
-plt.title('Servicio vs Tiempo de Configuración')
+fig, ax = plt.subplots(figsize=(12, 6))
 
-# Personalizar nombres del eje x
-plt.xticks(range(len(servicios)), servicios, rotation=45, ha='right')
+# Crear posiciones para las barras
+x = np.arange(len(servicios))
+width = 0.35
 
-# Eliminar cuadrícula
-plt.grid(False)
+bars_auto = ax.bar(x - width/2, tiempo_configuracion_automatica, width, label='Automatización', color=colores_automatico)
+bars_manual = ax.bar(x + width/2, tiempo_configuracion_manual, width, label='Manual', color=colores_manual)
+
+# Etiquetas y título
+ax.set_xlabel('Servicio')
+ax.set_ylabel('Tiempo de Configuración [segundos]')
+ax.set_title('Comparación de Tiempos de Configuración: Automatización vs Manual')
+ax.set_xticks(x)
+ax.set_xticklabels(servicios, rotation=45, ha='right')
+ax.legend()
 
 # Mostrar valores en las barras
-for bar, valor in zip(bars, tiempo_configuracion):
-    plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5, f'{valor:.2f}', ha='center', va='bottom')
+for bar_auto, bar_manual, valor_auto, valor_manual in zip(bars_auto, bars_manual, tiempo_configuracion_automatica, tiempo_configuracion_manual):
+    ax.text(bar_auto.get_x() + bar_auto.get_width() / 2, bar_auto.get_height() + 0.5, f'{valor_auto:.2f}', ha='center', va='bottom', fontsize=8, color='black')
+    ax.text(bar_manual.get_x() + bar_manual.get_width() / 2, bar_manual.get_height() + 0.5, f'{valor_manual:.2f}', ha='center', va='bottom', fontsize=8, color='black')
+
+# Eliminar cuadrícula
+ax.grid(False)
+
+# Ajustar diseño para evitar recortes de etiquetas
+plt.tight_layout()
 
 # Mostrar gráfico
-plt.tight_layout()
 plt.show()

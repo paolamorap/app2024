@@ -10,8 +10,7 @@ switchs_cisco:
       host: 192.168.122.5
     switch5:
       host: 192.168.122.6
-
-  
+      
   vars:
     user: test
     password: test

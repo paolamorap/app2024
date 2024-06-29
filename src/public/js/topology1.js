@@ -33,7 +33,7 @@ var topologyData = {
             "port_blokt": false,
             "source": 1,
             "srcDevice": "192.168.122.3",
-            "srcIfName": "G1/0",
+            "srcIfName": "G0/1",
             "target": 3,
             "tgtDevice": "192.168.122.5",
             "tgtIfName": "G0/1"
