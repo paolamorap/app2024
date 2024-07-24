@@ -20,8 +20,6 @@ tiempo_configuracion_automatica = [
     31.088,
     10.2811
 ]
-# Tiempos de configuración manual (en segundos)
-# Estos valores son arbitrarios y están en el rango de 1 a 3 minutos
 tiempo_configuracion_manual = [
     240,
     180,
@@ -33,8 +31,8 @@ tiempo_configuracion_manual = [
 ]
 
 # Colores
-colores_automatico = '#4d4d4d'
-colores_manual = '#808080'
+colores_automatico = '#6baed6'  # Azul claro
+colores_manual = '#fdae6b'  # Naranja claro
 
 # Crear gráfico
 fig, ax = plt.subplots(figsize=(12, 6))
@@ -47,17 +45,17 @@ bars_auto = ax.bar(x - width/2, tiempo_configuracion_automatica, width, label='A
 bars_manual = ax.bar(x + width/2, tiempo_configuracion_manual, width, label='Manual', color=colores_manual)
 
 # Etiquetas y título
-ax.set_xlabel('Servicio')
-ax.set_ylabel('Tiempo de Configuración [segundos]')
-ax.set_title('Comparación de Tiempos de Configuración: Automatización vs Manual')
+ax.set_xlabel('Servicio', fontsize=14)
+ax.set_ylabel('Tiempo de Configuración [segundos]', fontsize=14)
+ax.set_title('Comparación de Tiempos de Configuración: Automatización vs Manual', fontsize=16)
 ax.set_xticks(x)
-ax.set_xticklabels(servicios, rotation=45, ha='right')
-ax.legend()
+ax.set_xticklabels(servicios, rotation=0, ha='center', fontsize=12)
+ax.legend(fontsize=12)
 
 # Mostrar valores en las barras
 for bar_auto, bar_manual, valor_auto, valor_manual in zip(bars_auto, bars_manual, tiempo_configuracion_automatica, tiempo_configuracion_manual):
-    ax.text(bar_auto.get_x() + bar_auto.get_width() / 2, bar_auto.get_height() + 0.5, f'{valor_auto:.2f}', ha='center', va='bottom', fontsize=8, color='black')
-    ax.text(bar_manual.get_x() + bar_manual.get_width() / 2, bar_manual.get_height() + 0.5, f'{valor_manual:.2f}', ha='center', va='bottom', fontsize=8, color='black')
+    ax.text(bar_auto.get_x() + bar_auto.get_width() / 2, bar_auto.get_height() + 0.5, f'{valor_auto:.2f}', ha='center', va='bottom', fontsize=10, color='black')
+    ax.text(bar_manual.get_x() + bar_manual.get_width() / 2, bar_manual.get_height() + 0.5, f'{valor_manual:.2f}', ha='center', va='bottom', fontsize=10, color='black')
 
 # Eliminar cuadrícula
 ax.grid(False)

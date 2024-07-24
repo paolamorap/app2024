@@ -12,7 +12,11 @@ switchs_cisco:
       host: 192.168.122.6
     switch6:
       host: 192.168.122.7
-
+    switch7:
+      host: 192.168.122.8
+    switch8:
+      host: 192.168.122.9
+      
   vars:
     user: test
     password: test
